@@ -20,7 +20,7 @@ FAVICON_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
 async def favicon():
     return Response(content=FAVICON_SVG, media_type="image/svg+xml")
 
-
+# test comment for CodeRabbit
 # Allow the local Next.js frontend (localhost:3000) to call this backend during development.
 # Tighten this once deployed (replace "*" with your actual Vercel domain).
 app.add_middleware(
