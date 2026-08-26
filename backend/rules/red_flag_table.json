@@ -1,0 +1,54 @@
+{
+  "_comment": "Starting point only — review with a medical advisor before demo. See PRD §8.4.",
+  "rules": [
+    {
+      "id": "severe_pain_heavy_bleeding",
+      "conditions": ["severe_abdominal_pain", "heavy_bleeding"],
+      "match": "any_combination",
+      "escalation_level": "urgent",
+      "helplines": ["112", "181"]
+    },
+    {
+      "id": "missed_period_severe_symptoms",
+      "conditions": ["missed_period", "severe_pain_or_fainting_or_heavy_bleeding"],
+      "match": "any_combination",
+      "escalation_level": "urgent",
+      "helplines": ["112", "181"]
+    },
+    {
+      "id": "prolonged_bleeding",
+      "conditions": ["bleeding_duration_gt_7_days"],
+      "match": "any",
+      "escalation_level": "urgent",
+      "helplines": ["112", "181"]
+    },
+    {
+      "id": "mental_health_crisis",
+      "conditions": ["suicidal_ideation", "severe_distress", "self_harm"],
+      "match": "any",
+      "escalation_level": "urgent",
+      "helplines": ["14416"]
+    },
+    {
+      "id": "abuse_indicators",
+      "conditions": ["signs_of_abuse", "signs_of_violence"],
+      "match": "any",
+      "escalation_level": "urgent",
+      "helplines": ["181"]
+    },
+    {
+      "id": "minor_involved",
+      "conditions": ["user_is_minor"],
+      "match": "any",
+      "escalation_level": "urgent",
+      "helplines": ["1098"]
+    },
+    {
+      "id": "routine_pms",
+      "conditions": ["mild_cramping", "typical_pms_symptoms", "single_missed_period_no_other_symptoms"],
+      "match": "any",
+      "escalation_level": "routine",
+      "helplines": []
+    }
+  ]
+}

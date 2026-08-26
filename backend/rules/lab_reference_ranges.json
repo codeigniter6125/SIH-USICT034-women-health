@@ -1,0 +1,47 @@
+{
+  "_comment": "Starter table only — validate against a vetted medical source before shipping. See PRD §8.4.",
+  "tests": [
+    {
+      "name": "Hemoglobin",
+      "unit": "g/dL",
+      "range_low": 12.0,
+      "range_high": 15.5,
+      "notes": "Low values relevant to anemia, common in this population"
+    },
+    {
+      "name": "TSH",
+      "unit": "mIU/L",
+      "range_low": 0.4,
+      "range_high": 4.0,
+      "notes": "Both high and low flagged; thyroid function"
+    },
+    {
+      "name": "Estrogen",
+      "unit": "pg/mL",
+      "range_low": null,
+      "range_high": null,
+      "notes": "Varies significantly by cycle phase — flag as 'needs clinical interpretation' rather than simple high/low if phase unknown"
+    },
+    {
+      "name": "Progesterone",
+      "unit": "ng/mL",
+      "range_low": null,
+      "range_high": null,
+      "notes": "Cycle-phase-dependent — same handling as Estrogen"
+    },
+    {
+      "name": "LH",
+      "unit": "mIU/mL",
+      "range_low": null,
+      "range_high": null,
+      "notes": "Cycle-phase-dependent — same handling as Estrogen"
+    },
+    {
+      "name": "FSH",
+      "unit": "mIU/mL",
+      "range_low": null,
+      "range_high": null,
+      "notes": "Cycle-phase-dependent — same handling as Estrogen"
+    }
+  ]
+}

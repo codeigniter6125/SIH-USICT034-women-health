@@ -1,0 +1,22 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+pydantic
+
+# Agent / LLM
+google-generativeai
+
+# OCR & image preprocessing
+google-cloud-vision
+opencv-python-headless
+
+# Voice
+openai-whisper
+pydub
+google-cloud-texttospeech
+
+# SMS / escalation
+twilio
+
+# Firebase
+firebase-admin
