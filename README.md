@@ -19,7 +19,7 @@ Read these in order before touching code:
 /backend
   /agents            → Orchestrator + 5 specialist agents (placeholders — see PRD §4)
   /rules             → red_flag_table.json, lab_reference_ranges.json (PRD §8.4)
-  /services          → API client wrappers (Twilio, Maps, Vision, TTS, Whisper, Gemini)
+  /services          → API client wrappers (textbee SMS, Maps, Vision, TTS, Whisper, Gemini)
   main.py            → FastAPI entrypoint
   requirements.txt
   .env.example       → copy to .env and fill in real credentials
@@ -55,7 +55,7 @@ Frontend runs at `http://localhost:3000`.
 
 Per `docs/tech_stack.md` §6 — build in this order, not all at once:
 
-1. Orchestrator + Intake Agent + Escalation Agent, wired end-to-end with a **real** Twilio SMS firing off `red_flag_table.json`. This is the highest-risk, most demo-critical path — prove it first.
+1. Orchestrator + Intake Agent + Escalation Agent, wired end-to-end with a **real** textbee SMS firing off `red_flag_table.json`. This is the highest-risk, most demo-critical path — prove it first.
 2. Cycle Agent, Report-Reader Agent (OCR pipeline), Care-Plan Agent — added incrementally, each reading/writing Firestore.
 3. Frontend screens per the design doc, wired to the backend via REST calls.
 4. Action Layer (reminders, PDF summary, nearest-hospital lookup).
@@ -63,7 +63,7 @@ Per `docs/tech_stack.md` §6 — build in this order, not all at once:
 
 ## Credentials Checklist
 
-- [x] Twilio (SMS gateway)
+- [x] textbee.dev (SMS gateway)
 - [x] Firebase (Auth, Firestore, Storage) — Blaze plan
 - [x] Google Cloud (Vision, Maps/Places, Text-to-Speech) — same Blaze project
 - [x] Gemini API — **separate, unbilled "Default Gemini Project"** (see `docs/tech_stack.md` §2b for why)
