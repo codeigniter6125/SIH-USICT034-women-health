@@ -9,7 +9,7 @@ This document locks the concrete technical stack so the AI coding assistant (and
 ## 1. Guiding Principles
 
 - **Optimize for finishing a real, demoable build in hackathon time**, not for architectural purity.
-- **Python for anything touching the agents, LLMs, OCR, or voice** — the ecosystem (Whisper, OpenCV, Vision/Twilio SDKs) is strongest there, and it keeps all "brains" of the app in one language.
+- **Python for anything touching the agents, LLMs, OCR, or voice** — the ecosystem (Whisper, OpenCV, Vision SDKs, textbee REST API) is strongest there, and it keeps all "brains" of the app in one language.
 - **Managed/hosted services over self-hosted infrastructure** wherever a free/generous tier exists — no team should be debugging a database server at 2am before a demo.
 - Every choice below should also work offline-first/low-bandwidth where feasible, per the PRD's target users.
 
@@ -30,7 +30,7 @@ This document locks the concrete technical stack so the AI coding assistant (and
 | Speech-to-text | **Whisper** (small/base model) | Per PRD §8.3; run via `openai-whisper` or a hosted Whisper API if local compute is a constraint |
 | Text-to-speech | **Google Cloud Text-to-Speech** | Strong Hindi support, simple API integration, lower implementation risk than Coqui for demo timelines |
 | Audio handling | **pydub** | Format conversion/trimming before Whisper |
-| SMS/Call gateway | **Twilio** | Per PRD §7.2 — real escalation SMS integration |
+| SMS/Call gateway | **textbee.dev** | Per PRD §7.2 — real escalation SMS integration via a linked Android device; free tier, no verified-recipient restriction |
 | Maps / nearest hospital | **Google Maps Places API** | Per PRD §7.3 |
 | Agent orchestration pattern | **Plain Python function chaining** (no LangGraph/CrewAI) | Per PRD §8.1 — simpler to build, debug, and explain to judges in hackathon time |
 | Hosting — frontend | **Vercel** | Native Next.js support, zero-config deploys, free tier |
@@ -84,7 +84,7 @@ All of the following go in environment variables (`.env`, excluded via `.gitigno
 - `GOOGLE_CLOUD_VISION_API_KEY` (or service account JSON)
 - `GOOGLE_TTS_API_KEY` (or shared with Vision service account)
 - `GOOGLE_MAPS_API_KEY`
-- `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_PHONE_NUMBER`
+- `TEXTBEE_API_KEY`
 
 ---
 
@@ -104,7 +104,7 @@ All of the following go in environment variables (`.env`, excluded via `.gitigno
     red_flag_table.json      # PRD §8.4 table, as data
     lab_reference_ranges.json # PRD §8.4 table, as data
   /services
-    twilio_client.py
+    textbee_client.py
     maps_client.py
     vision_client.py
     tts_client.py
@@ -123,12 +123,36 @@ Keeping the red-flag and reference-range tables as standalone JSON files (not bu
 ## 6. Build Order (Aligns with PRD Rollout Plan)
 
 1. Scaffold repo per structure above; `git init`, push to GitHub, install CodeRabbit.
-2. Firebase project setup (Auth phone/OTP, Firestore, Storage) + Twilio + Google Cloud (Vision, Maps, TTS) accounts provisioned.
-3. Orchestrator + Intake Agent + Escalation Agent wired end-to-end, with a real Twilio SMS firing off the red-flag table — this is the highest-risk, most demo-critical path, build and test it first.
+2. Firebase project setup (Auth phone/OTP, Firestore, Storage) + textbee.dev + Google Cloud (Vision, Maps, TTS) accounts provisioned.
+3. Orchestrator + Intake Agent + Escalation Agent wired end-to-end, with a real textbee SMS firing off the red-flag table — this is the highest-risk, most demo-critical path, build and test it first.
 4. Cycle Agent, Report-Reader Agent (OCR pipeline), Care-Plan Agent added incrementally, each reading/writing Firestore.
 5. Frontend screens per the design doc, wired to the backend via REST calls to FastAPI.
 6. Action Layer (reminders, PDF summary, nearest-hospital lookup) layered on top.
 7. Staging test pass, then final demo rehearsal.
+
+---
+
+## 7. Cycle Agent RAG Extension
+
+The Cycle Agent uses retrieval-augmented generation over a local corpus fetched from publicly available menstrual-health guidance. The initial source set includes WHO, UNICEF, CDC, and ACOG pages. The ingestion script stores source URL, title, fetch timestamp, and text chunks under `backend/data/cycle_guidelines.json`.
+
+| Component | Implementation | Purpose |
+|---|---|---|
+| Source ingestion | `backend/scripts/fetch_cycle_guidelines.py` | Fetch current public guidance pages and extract readable text |
+| Chunk store | `backend/data/cycle_guidelines.json` | Keep source-tagged chunks available locally for low-bandwidth/offline-after-sync use |
+| Retriever | `backend/services/cycle_rag.py` | Rank chunks using lightweight lexical overlap and health-topic phrase boosts |
+| Grounded response | `backend/agents/cycle_agent.py` | Provide retrieved context to Gemini when configured, with a safe deterministic fallback |
+| Citation output | `sources` field in `/api/chat` response | Preserve title and URL for transparency and review |
+
+Run the ingestion job from the backend directory:
+
+```bash
+python scripts/fetch_cycle_guidelines.py
+```
+
+The Cycle Agent is deliberately **non-diagnostic**. It may explain general information, suggest what cycle observations to record, and recommend professional care. It must not prescribe medication, make definitive diagnoses, or allow retrieved text to override the hard-coded Escalation Agent rules.
+
+The chat request now accepts optional `language` and `cycle_history` fields. The response includes `agent`, `retrieval_used`, `sources`, and a medical-information disclaimer. Source content should be refreshed before a public demo and reviewed by a qualified medical advisor before production use.
 
 ---
 
