@@ -4,7 +4,8 @@ python-dotenv
 pydantic
 
 # Agent / LLM
-google-generativeai
+google-genai
+
 
 # OCR & image preprocessing
 google-cloud-vision
