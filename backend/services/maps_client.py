@@ -40,7 +40,9 @@ def get_nearest_hospital(location: dict, radius_meters: int = 5000) -> dict | No
     try:
         response = requests.get(PLACES_NEARBY_URL, params=params, timeout=5)
         response.raise_for_status()
-        results = response.json().get("results", [])
+        data = response.json()
+        print("DEBUG GOOGLE RESPONSE:", data)  # Add this line
+        results = data.get("results", [])
     except requests.RequestException:
         # Network/API failure — never let this block the escalation SMS.
         return None
