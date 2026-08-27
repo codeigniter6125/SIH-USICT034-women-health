@@ -87,7 +87,7 @@ Agent   Agent   Agent (OCR+VLM) Agent        Agent
 - Maintains a rule set for red-flag symptoms (e.g., heavy bleeding beyond X days, severe abdominal pain, pregnancy complications, suicidal ideation/mental health crisis, signs of abuse).
 - On trigger: interrupts normal flow, surfaces appropriate emergency guidance/helpline numbers immediately, and creates a structured referral summary for a human provider or ASHA worker.
 - Uses the user's location (with consent) plus the Google Maps Places API to identify the nearest hospital/clinic, and includes a Google Maps link to it directly in the escalation SMS alongside the helpline number.
-- For the hackathon demo, this hand-off is a **real integration** (not mocked): an SMS/call gateway (e.g., Twilio) fires an actual SMS to the user with helpline/next-step information and, if configured, notifies a connected ASHA worker/provider number — demonstrating genuine end-to-end action rather than a simulated alert screen.
+- For the hackathon demo, this hand-off is a **real integration** (not mocked): the textbee.dev SMS gateway fires an actual SMS to the user with helpline/next-step information and, if configured, notifies a connected ASHA worker/provider number — demonstrating genuine end-to-end action rather than a simulated alert screen.
 - Never delays or downplays an urgent flag to keep the conversation "smooth" — safety response takes priority over conversational continuity.
 
 ### 4.7 Shared Memory / Patient Context Store
@@ -144,14 +144,15 @@ These are government-operated, verifiable helplines to hardcode into the Escalat
 
 *Note:* State-specific numbers exist too (e.g., Delhi Commission for Women, Gujarat's 181 Abhayam app) but for a national-scope hackathon demo, the four numbers above are sufficient and won't need per-state configuration.
 
-### 7.2 Twilio (SMS/Call Gateway) Setup Checklist
+### 7.2 textbee.dev (SMS Gateway) Setup Checklist
 
-- Create a Twilio trial account; verify a real phone number (trial accounts can only send to verified numbers, so pre-verify all demo phones before the presentation).
-- Provision a Twilio phone number for outbound SMS (trial numbers work for a live demo).
-- Store `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, and the Twilio sender number as environment variables/secrets — never hardcoded in the repo.
+- Sign up at textbee.dev; install the textbee Android app on a spare/team Android phone and grant SMS permissions.
+- Register the device and generate an API key via the textbee.dev dashboard.
+- Store `TEXTBEE_API_KEY` as an environment variable/secret — never hardcoded in the repo.
 - Escalation Agent constructs the SMS body as: red-flag summary (plain language) + relevant helpline number(s) from §7.1 + nearest-hospital Google Maps link (see §4.7) + a line encouraging the user to seek in-person care immediately.
 - Log every sent escalation SMS (timestamp, trigger reason, recipient — anonymized in any demo materials) to Shared Memory for audit/follow-up tracking.
-- Trial-account limitation to flag to the team early: outbound SMS/calls only reach Twilio-verified numbers unless the account is upgraded to a paid tier — decide before the demo whether judges' phones need to be pre-verified or whether a small team budget covers an upgrade.
+- **Why textbee over Twilio:** Twilio's trial tier only sends SMS to pre-verified recipient numbers, requiring a paid upgrade to reach unrestricted numbers (e.g. a judge's phone on demo day) — this was discovered as a blocker during setup. textbee.dev has a genuine permanent free tier (50/day, 300/month) and sends to any number, since it routes through a real Android device's SIM rather than a regulated carrier API.
+- **Demo-day dependency to plan for:** the linked Android phone must stay powered on, connected to the internet, and have SIM signal for outbound SMS to send — keep this phone charged and nearby during the presentation.
 
 ### 7.3 Google Maps (Nearest Hospital) Setup Checklist
 
@@ -252,7 +253,7 @@ These must be written down as explicit reference tables the rule engine reads fr
 ## 11. Decisions Locked
 
 - **Languages:** Hindi and English (voice + text).
-- **Escalation hand-off:** Real integration via SMS/call gateway (Twilio) for the demo, not a simulated alert.
+- **Escalation hand-off:** Real integration via SMS gateway (textbee.dev, switched from Twilio due to its trial-tier verified-recipient restriction) for the demo, not a simulated alert.
 - **Escalation SMS content:** Helpline number(s) from the vetted list in §7.1 + a Google Maps link to the nearest hospital, when location is available (see §7.4 for fallback).
 - **Helpline numbers:** 112 (national emergency), 181 (women helpline), 14416 (Tele-MANAS mental health), 1098 (child helpline) — see §7.1.
 - **Location fallback:** Helpline SMS always sends immediately; hospital map link is additive and never blocks or delays the message (see §7.4).
@@ -262,10 +263,12 @@ These must be written down as explicit reference tables the rule engine reads fr
 - **OCR:** Google Vision API preferred over Tesseract for demo reliability on phone-camera report photos (see §8.2).
 - **Voice:** Whisper (STT, small/base model) + Google TTS preferred for demo reliability (see §8.3).
 
+- **Cycle Agent RAG:** Retrieve from current public menstrual-health guidance published by WHO, UNICEF, CDC, and ACOG; preserve source citations; use RAG for educational grounding only and never let it override rule-based escalation.
+
 ## 12. Open Questions for the Team
 
 - Which specific SIH problem statement number/ministry is this mapped to, if any — worth confirming so the PRD language matches official evaluation criteria.
-- Twilio trial account: confirm which team member owns it, and pre-verify all demo phone numbers before presentation day.
+- textbee.dev account: confirm which team member owns it, and which Android phone stays powered on/connected as the linked SMS device on presentation day.
 - Google Cloud project for Maps API: confirm which team member owns billing/the project.
 - Data source for report interpretation reference ranges — need a vetted source (not just LLM general knowledge or the starter table in §8.4) for accuracy/safety.
 - Should the red-flag symptom table (§8.4) be reviewed by an actual medical advisor before the demo, and if so, who can the team reach?

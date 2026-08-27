@@ -15,8 +15,9 @@ openai-whisper
 pydub
 google-cloud-texttospeech
 
-# SMS / escalation
-twilio
+# SMS / escalation (textbee.dev — REST API via requests, no dedicated SDK needed)
+requests
+beautifulsoup4
 
 # Firebase
 firebase-admin
