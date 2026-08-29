@@ -6,12 +6,16 @@ Run locally with: uvicorn main:app --reload
 from dotenv import load_dotenv
 load_dotenv()
 
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI, HTTPException
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Any, Dict, Optional
 
 from agents.orchestrator import route_request
+from agents import care_plan_agent, report_reader_agent
+from services.auth_service import create_demo_token, verify_token
+from services.shared_memory import get_context
 
 app = FastAPI(title="Agentic AI Women's Health Platform — Backend")
 
@@ -23,6 +27,17 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+bearer = HTTPBearer(auto_error=False)
+
+
+def current_user(credentials: HTTPAuthorizationCredentials | None = Depends(bearer)):
+    if not credentials:
+        raise HTTPException(status_code=401, detail="Authorization bearer token required")
+    try:
+        return verify_token(credentials.credentials)
+    except ValueError as exc:
+        raise HTTPException(status_code=401, detail=str(exc)) from exc
 
 
 @app.get("/")
@@ -42,6 +57,37 @@ class ChatRequest(BaseModel):
     location: Optional[Location] = None
     language: str = "English"
     cycle_history: Optional[Dict[str, Any]] = None
+    ocr_text: Optional[str] = None
+    file_path: Optional[str] = None
+
+
+class DemoLoginRequest(BaseModel):
+    user_id: str
+
+
+class ReportRequest(BaseModel):
+    ocr_text: Optional[str] = None
+    file_path: Optional[str] = None
+
+
+@app.post("/api/auth/demo-token")
+def demo_login(payload: DemoLoginRequest):
+    return {"access_token": create_demo_token(payload.user_id), "token_type": "bearer"}
+
+
+@app.get("/api/me/context")
+def my_context(user: dict = Depends(current_user)):
+    return get_context(user["uid"])
+
+
+@app.post("/api/reports/extract")
+def extract_report(payload: ReportRequest, user: dict = Depends(current_user)):
+    return report_reader_agent.run({**payload.model_dump(), "user_id": user["uid"]})
+
+
+@app.post("/api/care-plan")
+def care_plan(user: dict = Depends(current_user)):
+    return care_plan_agent.run({"user_id": user["uid"]})
 
 
 @app.post("/api/chat")
@@ -56,4 +102,6 @@ def chat(payload: ChatRequest):
         "location": {"lat": 28.6692, "lng": 77.4538}
     }
     """
-    return route_request(payload.model_dump())
+    data = payload.model_dump()
+    data["user_id"] = data.get("user_phone")
+    return route_request(data)

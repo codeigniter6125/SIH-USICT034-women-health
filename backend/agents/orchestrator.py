@@ -6,7 +6,7 @@ Current build phase (per /docs/tech_stack.md §6): Orchestrator -> Intake -> Esc
 only. Cycle, Report-Reader, and Care-Plan agents are added in the next build phase.
 """
 
-from agents import cycle_agent, intake_agent, escalation_agent
+from agents import care_plan_agent, cycle_agent, intake_agent, escalation_agent, report_reader_agent
 
 
 def route_request(payload: dict) -> dict:
@@ -48,18 +48,25 @@ def route_request(payload: dict) -> dict:
             "structured": structured,
         }
 
-    # Step 3: Routine path. Route cycle-related questions to the RAG-enabled Cycle Agent.
-    cycle_result = cycle_agent.run({
-        "message": user_message,
-        "cycle_history": payload.get("cycle_history", {}),
-        "language": payload.get("language", "English"),
-    })
+    # Step 3: Route only after each agent's isolated tests pass.
+    lowered = user_message.lower()
+    if payload.get("ocr_text") or payload.get("file_path") or any(word in lowered for word in ("report", "lab result", "hemoglobin", "thyroid")):
+        result = report_reader_agent.run({
+            "user_id": user_phone,
+            "ocr_text": payload.get("ocr_text"),
+            "file_path": payload.get("file_path"),
+        })
+    elif any(word in lowered for word in ("care plan", "what should i do", "next steps", "self care")):
+        result = care_plan_agent.run({"user_id": user_phone})
+    else:
+        result = cycle_agent.run({
+            "user_id": user_phone,
+            "message": user_message,
+            "cycle_history": payload.get("cycle_history", {}),
+            "language": payload.get("language", "English"),
+        })
     return {
-        "reply": cycle_result["reply"],
-        "agent": cycle_result["agent"],
-        "retrieval_used": cycle_result["retrieval_used"],
-        "sources": cycle_result["sources"],
-        "disclaimer": cycle_result["disclaimer"],
+        **result,
         "escalation": escalation_result,
         "structured": structured,
     }
