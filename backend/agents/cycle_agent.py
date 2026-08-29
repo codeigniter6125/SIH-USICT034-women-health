@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from services.cycle_rag import citation_list, format_context, retrieve
+from services.shared_memory import get_context, update_context
 
 
 def _fallback_reply(message: str, chunks: list[dict]) -> str:
@@ -29,6 +30,9 @@ def run(payload: dict) -> dict:
     The LLM is optional; retrieval and citations remain available without a key.
     """
     message = (payload.get("message") or "").strip()
+    user_id = payload.get("user_id") or payload.get("user_phone")
+    context = get_context(user_id) if user_id else {}
+    cycle_history = payload.get("cycle_history") or context.get("cycle_history", {})
     chunks = retrieve(message, top_k=4)
     response = _fallback_reply(message, chunks)
 
@@ -43,7 +47,7 @@ seek professional care. Use the requested language: {payload.get('language', 'En
 Return JSON with exactly these keys: reply (string), safety_note (string),
 follow_up_questions (array of strings), sources (array of integers).
 User question: {message}
-Cycle history, if provided: {payload.get('cycle_history', {})}
+Cycle history, if provided: {cycle_history}
 Retrieved guidance:\n{format_context(chunks)}"""
             grounded = call_gemini_structured(prompt)
             if isinstance(grounded, dict) and grounded.get("reply"):
@@ -51,6 +55,9 @@ Retrieved guidance:\n{format_context(chunks)}"""
     except Exception:
         # Retrieval still works when Gemini is unavailable or not configured.
         pass
+
+    if user_id:
+        update_context(user_id, {"cycle_history": cycle_history, "last_cycle_interaction": {"message": message, "sources": citation_list(chunks)}})
 
     return {
         "reply": response,

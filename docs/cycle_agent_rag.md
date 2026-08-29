@@ -105,6 +105,30 @@ python tests/test_cycle_rag.py
 
 The test confirms that a cycle-health question retrieves authoritative chunks, produces a Cycle Agent response, exposes source metadata, and includes the non-diagnostic disclaimer.
 
+## Remaining agent integration
+
+The implementation now includes a shared patient-context store at `backend/services/shared_memory.py`. It uses Firestore when `FIREBASE_ADMIN_CREDENTIALS` is configured and an in-memory adapter for local development and isolated tests. Intake, Cycle, Report-Reader, and Care-Plan agents read or write the same context by `user_id`.
+
+The Report-Reader Agent accepts OCR text or a local file path. When Google Cloud Vision credentials are configured, it can extract text from an image; when Gemini is configured, the OCR text can be normalized by a VLM into structured findings. Regex extraction remains available as a deterministic fallback. All report results require clinician review.
+
+The Care-Plan Agent reads symptom, cycle, and report context and writes a non-prescriptive plan back to the store. The Orchestrator routes report-related messages to Report-Reader, care-plan requests to Care-Plan, and other routine requests to the RAG-enabled Cycle Agent, after the Escalation Agent check.
+
+User login support is exposed through Firebase-compatible bearer-token verification, with a signed demo-token endpoint for local testing:
+
+```text
+POST /api/auth/demo-token
+GET  /api/me/context
+POST /api/reports/extract
+POST /api/care-plan
+```
+
+Run isolated agent tests first, followed by route tests:
+
+```bash
+python tests/test_remaining_agents.py
+python tests/test_orchestrator_routes.py
+```
+
 ## Limitations and next improvements
 
 The first implementation uses a dependency-light lexical retriever so the hackathon build can run locally and remain understandable. It is not semantic vector search. A later production iteration can add embeddings, a managed vector store, document versioning, scheduled refreshes, content deduplication, multilingual chunks, and a clinician review workflow. Any such upgrade must retain source citations, corpus provenance, and the Escalation Agent’s hard-coded safety precedence.
