@@ -1,41 +1,36 @@
 "use client";
-// app/login/page.jsx
-// Real Firebase Phone/OTP login — replaces the backend's demo-token flow.
-// Flow: enter phone -> Firebase sends OTP via SMS -> enter OTP -> get a real
-// signed ID token -> store it -> use it as "Authorization: Bearer <token>"
-// on every call to the FastAPI backend.
-
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import { auth } from "../../lib/firebase";
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
-
 export default function LoginPage() {
+  const router = useRouter();
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
   const [confirmationResult, setConfirmationResult] = useState(null);
   const [status, setStatus] = useState("");
-  const [idToken, setIdToken] = useState(null);
+  const recaptchaRef = useRef(null);
 
-  function setupRecaptcha() {
-    // Invisible reCAPTCHA — required by Firebase before it will send an SMS.
-    // Re-created each attempt to avoid "already rendered" errors on retry.
-    if (window.recaptchaVerifier) {
-      window.recaptchaVerifier.clear();
+  useEffect(() => {
+    if (!recaptchaRef.current) {
+      recaptchaRef.current = new RecaptchaVerifier(auth, "recaptcha-container", {
+        size: "invisible",
+      });
     }
-    window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
-      size: "invisible",
-    });
-  }
+    return () => {
+      if (recaptchaRef.current) {
+        recaptchaRef.current.clear();
+        recaptchaRef.current = null;
+      }
+    };
+  }, []);
 
   async function sendOtp(e) {
     e.preventDefault();
     setStatus("Sending OTP...");
     try {
-      setupRecaptcha();
-      // Phone must be in E.164 format, e.g. +91XXXXXXXXXX
-      const result = await signInWithPhoneNumber(auth, phone, window.recaptchaVerifier);
+      const result = await signInWithPhoneNumber(auth, phone, recaptchaRef.current);
       setConfirmationResult(result);
       setStatus("OTP sent. Check your phone.");
     } catch (err) {
@@ -48,25 +43,13 @@ export default function LoginPage() {
     setStatus("Verifying...");
     try {
       const result = await confirmationResult.confirm(otp);
-      // This is the real Firebase ID token — not the backend's demo token format.
       const token = await result.user.getIdToken();
-      setIdToken(token);
-      setStatus("Logged in as " + result.user.phoneNumber);
+      localStorage.setItem("idToken", token);
+      localStorage.setItem("userPhone", result.user.phoneNumber);
+      setStatus("Logged in. Redirecting...");
+      router.push("/chat");
     } catch (err) {
       setStatus("Invalid OTP: " + err.message);
-    }
-  }
-
-  async function callBackend() {
-    setStatus("Calling backend /api/me/context ...");
-    try {
-      const res = await fetch(`${BACKEND_URL}/api/me/context`, {
-        headers: { Authorization: `Bearer ${idToken}` },
-      });
-      const data = await res.json();
-      setStatus("Backend responded: " + JSON.stringify(data));
-    } catch (err) {
-      setStatus("Backend call failed: " + err.message);
     }
   }
 
@@ -89,7 +72,7 @@ export default function LoginPage() {
         </form>
       )}
 
-      {confirmationResult && !idToken && (
+      {confirmationResult && (
         <form onSubmit={verifyOtp}>
           <label style={{ display: "block", marginBottom: 6 }}>Enter the OTP you received</label>
           <input
@@ -104,18 +87,6 @@ export default function LoginPage() {
         </form>
       )}
 
-      {idToken && (
-        <div>
-          <p style={{ wordBreak: "break-all", fontSize: 11, color: "#666" }}>
-            ID token (first 40 chars): {idToken.slice(0, 40)}...
-          </p>
-          <button onClick={callBackend} style={{ padding: "8px 16px" }}>
-            Test backend call with this token
-          </button>
-        </div>
-      )}
-
-      {/* Required invisible container for Firebase's reCAPTCHA */}
       <div id="recaptcha-container"></div>
 
       {status && <p style={{ marginTop: 16, fontSize: 13, color: "#444" }}>{status}</p>}
