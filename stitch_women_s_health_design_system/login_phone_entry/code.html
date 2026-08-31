@@ -1,0 +1,295 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Sangini Health - Login</title>
+<!-- Material Symbols for Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&amp;family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-dim": "#ddd9d5",
+                      "on-surface-variant": "#6E655C",
+                      "inverse-surface": "#31302d",
+                      "on-primary-fixed": "#370e00",
+                      "tertiary-fixed": "#ffdbce",
+                      "on-primary-container": "#fffbff",
+                      "secondary": "#486550",
+                      "inverse-primary": "#ffb599",
+                      "inverse-on-surface": "#f4f0eb",
+                      "surface": "#fdf9f4",
+                      "secondary-fixed": "#caebd0",
+                      "surface-container-low": "#f7f3ee",
+                      "outline": "#D4C8BB",
+                      "on-error": "#ffffff",
+                      "primary": "#8c4a2f",
+                      "surface-container-high": "#ebe8e3",
+                      "primary-fixed": "#ffdbce",
+                      "secondary-container": "#caebd0",
+                      "tertiary-container": "#906c5f",
+                      "on-surface": "#2B2620",
+                      "on-primary-fixed-variant": "#72351c",
+                      "surface-container-lowest": "#ffffff",
+                      "on-background": "#1c1c19",
+                      "surface-variant": "#e6e2dd",
+                      "error": "#ba1a1a",
+                      "outline-variant": "#d9c2ba",
+                      "on-error-container": "#93000a",
+                      "surface-container-highest": "#e6e2dd",
+                      "primary-fixed-dim": "#ffb599",
+                      "primary-container": "#F6EAE4",
+                      "surface-tint": "#8f4c31",
+                      "tertiary-fixed-dim": "#e8bdad",
+                      "on-tertiary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "escalation-container": "#FAEAE6",
+                      "on-tertiary-fixed": "#2d150c",
+                      "on-tertiary-fixed-variant": "#5e4034",
+                      "on-secondary-fixed": "#042110",
+                      "on-tertiary-container": "#fffbff",
+                      "on-secondary": "#ffffff",
+                      "escalation": "#C2452E",
+                      "on-secondary-container": "#4e6b56",
+                      "tertiary": "#755447",
+                      "background": "#fdf9f4",
+                      "on-primary": "#ffffff",
+                      "surface-container": "#f1ede8",
+                      "on-secondary-fixed-variant": "#304d39",
+                      "surface-bright": "#fdf9f4",
+                      "secondary-fixed-dim": "#aeceb5"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "lg": "24px",
+                      "sm": "8px",
+                      "margin-desktop": "32px",
+                      "max-width-dashboard": "840px",
+                      "max-width-mobile": "480px",
+                      "gutter": "16px",
+                      "margin-mobile": "16px",
+                      "xl": "32px",
+                      "md": "16px",
+                      "xs": "4px",
+                      "base-unit": "4px"
+              },
+              "fontFamily": {
+                      "display-lg": [
+                              "Fraunces"
+                      ],
+                      "body-bold": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "title-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-base": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-lg-mobile": [
+                              "Fraunces"
+                      ],
+                      "body-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-lg": [
+                              "Fraunces"
+                      ],
+                      "label-caps": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-md": [
+                              "Fraunces"
+                      ]
+              },
+              "fontSize": {
+                      "display-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-bold": [
+                              "15px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "title-md": [
+                              "18px",
+                              {
+                                      "lineHeight": "26px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-base": [
+                              "15px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "17px",
+                              {
+                                      "lineHeight": "26px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.015em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.04em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        /* Custom input focus glow */
+        .input-glow:focus-within {
+            box-shadow: 0 0 0 4px rgba(246, 234, 228, 0.5); /* Soft Terracotta tint */
+            border-color: #8c4a2f;
+        }
+        
+        /* Ambient animation for background */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col items-center justify-center font-body-base overflow-x-hidden selection:bg-primary-container selection:text-primary">
+<!-- Ambient background element -->
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none z-0 overflow-hidden flex justify-center items-center opacity-30">
+<div class="w-[800px] h-[800px] bg-surface-container-low rounded-full blur-3xl absolute top-[-20%] right-[-10%] animate-float" style="animation-delay: -2s;"></div>
+<div class="w-[600px] h-[600px] bg-primary-container rounded-full blur-3xl absolute bottom-[-10%] left-[-10%] animate-float opacity-50"></div>
+</div>
+<!-- Main Content Container -->
+<main class="w-full max-w-max-width-mobile mx-auto px-margin-mobile flex flex-col justify-center min-h-[100dvh] relative z-10">
+<!-- Top App Bar (Minimal, just back if needed, or clear spacing) -->
+<header class="w-full py-xl flex items-center bg-transparent absolute top-0 left-0 px-margin-mobile">
+<!-- Left aligned icon if needed, currently just empty space to match design requirement of minimal bar -->
+</header>
+<!-- Centered Brand Motif / Illustration -->
+<div class="flex justify-center mb-xl">
+<!-- SVG illustration acting as a lotus/seed motif -->
+<svg class="w-24 h-24 text-primary opacity-80" fill="none" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<path d="M50 90C50 90 20 75 20 45C20 28.4315 33.4315 15 50 15C66.5685 15 80 28.4315 80 45C80 75 50 90 50 90Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M50 90C50 90 35 70 35 45C35 36.7157 41.7157 30 50 30C58.2843 30 65 36.7157 65 45C65 70 50 90 50 90Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<circle cx="50" cy="45" fill="currentColor" r="5"></circle>
+</svg>
+</div>
+<!-- Typography / Headings -->
+<div class="text-center mb-xl space-y-md">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface">Welcome to <br> She Care</h1>
+<h2 class="font-headline-md text-headline-md text-primary opacity-90">
+                नमस्ते, संगिनी हेल्थ में आपका स्वागत है
+            </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-[300px] mx-auto mt-sm">
+                Enter your phone number to begin your journey.
+            </p>
+</div>
+<!-- Input Container -->
+<div class="w-full max-w-[360px] mx-auto mb-xl">
+<form action="#" class="space-y-lg">
+<!-- Phone Number Input -->
+<div class="relative flex items-center bg-surface-container-lowest border border-outline rounded-xl overflow-hidden transition-all duration-300 input-glow">
+<!-- Flag/Country Code Prefix -->
+<div class="flex items-center pl-md pr-sm py-4 border-r border-surface-variant bg-surface-container-low h-full shrink-0 gap-2">
+<!-- Simple Indian Flag Representation using SVG -->
+<svg class="w-6 h-4 rounded-sm overflow-hidden" viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#f93" height="200" width="900"></rect>
+<rect fill="#fff" height="200" width="900" y="200"></rect>
+<rect fill="#128807" height="200" width="900" y="400"></rect>
+<circle cx="450" cy="300" fill="#fff" r="80" stroke="#000080" stroke-width="6"></circle>
+<circle cx="450" cy="300" fill="#000080" r="10"></circle>
+<!-- Spoke pattern approximation for simplicity -->
+<g stroke="#000080" stroke-width="4">
+<line x1="450" x2="450" y1="220" y2="380"></line>
+<line x1="370" x2="530" y1="300" y2="300"></line>
+<line x1="393" x2="507" y1="243" y2="357"></line>
+<line x1="393" x2="507" y1="357" y2="243"></line>
+</g>
+</svg>
+<span class="font-body-bold text-body-bold text-on-surface">+91</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px] ml-1">arrow_drop_down</span>
+</div>
+<!-- Input Field -->
+<input class="w-full bg-transparent border-none py-4 px-md font-title-md text-title-md text-on-surface placeholder:text-surface-dim focus:ring-0 focus:outline-none" id="phone" name="phone" pattern="[0-9]{10}" placeholder="Mobile Number" required="" type="tel">
+</div>
+<!-- Primary Action Button -->
+<button class="w-full bg-primary text-on-primary font-title-md text-title-md py-4 rounded-full min-h-[56px] transition-transform duration-200 hover:opacity-90 active:scale-[0.98] flex justify-center items-center shadow-none" type="submit">
+                    Send OTP
+                </button><button type="button" class="w-full text-primary font-title-md text-title-md py-4 rounded-full min-h-[56px] transition-all duration-200 hover:bg-primary-container/30 active:scale-[0.98] flex justify-center items-center mt-sm">Skip for now</button>
+</form>
+</div>
+<!-- Optional Footer / Terms link -->
+<div class="text-center mt-auto pb-xl">
+<p class="font-label-caps text-label-caps text-on-surface-variant opacity-70">
+                Secure &amp; Confidential
+            </p>
+</div>
+</main>
+<script>
+        // Simple script to format phone number slightly (optional UX enhancement)
+        const phoneInput = document.getElementById('phone');
+        
+        phoneInput.addEventListener('input', function(e) {
+            // Remove non-numeric characters
+            this.value = this.value.replace(/\D/g, '');
+            // Limit to 10 digits
+            if (this.value.length > 10) {
+                this.value = this.value.slice(0, 10);
+            }
+        });
+    </script>
+
+
+</body></html>

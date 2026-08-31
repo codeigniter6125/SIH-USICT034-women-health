@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sangini Health - OTP Verification</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Fraunces:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-dim": "#ddd9d5",
+                      "on-surface-variant": "#6E655C",
+                      "inverse-surface": "#31302d",
+                      "on-primary-fixed": "#370e00",
+                      "tertiary-fixed": "#ffdbce",
+                      "on-primary-container": "#fffbff",
+                      "secondary": "#486550",
+                      "inverse-primary": "#ffb599",
+                      "inverse-on-surface": "#f4f0eb",
+                      "surface": "#fdf9f4",
+                      "secondary-fixed": "#caebd0",
+                      "surface-container-low": "#f7f3ee",
+                      "outline": "#D4C8BB",
+                      "on-error": "#ffffff",
+                      "primary": "#8c4a2f",
+                      "surface-container-high": "#ebe8e3",
+                      "primary-fixed": "#ffdbce",
+                      "secondary-container": "#caebd0",
+                      "tertiary-container": "#906c5f",
+                      "on-surface": "#2B2620",
+                      "on-primary-fixed-variant": "#72351c",
+                      "surface-container-lowest": "#ffffff",
+                      "on-background": "#1c1c19",
+                      "surface-variant": "#e6e2dd",
+                      "error": "#ba1a1a",
+                      "outline-variant": "#d9c2ba",
+                      "on-error-container": "#93000a",
+                      "surface-container-highest": "#e6e2dd",
+                      "primary-fixed-dim": "#ffb599",
+                      "primary-container": "#F6EAE4",
+                      "surface-tint": "#8f4c31",
+                      "tertiary-fixed-dim": "#e8bdad",
+                      "on-tertiary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "escalation-container": "#FAEAE6",
+                      "on-tertiary-fixed": "#2d150c",
+                      "on-tertiary-fixed-variant": "#5e4034",
+                      "on-secondary-fixed": "#042110",
+                      "on-tertiary-container": "#fffbff",
+                      "on-secondary": "#ffffff",
+                      "escalation": "#C2452E",
+                      "on-secondary-container": "#4e6b56",
+                      "tertiary": "#755447",
+                      "background": "#fdf9f4",
+                      "on-primary": "#ffffff",
+                      "surface-container": "#f1ede8",
+                      "on-secondary-fixed-variant": "#304d39",
+                      "surface-bright": "#fdf9f4",
+                      "secondary-fixed-dim": "#aeceb5"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "lg": "24px",
+                      "sm": "8px",
+                      "margin-desktop": "32px",
+                      "max-width-dashboard": "840px",
+                      "max-width-mobile": "480px",
+                      "gutter": "16px",
+                      "margin-mobile": "16px",
+                      "xl": "32px",
+                      "md": "16px",
+                      "xs": "4px",
+                      "base-unit": "4px"
+              },
+              "fontFamily": {
+                      "display-lg": [
+                              "Fraunces"
+                      ],
+                      "body-bold": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "title-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-base": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-lg-mobile": [
+                              "Fraunces"
+                      ],
+                      "body-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-lg": [
+                              "Fraunces"
+                      ],
+                      "label-caps": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-md": [
+                              "Fraunces"
+                      ]
+              },
+              "fontSize": {
+                      "display-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-bold": [
+                              "15px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "title-md": [
+                              "18px",
+                              {
+                                      "lineHeight": "26px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-base": [
+                              "15px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "17px",
+                              {
+                                      "lineHeight": "26px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.015em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.04em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+          .otp-input:focus {
+              box-shadow: 0 0 0 4px rgba(140, 74, 47, 0.1);
+          }
+      </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col items-center">
+<!-- Mobile Container (Max Width 480px) -->
+<div class="w-full max-w-max-width-mobile min-h-screen flex flex-col relative bg-background mx-auto shadow-sm md:shadow-none overflow-hidden">
+<!-- TopAppBar -->
+<header class="w-full top-0 bg-background flex items-center px-margin-mobile py-sm z-10 transition-opacity duration-200">
+<button aria-label="Go back" class="text-primary hover:opacity-80 p-2 -ml-2 rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_back</span>
+</button>
+<div class="flex-grow flex justify-center -ml-8">
+<!-- Empty Headline as per JSON, keeping structure for alignment -->
+<span class="font-display-lg text-display-lg text-primary opacity-0">Sangini</span>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-grow flex flex-col px-margin-mobile pt-lg pb-xl z-0">
+<div class="flex flex-col space-y-md mt-lg mb-xl">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">
+                    Verify OTP<br/>
+<span class="font-headline-md text-headline-md text-on-surface-variant mt-2 block">OTP सत्यापित करें</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                    We've sent a code to <span class="font-body-bold text-body-bold text-on-surface">+91 98765 43210</span>
+</p>
+</div>
+<!-- OTP Input Form -->
+<form class="flex flex-col space-y-xl flex-grow mt-md">
+<!-- OTP Digits -->
+<div class="flex justify-between space-x-sm px-2">
+<input aria-label="Digit 1" class="otp-input w-16 h-16 text-center font-headline-lg-mobile text-headline-lg-mobile text-on-surface bg-surface-container-lowest border-[1.5px] border-outline rounded-2xl focus:border-primary focus:outline-none transition-all duration-200" inputmode="numeric" maxlength="1" pattern="[0-9]*" type="text"/>
+<input aria-label="Digit 2" class="otp-input w-16 h-16 text-center font-headline-lg-mobile text-headline-lg-mobile text-on-surface bg-surface-container-lowest border-[1.5px] border-outline rounded-2xl focus:border-primary focus:outline-none transition-all duration-200" inputmode="numeric" maxlength="1" pattern="[0-9]*" type="text"/>
+<input aria-label="Digit 3" class="otp-input w-16 h-16 text-center font-headline-lg-mobile text-headline-lg-mobile text-on-surface bg-surface-container-lowest border-[1.5px] border-outline rounded-2xl focus:border-primary focus:outline-none transition-all duration-200" inputmode="numeric" maxlength="1" pattern="[0-9]*" type="text"/>
+<input aria-label="Digit 4" class="otp-input w-16 h-16 text-center font-headline-lg-mobile text-headline-lg-mobile text-on-surface bg-surface-container-lowest border-[1.5px] border-outline rounded-2xl focus:border-primary focus:outline-none transition-all duration-200" inputmode="numeric" maxlength="1" pattern="[0-9]*" type="text"/>
+</div>
+<div class="flex flex-col items-center space-y-lg mt-auto pb-lg pt-xl">
+<button class="w-full bg-primary text-on-primary font-body-bold text-body-bold py-4 rounded-full min-h-[50px] hover:opacity-90 transition-opacity duration-200 focus:outline-none focus:ring-4 focus:ring-primary-container" type="button">
+                        Verify and Continue
+                    </button>
+<button class="font-body-base text-body-base text-on-surface-variant hover:text-primary transition-colors duration-200 bg-transparent border-none p-2 mt-sm focus:outline-none focus:underline rounded" type="button">
+                        Resend Code (00:30)
+                    </button>
+</div>
+</form>
+</main>
+</div>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputs = document.querySelectorAll('.otp-input');
+
+            inputs.forEach((input, index) => {
+                input.addEventListener('input', (e) => {
+                    const value = e.target.value;
+                    if (value.length === 1 && index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    }
+                });
+
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && e.target.value === '' && index > 0) {
+                        inputs[index - 1].focus();
+                    }
+                });
+            });
+            // Focus first input on load
+            if(inputs.length > 0) inputs[0].focus();
+        });
+    </script>
+</body></html>

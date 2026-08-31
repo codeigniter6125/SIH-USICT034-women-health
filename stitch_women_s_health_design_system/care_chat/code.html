@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Swaasthya Care Chat</title>
+<!-- Google Fonts: Fraunces & Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;600&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#ebe8e3",
+                        "primary-container": "#aa6244",
+                        "on-surface": "#1c1c19",
+                        "secondary-fixed": "#caebd0",
+                        "on-background": "#1c1c19",
+                        "tertiary-fixed": "#ffdbce",
+                        "error": "#ba1a1a",
+                        "surface-container": "#f1ede8",
+                        "on-primary-container": "#fffbff",
+                        "primary-fixed-dim": "#ffb599",
+                        "on-secondary-fixed-variant": "#304d39",
+                        "on-secondary-fixed": "#042110",
+                        "escalation": "#C2452E",
+                        "surface-container-highest": "#e6e2dd",
+                        "surface": "#fdf9f4",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e6e2dd",
+                        "on-tertiary-fixed-variant": "#5e4034",
+                        "on-primary-fixed": "#370e00",
+                        "on-primary-fixed-variant": "#72351c",
+                        "background": "#fdf9f4",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#8f4c31",
+                        "inverse-primary": "#ffb599",
+                        "surface-container-low": "#f7f3ee",
+                        "secondary-container": "#caebd0",
+                        "primary": "#8c4a2f",
+                        "escalation-container": "#FAEAE6",
+                        "on-secondary-container": "#4e6b56",
+                        "on-surface-variant": "#53433d",
+                        "outline": "#D4C8BB",
+                        "on-tertiary-fixed": "#2d150c",
+                        "surface-bright": "#fdf9f4",
+                        "tertiary": "#755447",
+                        "outline-variant": "#d9c2ba",
+                        "secondary-fixed-dim": "#aeceb5",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f4f0eb",
+                        "primary-fixed": "#ffdbce",
+                        "surface-dim": "#ddd9d5",
+                        "inverse-surface": "#31302d",
+                        "on-tertiary-container": "#fffbff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#906c5f",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed-dim": "#e8bdad",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#486550"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "2xl": "1.25rem"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "margin-mobile": "16px",
+                        "base-unit": "4px",
+                        "max-width-dashboard": "840px",
+                        "margin-desktop": "32px",
+                        "xl": "32px",
+                        "sm": "8px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "gutter": "16px",
+                        "max-width-mobile": "480px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Fraunces"],
+                        "body-base": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "label-caps": ["Plus Jakarta Sans"],
+                        "headline-md": ["Fraunces"],
+                        "display-lg": ["Fraunces"],
+                        "headline-lg": ["Fraunces"],
+                        "title-md": ["Plus Jakarta Sans"],
+                        "body-bold": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-base": ["15px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["17px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+                        "title-md": ["18px", { "lineHeight": "26px", "fontWeight": "600" }],
+                        "body-bold": ["15px", { "lineHeight": "24px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom scrollbar for chat area */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4C8BB;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-base antialiased h-screen flex flex-col overflow-hidden">
+<!-- TopAppBar -->
+<header class="w-full sticky top-0 z-50 bg-surface dark:bg-surface flex items-center justify-between px-margin-mobile py-4 max-w-max-width-dashboard mx-auto shrink-0">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover border border-outline" data-alt="A beautifully lit, soft-focus profile portrait of a confident, serene woman. The lighting is warm and natural, suggesting a calm morning environment. The overall tone is approachable, premium, and healthy, perfectly aligning with a sophisticated health companion app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFnKsykGcuVmo0ZPLQRujmmRhoHFZoQwCon5QWQYSkP1dJzjrY8Yv1cKWZh7Ubmyv3AJ97RirAzYcNxVu4i7duQkUGxIk7MI7mEXXkdBSvBaRe5rVIAEjQTOJppW1v1aZwUDSWIfLV64isuVK0-cp3D9AZgZNU5PCaijmOjv7iR-pBqjPnb4MqfxQ58npnBoYbbNTc9cqgkNDXf5fVAZWIJMyniNQ_mc4HqJuCGJdBZKl0fdU6tSI">
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim">She Care</h1>
+</div>
+<button class="hover:opacity-80 transition-opacity active:scale-95 transition-transform w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-lowest border border-outline">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim">notifications</span>
+</button>
+</header>
+<!-- Chat Canvas -->
+<main class="flex-1 overflow-y-auto w-full max-w-max-width-dashboard mx-auto px-margin-mobile pt-6 pb-40 flex flex-col gap-6 relative">
+<!-- Date Divider -->
+<div class="flex justify-center w-full">
+<span class="text-xs font-label-caps text-on-surface-variant bg-surface-container-lowest border border-outline px-3 py-1 rounded-full opacity-80">TODAY</span>
+</div>
+<!-- AI Message -->
+<div class="flex gap-3 max-w-[90%] md:max-w-[70%]">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0 border border-outline-variant mt-auto">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">spa</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline rounded-2xl rounded-bl-sm p-4 md:p-5 text-on-surface font-body-base shadow-[0_2px_8px_rgba(43,38,32,0.02)]">Hello! I'm Maya, your health companion. I noticed you logged feeling a bit tired yesterday. How are you feeling this morning? Remember to take a moment for yourself.</div>
+</div>
+<!-- User Message -->
+<div class="flex gap-3 max-w-[90%] md:max-w-[70%] self-end flex-row-reverse">
+<div class="bg-surface-container border border-outline-variant rounded-2xl rounded-br-sm p-4 md:p-5 text-on-surface font-body-base">
+                I'm feeling a bit better today, thank you. Getting some extra rest helped.
+            </div>
+</div>
+<!-- AI Message Follow up -->
+<div class="flex gap-3 max-w-[90%] md:max-w-[70%]">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0 border border-outline-variant mt-auto">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">spa</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline rounded-2xl rounded-bl-sm p-4 md:p-5 text-on-surface font-body-base shadow-[0_2px_8px_rgba(43,38,32,0.02)]">
+                I'm so glad to hear that. Listen to your body and don't push too hard today. Would you like to review your cycle insights or just chat for a bit?
+            </div>
+</div>
+</main>
+<!-- Input Area (Floats above bottom nav) -->
+<div class="fixed bottom-[70px] left-0 w-full px-margin-mobile py-3 bg-gradient-to-t from-surface via-surface to-transparent z-40 pointer-events-none">
+<div class="max-w-max-width-dashboard mx-auto flex items-end gap-3 pointer-events-auto pb-2">
+<!-- Voice Action Button (Accessibility Priority) -->
+<button class="w-[56px] h-[56px] shrink-0 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-[0_4px_12px_rgba(140,74,47,0.2)] hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">mic</span>
+</button>
+<!-- Text Input -->
+<div class="flex-1 flex items-center bg-surface-container-lowest border-1.5 border-outline rounded-3xl px-4 min-h-[56px] focus-within:border-primary focus-within:shadow-[0_0_8px_rgba(140,74,47,0.08)] transition-all bg-opacity-95 backdrop-blur-sm shadow-sm">
+<input class="flex-1 bg-transparent border-none outline-none focus:ring-0 font-body-base text-on-surface placeholder:text-on-surface-variant py-3" placeholder="Type a message..." type="text">
+<button class="text-primary ml-2 hover:opacity-80 transition-opacity p-2 rounded-full hover:bg-surface-container-lowest">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 bg-surface-container border-t border-outline dark:border-outline-variant rounded-t-xl shrink-0">
+<!-- Home (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-variant transition-colors active:scale-90 w-16">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-label-caps text-label-caps">Home</span>
+</button>
+<!-- Cycle (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-variant transition-colors active:scale-90 w-16">
+<span class="material-symbols-outlined mb-1">cached</span>
+<span class="font-label-caps text-label-caps">Cycle</span>
+</button>
+<!-- Reports (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-variant transition-colors active:scale-90 w-16">
+<span class="material-symbols-outlined mb-1">description</span>
+<span class="font-label-caps text-label-caps">Reports</span>
+</button>
+<!-- Chat (Active) -->
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-2 hover:opacity-90 transition-colors active:scale-90 min-w-[72px]">
+<span class="material-symbols-outlined mb-0.5" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+<span class="font-label-caps text-label-caps">Chat</span>
+</button>
+</nav>
+
+
+</body></html>

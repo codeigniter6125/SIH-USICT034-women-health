@@ -1,0 +1,335 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Report Interpretation - Sangini Health</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Fraunces:wght@600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-tint": "#8f4c31",
+                    "on-primary-fixed": "#370e00",
+                    "on-primary-fixed-variant": "#72351c",
+                    "inverse-on-surface": "#f4f0eb",
+                    "on-surface": "#1c1c19",
+                    "on-secondary-fixed-variant": "#304d39",
+                    "surface-variant": "#e6e2dd",
+                    "surface-bright": "#fdf9f4",
+                    "surface-dim": "#ddd9d5",
+                    "secondary-fixed-dim": "#aeceb5",
+                    "outline-variant": "#d9c2ba",
+                    "secondary-fixed": "#caebd0",
+                    "on-secondary-container": "#4e6b56",
+                    "tertiary-container": "#906c5f",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-low": "#f7f3ee",
+                    "on-tertiary-container": "#fffbff",
+                    "primary-fixed": "#ffdbce",
+                    "on-error-container": "#93000a",
+                    "surface-container-highest": "#e6e2dd",
+                    "secondary-container": "#caebd0",
+                    "primary-container": "#aa6244",
+                    "background": "#fdf9f4",
+                    "primary-fixed-dim": "#ffb599",
+                    "primary": "#8c4a2f",
+                    "on-surface-variant": "#6E655C",
+                    "on-background": "#1c1c19",
+                    "secondary": "#486550",
+                    "tertiary-fixed": "#ffdbce",
+                    "outline": "#D4C8BB",
+                    "tertiary-fixed-dim": "#e8bdad",
+                    "on-primary": "#ffffff",
+                    "surface-container": "#f1ede8",
+                    "on-primary-container": "#fffbff",
+                    "on-secondary": "#ffffff",
+                    "escalation-container": "#FAEAE6",
+                    "on-secondary-fixed": "#042110",
+                    "inverse-surface": "#31302d",
+                    "inverse-primary": "#ffb599",
+                    "escalation": "#C2452E",
+                    "on-tertiary-fixed-variant": "#5e4034",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "tertiary": "#755447",
+                    "on-tertiary-fixed": "#2d150c",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#fdf9f4",
+                    "error-container": "#ffdad6",
+                    "surface-container-high": "#ebe8e3"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px",
+                    "2xl": "1rem",
+            },
+            "spacing": {
+                    "base-unit": "4px",
+                    "max-width-dashboard": "840px",
+                    "gutter": "16px",
+                    "lg": "24px",
+                    "xl": "32px",
+                    "max-width-mobile": "480px",
+                    "xs": "4px",
+                    "margin-desktop": "32px",
+                    "margin-mobile": "16px",
+                    "sm": "8px",
+                    "md": "16px"
+            },
+            "fontFamily": {
+                    "body-base": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-lg-mobile": [
+                            "Fraunces"
+                    ],
+                    "headline-md": [
+                            "Fraunces"
+                    ],
+                    "body-lg": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "title-md": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-lg": [
+                            "Fraunces"
+                    ],
+                    "body-bold": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "label-caps": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "display-lg": [
+                            "Fraunces"
+                    ]
+            },
+            "fontSize": {
+                    "body-base": [
+                            "15px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "28px",
+                            {
+                                    "lineHeight": "36px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-lg": [
+                            "17px",
+                            {
+                                    "lineHeight": "26px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "title-md": [
+                            "18px",
+                            {
+                                    "lineHeight": "26px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "letterSpacing": "-0.015em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-bold": [
+                            "15px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.04em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "display-lg": [
+                            "40px",
+                            {
+                                    "lineHeight": "48px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #FAF6F1;
+        }
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="text-on-background font-body-base min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline w-full top-0 sticky z-40">
+<div class="flex justify-between items-center px-margin-mobile py-sm max-w-max-width-dashboard mx-auto">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline">
+<img class="w-full h-full object-cover" data-alt="A close up, soft focus portrait of a South Asian woman smiling gently. The lighting is warm and natural, creating a serene and trustworthy feel. She is wearing a simple, elegant top. The overall aesthetic is premium, human-centric, and calm." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuxZLWINthVG2zHhzyht2Rv250R5mTn4nNCctrUS9810VynpLywyJpEwvmnFvVnNU9gJw2QqRY0mRdTzHsowttZXpoSizgz7wQ-WdEvEJoU2Lb6BAAT1kx-GQS9GYVmNEQ0b_7jmT_jVviZAdDgPgBlYcPgc5VFqaN-uTosXVs8n120TZwyg-B4LsKo9gPLqnX-mbsoSrTwMJdcIqUga09zzwiMT1xCSfsAX-u1klz1G0uXlF_HjI">
+</div>
+</div>
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim text-center flex-1">She Care</h1>
+<div class="flex items-center gap-3">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+</div>
+</div>
+</header>
+<main class="max-w-max-width-dashboard mx-auto px-margin-mobile pt-lg md:pt-margin-desktop space-y-xl">
+<!-- Screen Title -->
+<div>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background">Your Health Report</h2>
+<p class="font-body-base text-body-base text-on-surface-variant mt-2">Here is a gentle breakdown of your recent results.</p>
+</div>
+<!-- Summary Card -->
+<div class="bg-surface-container-lowest rounded-2xl border border-outline p-lg">
+<div class="flex items-start justify-between">
+<div>
+<h3 class="font-title-md text-title-md text-on-background">Complete Blood Count (CBC)</h3>
+<p class="font-body-base text-body-base text-on-surface-variant mt-1">Uploaded on Oct 24, 2023</p>
+</div>
+<div class="bg-surface-container-low w-12 h-12 rounded-full flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-tertiary">description</span>
+</div>
+</div>
+</div>
+<!-- Main Findings -->
+<section class="space-y-4">
+<h3 class="font-headline-md text-headline-md text-on-background">Main Findings</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Positive Finding -->
+<div class="bg-surface-container-lowest rounded-2xl border border-outline p-md flex items-start gap-4">
+<div class="bg-secondary-container text-on-secondary-container w-10 h-10 rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined icon-fill">check_circle</span>
+</div>
+<div>
+<h4 class="font-body-bold text-body-bold text-on-background">Hemoglobin is within normal range</h4>
+<p class="font-body-base text-body-base text-on-surface-variant mt-1">Your blood's oxygen-carrying capacity looks good.</p>
+</div>
+</div>
+<!-- Mild Concern Finding -->
+<div class="bg-surface-container-lowest rounded-2xl border border-outline p-md flex items-start gap-4">
+<div class="bg-primary-fixed text-on-primary-fixed-variant w-10 h-10 rounded-full flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">info</span>
+</div>
+<div>
+<h4 class="font-body-bold text-body-bold text-on-background">Iron levels are slightly low</h4>
+<p class="font-body-base text-body-base text-on-surface-variant mt-1">Ferritin is just below the optimal range.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Interpretation -->
+<section class="bg-surface-container-lowest rounded-2xl border border-outline p-lg relative overflow-hidden">
+<div class="absolute -right-12 -top-12 w-32 h-32 bg-surface-tint opacity-5 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary text-[28px] icon-fill">auto_awesome</span>
+<h3 class="font-title-md text-title-md text-on-background">She Care Insight</h3>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                Overall, your complete blood count is healthy. Because your iron stores (ferritin) are slightly low, you might feel a bit more tired than usual, especially towards the end of the day. 
+                <br><br>
+                Increasing iron-rich foods in your diet, like spinach, lentils, or fortified cereals, could help gently lift those levels.
+            </p>
+</section>
+<!-- Technical Details Accordion -->
+<section class="bg-surface-container-lowest rounded-2xl border border-outline overflow-hidden">
+<details class="group">
+<summary class="flex justify-between items-center p-md cursor-pointer list-none hover:bg-surface-container-low transition-colors">
+<h3 class="font-body-bold text-body-bold text-on-background flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant">science</span>
+                        Technical Details
+                    </h3>
+<span class="material-symbols-outlined text-on-surface-variant transition-transform group-open:rotate-180">expand_more</span>
+</summary>
+<div class="p-md border-t border-outline-variant bg-surface">
+<ul class="space-y-3">
+<li class="flex justify-between items-center pb-2 border-b border-outline-variant last:border-0 last:pb-0">
+<span class="font-body-base text-body-base text-on-surface-variant">Hemoglobin (Hb)</span>
+<span class="font-body-bold text-body-bold text-on-background">12.5 <span class="text-[12px] font-normal text-on-surface-variant">g/dL</span></span>
+</li>
+<li class="flex justify-between items-center pb-2 border-b border-outline-variant last:border-0 last:pb-0">
+<span class="font-body-base text-body-base text-on-surface-variant">Ferritin</span>
+<span class="font-body-bold text-body-bold text-primary">15 <span class="text-[12px] font-normal text-on-surface-variant">ng/mL</span></span>
+</li>
+<li class="flex justify-between items-center pb-2 border-b border-outline-variant last:border-0 last:pb-0">
+<span class="font-body-base text-body-base text-on-surface-variant">White Blood Cells (WBC)</span>
+<span class="font-body-bold text-body-bold text-on-background">6.2 <span class="text-[12px] font-normal text-on-surface-variant">10^3/uL</span></span>
+</li>
+</ul>
+</div>
+</details>
+</section>
+<!-- Next Steps -->
+<section class="pb-10">
+<h3 class="font-title-md text-title-md text-on-background mb-4">Next Steps</h3>
+<button class="w-full bg-primary text-on-primary font-body-bold text-body-bold rounded-full py-4 px-6 flex items-center justify-center gap-2 hover:bg-on-primary-fixed-variant transition-colors">
+<span class="material-symbols-outlined icon-fill">calendar_month</span>
+                Schedule a follow-up with your doctor
+            </button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-surface dark:bg-surface-dim border-t border-outline-variant dark:border-outline z-50 md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-3 py-1 hover:bg-surface-container-low transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="font-label-caps text-label-caps">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-3 py-1 hover:bg-surface-container-low transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined mb-1">cycle</span>
+<span class="font-label-caps text-label-caps">Cycle</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-on-primary-fixed-variant text-on-primary-container dark:text-primary-fixed rounded-xl px-3 py-1 hover:bg-surface-container-low transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined mb-1 icon-fill">description</span>
+<span class="font-label-caps text-label-caps text-primary font-bold">Reports</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-3 py-1 hover:bg-surface-container-low transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined mb-1">chat_bubble</span>
+<span class="font-label-caps text-label-caps">Chat</span>
+</a>
+</nav>
+
+
+</body></html>

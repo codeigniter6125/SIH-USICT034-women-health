@@ -1,0 +1,342 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Sangini Health - Home</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&amp;family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#1c1c19",
+                    "primary-fixed": "#ffdbce",
+                    "outline": "#D4C8BB",
+                    "on-surface-variant": "#6E655C",
+                    "on-tertiary-fixed-variant": "#5e4034",
+                    "background": "#fdf9f4",
+                    "escalation-container": "#FAEAE6",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-bright": "#fdf9f4",
+                    "primary-container": "#aa6244",
+                    "surface-dim": "#ddd9d5",
+                    "secondary-fixed-dim": "#aeceb5",
+                    "on-secondary": "#ffffff",
+                    "surface-container": "#f1ede8",
+                    "on-secondary-fixed-variant": "#304d39",
+                    "on-surface": "#1c1c19",
+                    "error-container": "#ffdad6",
+                    "primary-fixed-dim": "#ffb599",
+                    "tertiary": "#755447",
+                    "primary": "#8c4a2f",
+                    "surface-variant": "#e6e2dd",
+                    "on-tertiary-fixed": "#2d150c",
+                    "surface-container-high": "#ebe8e3",
+                    "escalation": "#C2452E",
+                    "on-secondary-fixed": "#042110",
+                    "on-secondary-container": "#4e6b56",
+                    "inverse-on-surface": "#f4f0eb",
+                    "secondary-fixed": "#caebd0",
+                    "tertiary-container": "#906c5f",
+                    "surface-container-low": "#f7f3ee",
+                    "on-primary-fixed": "#370e00",
+                    "on-tertiary-container": "#fffbff",
+                    "on-primary-fixed-variant": "#72351c",
+                    "tertiary-fixed-dim": "#e8bdad",
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#ffb599",
+                    "on-primary-container": "#fffbff",
+                    "outline-variant": "#d9c2ba",
+                    "secondary-container": "#caebd0",
+                    "tertiary-fixed": "#ffdbce",
+                    "on-error-container": "#93000a",
+                    "surface-container-highest": "#e6e2dd",
+                    "secondary": "#486550",
+                    "surface": "#fdf9f4",
+                    "on-primary": "#ffffff",
+                    "inverse-surface": "#31302d",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#8f4c31"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px",
+                    "2xl": "1.25rem",
+                    "3xl": "1.5rem"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "base-unit": "4px",
+                    "xs": "4px",
+                    "lg": "24px",
+                    "md": "16px",
+                    "margin-mobile": "16px",
+                    "gutter": "16px",
+                    "max-width-dashboard": "840px",
+                    "sm": "8px",
+                    "max-width-mobile": "480px",
+                    "margin-desktop": "32px",
+                    "safe-bottom": "env(safe-area-inset-bottom, 20px)"
+            },
+            "fontFamily": {
+                    "body-lg": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-lg-mobile": [
+                            "Fraunces"
+                    ],
+                    "body-bold": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "label-caps": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-md": [
+                            "Fraunces"
+                    ],
+                    "display-lg": [
+                            "Fraunces"
+                    ],
+                    "body-base": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-lg": [
+                            "Fraunces"
+                    ],
+                    "title-md": [
+                            "Plus Jakarta Sans"
+                    ]
+            },
+            "fontSize": {
+                    "body-lg": [
+                            "17px",
+                            {
+                                    "lineHeight": "26px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "28px",
+                            {
+                                    "lineHeight": "36px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-bold": [
+                            "15px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.04em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-lg": [
+                            "40px",
+                            {
+                                    "lineHeight": "48px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-base": [
+                            "15px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "letterSpacing": "-0.015em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "title-md": [
+                            "18px",
+                            {
+                                    "lineHeight": "26px",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+          },
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: #fdf9f4; /* Using the custom background color */
+        }
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+        }
+        .hairline-border {
+            border: 1px solid #D4C8BB;
+        }
+        .soft-shadow {
+            box-shadow: 0 2px 8px rgba(43, 38, 32, 0.04);
+        }
+    </style>
+</head>
+<body class="font-body-base text-on-background min-h-screen flex flex-col relative pb-24 md:pb-0">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface-dim w-full top-0 sticky z-40 transition-shadow duration-300" id="main-header">
+<div class="flex justify-between items-center px-margin-mobile py-sm max-w-max-width-dashboard mx-auto border-b border-outline-variant dark:border-outline md:border-none">
+<!-- Leading Avatar -->
+<div class="flex-shrink-0 cursor-pointer active:opacity-80 transition-opacity">
+<img alt="User profile photo" class="w-10 h-10 rounded-full object-cover hairline-border" data-alt="A small circular profile picture of a young South Asian woman smiling warmly. The lighting is soft and natural, emphasizing a feeling of health and wellbeing. The background is a slightly blurred, warm-toned indoor setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUALPmwVxCy94WiGnd_yHE8IPHHtlJI9VkMhbSCtBW64cUbUeU1P4wJBZqyPOFLByfP8iwn_QyEKQbk419Ou53mzwk048exgfG-VG-6VsPMXq2yoWePM6Ed2yrJQD-O7pUC9ZQ9T3ZGUCrn8JkVo5eRo0Rs4rEoAd2sLR9spbkGLHdgkmhiAN8VNbvvKO3p-WTk6JgOrqSejXI_uiH9FYTXzB0rXe5MgYkcC7eQMf17cDcii0ORYY">
+</div>
+<!-- Headline / Brand -->
+<div class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim text-center flex-grow">She Care</div>
+<!-- Trailing Icon -->
+<div class="flex-shrink-0 cursor-pointer active:opacity-80 transition-opacity hover:bg-surface-container-high rounded-full p-2 text-on-surface-variant relative">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-escalation rounded-full border border-surface"></span>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-max-width-dashboard mx-auto px-margin-mobile pt-8 pb-32 md:pb-12 md:grid md:grid-cols-12 md:gap-8 md:pt-12">
+<!-- Greeting Section -->
+<section class="mb-10 md:col-span-12 text-center md:text-left">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-display-lg md:text-display-lg text-primary mb-2">
+                नमस्ते,<br class="md:hidden"> आप आज कैसा महसूस कर रही हैं?
+            </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mt-4">
+                Good morning. Take a deep breath. We're here to support your wellness journey today.
+            </p>
+</section>
+<!-- Main Action Area (Grid) -->
+<section class="md:col-span-8 mb-10 space-y-6 md:space-y-0 md:grid md:grid-cols-2 md:gap-6">
+<!-- Action Card 1: Log Symptoms -->
+<div class="bg-surface-container-lowest hairline-border rounded-3xl p-6 soft-shadow hover:border-primary/30 transition-colors cursor-pointer group flex flex-col justify-between h-full min-h-[160px]">
+<div class="flex justify-between items-start mb-4">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary-fixed-variant transition-transform group-hover:scale-105">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">health_and_safety</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">arrow_outward</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface mb-1">Log Symptoms</h3>
+<p class="font-body-base text-body-base text-on-surface-variant">Track your daily feelings</p>
+</div>
+</div>
+<!-- Action Card 2: Log Cycle -->
+<div class="bg-surface-container-lowest hairline-border rounded-3xl p-6 soft-shadow hover:border-tertiary/30 transition-colors cursor-pointer group flex flex-col justify-between h-full min-h-[160px]">
+<div class="flex justify-between items-start mb-4">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary transition-transform group-hover:scale-105">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">water_drop</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-tertiary transition-colors">arrow_outward</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface mb-1">Log Cycle</h3>
+<p class="font-body-base text-body-base text-on-surface-variant">Update your period details</p>
+</div>
+</div>
+<!-- Action Card 3: Upload Report (Spans full width on mobile, 1 col on desktop if grid changes, keeping simple here) -->
+<div class="bg-surface-container-lowest hairline-border rounded-3xl p-6 soft-shadow hover:border-secondary/30 transition-colors cursor-pointer group flex flex-col justify-between h-full min-h-[160px] md:col-span-2">
+<div class="flex justify-between items-start mb-4">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center text-secondary transition-transform group-hover:scale-105">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">upload_file</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-secondary transition-colors">arrow_outward</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface mb-1">Upload Report</h3>
+<p class="font-body-base text-body-base text-on-surface-variant">Share latest medical documents</p>
+</div>
+</div>
+</section>
+<!-- Right Column / Secondary Content -->
+<section class="md:col-span-4 space-y-6">
+<!-- Daily Insight Card -->
+<div class="bg-primary/5 border border-primary/10 rounded-3xl p-6 text-center md:text-left relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-8xl" style="font-variation-settings: 'FILL' 1;">spa</span>
+</div>
+<h4 class="font-label-caps text-label-caps text-primary tracking-wider uppercase mb-3 relative z-10">Thought of the Day</h4>
+<p class="font-body-lg text-body-lg text-on-surface italic relative z-10">
+                    "Remember to take a moment for yourself today. Small steps lead to lasting wellness."
+                </p>
+</div>
+<!-- Quick Check-in CTA (Optional visual anchor) -->
+<div class="bg-surface-container-low rounded-3xl p-6 hairline-border flex flex-col items-center text-center">
+<div class="w-16 h-16 rounded-full bg-surface-container-highest flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 0;">psychology_alt</span>
+</div>
+<h4 class="font-title-md text-title-md text-on-surface mb-2">Need a quick chat?</h4>
+<p class="font-body-base text-body-base text-on-surface-variant mb-4">Maya, your health companion, is ready.</p>
+<button class="w-full bg-primary hover:bg-primary/90 text-on-primary rounded-full py-3 px-6 font-body-bold text-body-bold transition-colors min-h-[50px]">Start Chat with Maya</button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only based on layout logic, though requirement says use it) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-surface dark:bg-surface-dim border-t-0 shadow-[0_-4px_20px_rgba(43,38,32,0.05)] z-50">
+<!-- Home (Active) -->
+<button class="flex flex-col items-center justify-center bg-primary-container dark:bg-on-primary-fixed-variant text-on-primary-container dark:text-primary-fixed rounded-xl px-3 py-1 active:scale-95 duration-200 cursor-pointer">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-caps text-label-caps">Home</span>
+</button>
+<!-- Cycle -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-3 py-1 hover:bg-surface-container-low transition-all active:scale-95 duration-200 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">cycle</span>
+<span class="font-label-caps text-label-caps">Cycle</span>
+</button>
+<!-- Reports -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-3 py-1 hover:bg-surface-container-low transition-all active:scale-95 duration-200 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">description</span>
+<span class="font-label-caps text-label-caps">Reports</span>
+</button>
+<!-- Chat -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-3 py-1 hover:bg-surface-container-low transition-all active:scale-95 duration-200 rounded-xl cursor-pointer">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">chat_bubble</span>
+<span class="font-label-caps text-label-caps">Chat</span>
+</button>
+</nav>
+<!-- Desktop Nav (Hidden on mobile) to adhere to semantic mapping rules -->
+<nav class="hidden md:flex fixed top-0 right-0 h-full w-20 bg-surface border-l border-outline-variant flex-col items-center py-8 space-y-8 z-30">
+<!-- Replicating bottom nav for desktop side rail conceptual layout if needed, but per rules, web uses top app bar cluster. 
+             Since the prompt asks for bottomnav bar explicitly, and web rules say hide bottom nav, 
+             we implemented the mobile bottom nav above and hide it on md. 
+             We should integrate desktop links into the header for a true responsive design. -->
+</nav>
+<script>
+        // Simple script to handle scroll styling on header
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                header.classList.add('shadow-[0_4px_20px_rgba(43,38,32,0.05)]');
+            } else {
+                header.classList.remove('shadow-[0_4px_20px_rgba(43,38,32,0.05)]');
+            }
+        });
+    </script>
+
+
+</body></html>
