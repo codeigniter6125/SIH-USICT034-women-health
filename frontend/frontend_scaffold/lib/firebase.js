@@ -1,11 +1,10 @@
 // lib/firebase.js
-// Initializes the Firebase client SDK for the browser (login, phone auth).
-// Uses the same "your apps" web config keys you already copied from the
-// Firebase Console when setting up backend/.env — but here they need the
-// NEXT_PUBLIC_ prefix so Next.js exposes them to client-side code.
+// Initializes the Firebase client SDK for Auth, Firestore, and Storage.
 
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -18,4 +17,9 @@ const firebaseConfig = {
 
 // Avoid re-initializing on hot reload
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+
 export const auth = getAuth(app);
+export const db = getFirestore(app);
+export const storage = getStorage(app);
+export default app;
+
