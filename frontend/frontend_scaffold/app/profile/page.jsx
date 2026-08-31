@@ -14,6 +14,7 @@ export default function ProfileSettingsPage() {
     name: "Priya Sharma",
     age: 29,
     phone: "+919876543210",
+    email: "priya.sharma@example.com",
     language: "English",
     cycle_length: 28,
     emergency_contact: "+919876543211",
@@ -39,6 +40,8 @@ export default function ProfileSettingsPage() {
   function handleLogout() {
     localStorage.removeItem("idToken");
     localStorage.removeItem("userPhone");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userEmail");
     router.push("/login");
   }
 
@@ -52,6 +55,7 @@ export default function ProfileSettingsPage() {
           user_phone: profile.phone,
           name: profile.name,
           age: parseInt(profile.age) || 29,
+          email: profile.email || "",
           language: profile.language,
           cycle_length: parseInt(profile.cycle_length) || 28,
           emergency_contact: profile.emergency_contact,
@@ -122,6 +126,16 @@ export default function ProfileSettingsPage() {
                   <option value="Hinglish">Hinglish</option>
                 </select>
               </div>
+            </div>
+            <div>
+              <label className="block text-xs text-on-surface-variant mb-1 font-semibold">Email Address</label>
+              <input
+                type="email"
+                value={profile.email}
+                onChange={(e) => setProfile({ ...profile, email: e.target.value })}
+                placeholder="your.email@example.com"
+                className="w-full bg-surface-container-low border border-outline rounded-xl p-2.5 text-xs text-on-surface focus:outline-none focus:border-primary"
+              />
             </div>
             <div>
               <label className="block text-xs text-on-surface-variant mb-1 font-semibold">Emergency Contact</label>
