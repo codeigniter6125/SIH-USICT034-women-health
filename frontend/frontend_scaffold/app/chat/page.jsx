@@ -1,10 +1,12 @@
 "use client";
 // app/chat/page.jsx
-// Real chat interface wired to the backend's /api/chat endpoint.
-// Styled to match Stitch design system (care_chat and emergency_help_escalation).
+// Real chat interface wired to backend /api/chat and Whisper STT /api/voice/transcribe.
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import TopHeader from "../../components/TopHeader";
+import BottomNav from "../../components/BottomNav";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
 
@@ -15,10 +17,13 @@ export default function ChatPage() {
   const [message, setMessage] = useState("");
   const [history, setHistory] = useState([]);
   const [sending, setSending] = useState(false);
+  const [recording, setRecording] = useState(false);
   const [location, setLocation] = useState(null);
   const [locationStatus, setLocationStatus] = useState("requesting");
 
   const chatEndRef = useRef(null);
+  const mediaRecorderRef = useRef(null);
+  const audioChunksRef = useRef([]);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("idToken");
@@ -97,48 +102,64 @@ export default function ChatPage() {
     }
   }
 
-  function logout() {
-    localStorage.removeItem("idToken");
-    localStorage.removeItem("userPhone");
-    router.push("/login");
+  // Voice Recording with Whisper STT
+  async function toggleVoiceRecording() {
+    if (recording) {
+      if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
+        mediaRecorderRef.current.stop();
+      }
+      setRecording(false);
+    } else {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        audioChunksRef.current = [];
+        const mediaRecorder = new MediaRecorder(stream);
+        mediaRecorderRef.current = mediaRecorder;
+
+        mediaRecorder.ondataavailable = (event) => {
+          if (event.data.size > 0) audioChunksRef.current.push(event.data);
+        };
+
+        mediaRecorder.onstop = async () => {
+          const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
+          stream.getTracks().forEach((track) => track.stop());
+
+          const formData = new FormData();
+          formData.append("file", audioBlob, "user_voice.webm");
+
+          try {
+            setSending(true);
+            const res = await fetch(`${BACKEND_URL}/api/voice/transcribe`, {
+              method: "POST",
+              body: formData,
+            });
+            const data = await res.json();
+            if (data?.text) {
+              setMessage(data.text);
+            }
+          } catch (err) {
+            console.error("Whisper voice STT error:", err);
+          } finally {
+            setSending(false);
+          }
+        };
+
+        mediaRecorder.start();
+        setRecording(true);
+      } catch (err) {
+        alert("Microphone permission denied or not supported.");
+      }
+    }
   }
 
   if (!phone) return null;
 
   return (
     <div className="bg-surface text-on-surface font-body-base antialiased h-[100dvh] flex flex-col overflow-hidden">
-      {/* Top App Bar */}
-      <header className="w-full sticky top-0 z-50 bg-surface flex items-center justify-between px-margin-mobile py-3 max-w-max-width-dashboard mx-auto shrink-0 border-b border-outline-variant/30">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-primary-container/60 border border-outline flex items-center justify-center text-primary font-bold text-lg">
-            🌸
-          </div>
-          <div>
-            <h1 className="font-headline-md text-xl md:text-headline-md text-primary leading-tight">
-              She Care
-            </h1>
-            <p className="text-xs text-on-surface-variant">Maya Health Companion</p>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <div className="hidden sm:flex items-center bg-surface-container-low px-3 py-1 rounded-full border border-outline text-xs text-on-surface-variant font-medium">
-            <span className="w-2 h-2 rounded-full bg-secondary mr-2 inline-block"></span>
-            {phone}
-          </div>
-          <button
-            onClick={logout}
-            title="Log out"
-            className="hover:opacity-80 transition-opacity active:scale-95 px-3 py-1.5 rounded-full bg-surface-container-lowest border border-outline text-xs text-on-surface-variant hover:text-primary font-semibold flex items-center gap-1"
-          >
-            <span className="material-symbols-outlined text-[16px]">logout</span>
-            <span>Logout</span>
-          </button>
-        </div>
-      </header>
+      <TopHeader title="She Care" />
 
       {/* Main Chat Area */}
-      <main className="flex-1 overflow-y-auto w-full max-w-max-width-dashboard mx-auto px-margin-mobile pt-4 pb-44 flex flex-col gap-5 relative">
+      <main className="flex-1 overflow-y-auto w-full max-w-max-width-dashboard mx-auto px-margin-mobile pt-3 pb-44 flex flex-col gap-4 relative">
         {/* Geolocation Status Banner */}
         <div className="flex justify-center w-full">
           <div className="text-[11px] font-label-caps text-on-surface-variant/80 bg-surface-container-low border border-outline/60 px-3 py-1 rounded-full flex items-center gap-1.5 shadow-2xs">
@@ -148,7 +169,7 @@ export default function ChatPage() {
             <span>
               {locationStatus === "requesting" && "Checking location for nearest-hospital emergency routing..."}
               {locationStatus === "granted" && "Location active — nearest hospital included if escalated"}
-              {locationStatus === "denied" && "Location disabled — helplines will still send if escalated"}
+              {locationStatus === "denied" && "Location disabled — helpline numbers active"}
               {locationStatus === "unsupported" && "Location not supported — helpline numbers active"}
             </span>
           </div>
@@ -173,8 +194,8 @@ export default function ChatPage() {
               <p>
                 Hello! I&apos;m <strong>Maya</strong>, your bilingual women&apos;s health companion.
               </p>
-              <p className="text-sm text-on-surface-variant">
-                You can ask me about menstrual symptoms, cycle tracking, medical reports, or how you&apos;re feeling today.
+              <p className="text-xs text-on-surface-variant">
+                You can ask me about menstrual symptoms, cycle tracking, medical reports, or speak with your voice.
               </p>
               <div className="pt-2 flex flex-wrap gap-2">
                 <button
@@ -189,6 +210,12 @@ export default function ChatPage() {
                 >
                   &ldquo;Severe pain &amp; bleeding&rdquo; (Test Escalation)
                 </button>
+                <button
+                  onClick={() => setMessage("Explain my Complete Blood Count report")}
+                  className="text-xs bg-secondary-container text-on-secondary-container px-3 py-1.5 rounded-full border border-outline-variant hover:opacity-90 transition-opacity text-left font-medium"
+                >
+                  &ldquo;Explain CBC report&rdquo;
+                </button>
               </div>
             </div>
           </div>
@@ -200,7 +227,7 @@ export default function ChatPage() {
             {msg.role === "user" ? (
               /* User Message */
               <div className="flex gap-3 max-w-[85%] md:max-w-[70%] self-end flex-row-reverse">
-                <div className="bg-surface-container border border-outline-variant rounded-2xl rounded-br-sm p-4 md:p-5 text-on-surface font-body-base leading-relaxed shadow-2xs whitespace-pre-wrap">
+                <div className="bg-surface-container border border-outline-variant rounded-2xl rounded-br-sm p-4 md:p-5 text-on-surface font-body-base leading-relaxed shadow-2xs whitespace-pre-wrap text-sm">
                   {msg.text}
                 </div>
               </div>
@@ -213,18 +240,18 @@ export default function ChatPage() {
                   </span>
                 </div>
                 <div className="flex flex-col gap-2 w-full">
-                  <div className="bg-surface-container-lowest border border-outline rounded-2xl rounded-bl-sm p-4 md:p-5 text-on-surface font-body-base shadow-[0_2px_8px_rgba(43,38,32,0.02)] leading-relaxed whitespace-pre-wrap">
+                  <div className="bg-surface-container-lowest border border-outline rounded-2xl rounded-bl-sm p-4 md:p-5 text-on-surface font-body-base shadow-[0_2px_8px_rgba(43,38,32,0.02)] leading-relaxed whitespace-pre-wrap text-sm">
                     {msg.text}
                   </div>
 
                   {/* Escalation Alert Card if triggered */}
                   {msg.escalation && (
-                    <div className="bg-escalation-container border-[1.5px] border-escalation/30 text-on-surface rounded-2xl p-4 md:p-5 space-y-3 shadow-sm animate-pulse-once">
+                    <div className="bg-escalation-container border-[1.5px] border-escalation/30 text-on-surface rounded-2xl p-4 md:p-5 space-y-3 shadow-sm">
                       <div className="flex items-center gap-2 text-escalation">
                         <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>
                           emergency
                         </span>
-                        <h3 className="font-title-md text-title-md font-bold text-escalation">
+                        <h3 className="font-title-md text-sm font-bold text-escalation">
                           Emergency Care / Escalation Alert
                         </h3>
                       </div>
@@ -252,7 +279,7 @@ export default function ChatPage() {
                       )}
 
                       {msg.escalation.hospital && (
-                        <div className="bg-surface-container-lowest/80 border border-outline rounded-xl p-3 space-y-1">
+                        <div className="bg-surface-container-lowest/90 border border-outline rounded-xl p-3 space-y-1">
                           <p className="text-xs font-body-bold text-on-surface flex items-center gap-1">
                             <span className="material-symbols-outlined text-[16px] text-secondary">local_hospital</span>
                             Nearest Hospital:
@@ -275,14 +302,7 @@ export default function ChatPage() {
                       {msg.escalation.sms_result && (
                         <div className="text-xs text-secondary font-medium flex items-center gap-1">
                           <span className="material-symbols-outlined text-[14px]">sms</span>
-                          Emergency alert SMS dispatched to verified phone
-                        </div>
-                      )}
-
-                      {msg.escalation.sms_error && (
-                        <div className="text-xs text-error font-medium flex items-center gap-1">
-                          <span className="material-symbols-outlined text-[14px]">warning</span>
-                          SMS notification status: {msg.escalation.sms_error}
+                          Emergency alert SMS dispatched
                         </div>
                       )}
                     </div>
@@ -309,7 +329,7 @@ export default function ChatPage() {
                 spa
               </span>
             </div>
-            <div className="bg-surface-container-lowest border border-outline rounded-2xl rounded-bl-sm p-4 text-on-surface-variant font-body-base text-sm flex items-center gap-2">
+            <div className="bg-surface-container-lowest border border-outline rounded-2xl rounded-bl-sm p-3.5 text-on-surface-variant font-body-base text-xs flex items-center gap-2">
               <span className="inline-block w-2 h-2 rounded-full bg-primary animate-bounce"></span>
               <span className="inline-block w-2 h-2 rounded-full bg-primary animate-bounce [animation-delay:0.2s]"></span>
               <span className="inline-block w-2 h-2 rounded-full bg-primary animate-bounce [animation-delay:0.4s]"></span>
@@ -322,34 +342,38 @@ export default function ChatPage() {
       </main>
 
       {/* Floating Bottom Input Area */}
-      <div className="fixed bottom-[68px] left-0 w-full px-margin-mobile py-2 bg-gradient-to-t from-surface via-surface/95 to-transparent z-40">
-        <form onSubmit={sendMessage} className="max-w-max-width-dashboard mx-auto flex items-end gap-3 pb-1">
-          {/* Voice Action Button */}
+      <div className="fixed bottom-[64px] left-0 w-full px-margin-mobile py-2 bg-gradient-to-t from-surface via-surface/95 to-transparent z-40">
+        <form onSubmit={sendMessage} className="max-w-max-width-dashboard mx-auto flex items-end gap-2.5 pb-1">
+          {/* Voice Action Button with Whisper STT */}
           <button
             type="button"
-            onClick={() => setMessage((m) => m || "I need help with my menstrual cycle")}
-            title="Voice prompt assistance"
-            className="w-[52px] h-[52px] shrink-0 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-[0_4px_12px_rgba(140,74,47,0.2)] hover:opacity-90 active:scale-95 transition-all"
+            onClick={toggleVoiceRecording}
+            title="Press to speak (Whisper STT)"
+            className={`w-[48px] h-[48px] shrink-0 rounded-full flex items-center justify-center transition-all shadow-md active:scale-95 ${
+              recording
+                ? "bg-escalation text-white animate-pulse ring-4 ring-escalation/30"
+                : "bg-primary text-on-primary hover:opacity-90"
+            }`}
           >
-            <span className="material-symbols-outlined text-[26px]" style={{ fontVariationSettings: "'FILL' 1" }}>
+            <span className="material-symbols-outlined text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>
               mic
             </span>
           </button>
 
           {/* Text Input Pill */}
-          <div className="flex-1 flex items-center bg-surface-container-lowest border-[1.5px] border-outline rounded-3xl px-4 min-h-[52px] focus-within:border-primary focus-within:shadow-[0_0_8px_rgba(140,74,47,0.1)] transition-all bg-opacity-95 backdrop-blur-sm shadow-xs">
+          <div className="flex-1 flex items-center bg-surface-container-lowest border-[1.5px] border-outline rounded-3xl px-4 min-h-[48px] focus-within:border-primary transition-all shadow-xs">
             <input
               type="text"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              placeholder="Type your symptoms or health query..."
+              placeholder={recording ? "Listening with Whisper..." : "Type your symptoms or health query..."}
               disabled={sending}
-              className="flex-1 bg-transparent border-none outline-none focus:ring-0 font-body-base text-on-surface placeholder:text-on-surface-variant py-3"
+              className="flex-1 bg-transparent border-none outline-none focus:ring-0 font-body-base text-xs md:text-sm text-on-surface placeholder:text-on-surface-variant py-2.5"
             />
             <button
               type="submit"
               disabled={!message.trim() || sending}
-              className="text-primary ml-2 hover:opacity-80 transition-opacity p-2 rounded-full hover:bg-surface-container-low disabled:opacity-40 disabled:hover:bg-transparent"
+              className="text-primary ml-2 hover:opacity-80 transition-opacity p-1.5 rounded-full hover:bg-surface-container-low disabled:opacity-40 disabled:hover:bg-transparent"
             >
               <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>
                 send
@@ -359,45 +383,7 @@ export default function ChatPage() {
         </form>
       </div>
 
-      {/* Bottom Navigation Bar */}
-      <nav className="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-container border-t border-outline rounded-t-xl shrink-0">
-        <button
-          type="button"
-          onClick={() => router.push("/chat")}
-          className="flex flex-col items-center justify-center text-on-surface-variant p-1.5 hover:bg-surface-variant transition-colors active:scale-90 w-16 rounded-lg"
-        >
-          <span className="material-symbols-outlined text-xl mb-0.5">home</span>
-          <span className="font-label-caps text-[10px]">Home</span>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => setMessage("Give me cycle tracking insights for this month")}
-          className="flex flex-col items-center justify-center text-on-surface-variant p-1.5 hover:bg-surface-variant transition-colors active:scale-90 w-16 rounded-lg"
-        >
-          <span className="material-symbols-outlined text-xl mb-0.5">cached</span>
-          <span className="font-label-caps text-[10px]">Cycle</span>
-        </button>
-
-        <button
-          type="button"
-          onClick={() => setMessage("I want to upload or interpret a medical lab report")}
-          className="flex flex-col items-center justify-center text-on-surface-variant p-1.5 hover:bg-surface-variant transition-colors active:scale-90 w-16 rounded-lg"
-        >
-          <span className="material-symbols-outlined text-xl mb-0.5">description</span>
-          <span className="font-label-caps text-[10px]">Reports</span>
-        </button>
-
-        <button
-          type="button"
-          className="flex flex-col items-center justify-center bg-primary text-on-primary rounded-full px-4 py-1.5 hover:opacity-90 transition-colors active:scale-90 min-w-[70px]"
-        >
-          <span className="material-symbols-outlined text-lg mb-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>
-            chat_bubble
-          </span>
-          <span className="font-label-caps text-[10px]">Chat</span>
-        </button>
-      </nav>
+      <BottomNav />
     </div>
   );
 }
