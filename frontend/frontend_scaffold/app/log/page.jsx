@@ -40,6 +40,7 @@ export default function DailyLogPage() {
 
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
+  const recognitionRef = useRef(null);
 
   useEffect(() => {
     const token = localStorage.getItem("idToken");
@@ -59,16 +60,60 @@ export default function DailyLogPage() {
     }
   }
 
-  // Real browser Voice recording for Whisper STT
+  // Real browser Voice recording for Whisper STT with Live SpeechRecognition
   async function toggleVoiceRecording() {
     if (recording) {
-      // Stop recording
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.stop();
+        } catch (e) {}
+      }
       if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
         mediaRecorderRef.current.stop();
       }
       setRecording(false);
     } else {
-      // Start recording
+      let speechRecognized = false;
+
+      // Method A: Browser Web Speech API
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (SpeechRecognition) {
+        try {
+          const recognition = new SpeechRecognition();
+          recognition.continuous = true;
+          recognition.interimResults = true;
+          recognition.lang = "en-IN";
+
+          let baseNote = notes;
+          recognition.onresult = (event) => {
+            let transcript = "";
+            for (let i = 0; i < event.results.length; i++) {
+              transcript += event.results[i][0].transcript;
+            }
+            if (transcript.trim()) {
+              speechRecognized = true;
+              setNotes(baseNote ? `${baseNote} ${transcript}` : transcript);
+            }
+          };
+
+          recognition.onerror = (event) => {
+            console.warn("Speech API note:", event.error);
+          };
+
+          recognition.onend = () => {
+            setRecording(false);
+          };
+
+          recognition.start();
+          recognitionRef.current = recognition;
+          setRecording(true);
+          return;
+        } catch (speechErr) {
+          console.warn("Web Speech initiation note:", speechErr);
+        }
+      }
+
+      // Method B: MediaRecorder -> Backend Whisper
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         audioChunksRef.current = [];
@@ -83,27 +128,29 @@ export default function DailyLogPage() {
           const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
           stream.getTracks().forEach((track) => track.stop());
 
-          const formData = new FormData();
-          formData.append("file", audioBlob, "voice_note.webm");
+          if (!speechRecognized) {
+            const formData = new FormData();
+            formData.append("file", audioBlob, "voice_note.webm");
 
-          try {
-            const res = await fetch(`${BACKEND_URL}/api/voice/transcribe`, {
-              method: "POST",
-              body: formData,
-            });
-            const data = await res.json();
-            if (data?.text) {
-              setNotes((prev) => (prev ? `${prev} ${data.text}` : data.text));
+            try {
+              const res = await fetch(`${BACKEND_URL}/api/voice/transcribe`, {
+                method: "POST",
+                body: formData,
+              });
+              const data = await res.json();
+              if (data?.text) {
+                setNotes((prev) => (prev ? `${prev} ${data.text}` : data.text));
+              }
+            } catch (err) {
+              console.error("Whisper transcription error:", err);
             }
-          } catch (err) {
-            console.error("Whisper transcription error:", err);
           }
         };
 
         mediaRecorder.start();
         setRecording(true);
       } catch (err) {
-        alert("Microphone permission denied or not supported.");
+        alert("Microphone access is needed for voice input. Please allow microphone permissions in your browser.");
       }
     }
   }

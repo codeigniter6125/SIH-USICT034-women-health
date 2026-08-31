@@ -162,11 +162,15 @@ async def upload_report(
     report_entry = {
         "id": f"rep_{int(datetime.now().timestamp())}",
         "title": filename.replace(".jpg", "").replace(".png", "").replace(".pdf", ""),
+        "report_type": agent_result.get("report_type", "Medical Lab Report"),
         "category": category,
         "date": datetime.now().strftime("%b %d, %Y"),
         "raw_ocr": ocr_text[:1000],
         "findings": agent_result.get("findings", []),
+        "health_summary": agent_result.get("health_summary", ""),
         "interpretation": agent_result.get("interpretation", ""),
+        "main_pointers": agent_result.get("main_pointers", []),
+        "solutions_and_remedies": agent_result.get("solutions_and_remedies", {}),
         "needs_doctor_review": agent_result.get("needs_doctor_review", True),
     }
     update_context(user_phone, {"report_history": [report_entry]})

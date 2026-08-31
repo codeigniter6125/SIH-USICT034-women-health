@@ -9,16 +9,34 @@ import BottomNav from "../../../components/BottomNav";
 export default function ReportInterpretationPage() {
   const router = useRouter();
   const [report, setReport] = useState({
-    title: "Complete Blood Count (CBC)",
-    date: "Oct 24, 2023",
-    interpretation:
-      "Overall, your complete blood count is healthy. Because your iron stores (ferritin) are slightly low, you might feel a bit more tired than usual, especially towards the end of the day. Increasing iron-rich foods in your diet, like spinach, lentils, or fortified cereals, could help gently lift those levels.",
-    findings: [
-      { test: "Hemoglobin (Hb)", value: "12.5", unit: "g/dL", reference_range: "12.0 - 15.5", status: "normal" },
-      { test: "Ferritin", value: "15", unit: "ng/mL", reference_range: "20 - 200", status: "low" },
-      { test: "White Blood Cells (WBC)", value: "6.2", unit: "10^3/uL", reference_range: "4.5 - 11.0", status: "normal" },
-      { test: "Platelets", value: "250", unit: "10^3/uL", reference_range: "150 - 450", status: "normal" },
+    title: "Medical Report",
+    report_type: "Medical Lab Report",
+    date: new Date().toLocaleDateString(),
+    health_summary:
+      "Your extracted findings are being organized. Review the biomarker breakdown and consult with your healthcare provider for personalized guidance.",
+    interpretation: "",
+    main_pointers: [
+      {
+        title: "Analysis in progress",
+        description: "Checking extracted values against clinical reference baselines.",
+        status: "positive",
+      },
     ],
+    solutions_and_remedies: {
+      dietary_cure: [
+        "Incorporate balanced, nutrient-dense whole foods and prioritize hydration.",
+        "Include anti-inflammatory foods like leafy greens, flaxseeds, and walnuts.",
+      ],
+      lifestyle_care: [
+        "Aim for 7-8 hours of consistent, restorative sleep nightly.",
+        "Engage in 20-30 minutes of low-impact physical activity or yoga.",
+      ],
+      questions_for_doctor: [
+        "What do these specific test values indicate for my overall hormonal and metabolic health?",
+        "Are there targeted supplements or dietary changes you would recommend?",
+      ],
+    },
+    findings: [],
   });
 
   useEffect(() => {
@@ -26,20 +44,44 @@ export default function ReportInterpretationPage() {
     if (raw) {
       try {
         const parsed = JSON.parse(raw);
-        if (parsed.findings && parsed.findings.length > 0) {
-          setReport({
-            title: parsed.title || "Complete Blood Count (CBC)",
-            date: parsed.date || new Date().toLocaleDateString(),
-            interpretation: parsed.interpretation || "Extracted via Google Cloud Vision OCR and verified with Report Reader Agent.",
-            findings: parsed.findings.map((f) => ({
-              test: f.test || "Test",
-              value: f.value || "-",
-              unit: f.unit || "",
-              reference_range: f.reference_range || "Normal",
-              status: parseFloat(f.value) < 16 && f.test.toLowerCase().includes("ferritin") ? "low" : "normal",
-            })),
-          });
-        }
+        setReport({
+          title: parsed.title || "Medical Report",
+          report_type: parsed.report_type || "Medical Lab Report",
+          date: parsed.date || new Date().toLocaleDateString(),
+          health_summary:
+            parsed.health_summary ||
+            parsed.interpretation ||
+            "Extracted via Google OCR and structured by Maya Report Reader Agent.",
+          interpretation: parsed.interpretation || "",
+          main_pointers:
+            parsed.main_pointers && parsed.main_pointers.length > 0
+              ? parsed.main_pointers
+              : [
+                  {
+                    title: "Biomarkers Extracted",
+                    description: "All test parameters from your document are ready for review.",
+                    status: "positive",
+                  },
+                ],
+          solutions_and_remedies: parsed.solutions_and_remedies || {
+            dietary_cure: [
+              "Maintain a balanced diet rich in micronutrients and fresh vegetables.",
+            ],
+            lifestyle_care: [
+              "Daily light exercise and circadian sleep schedule.",
+            ],
+            questions_for_doctor: [
+              "How do these results compare with my previous baseline?",
+            ],
+          },
+          findings: (parsed.findings || []).map((f) => ({
+            test: f.test || "Test",
+            value: f.value || "-",
+            unit: f.unit || "",
+            reference_range: f.reference_range || "Normal",
+            status: f.status || "normal",
+          })),
+        });
       } catch (err) {
         console.error("Error reading current report:", err);
       }
@@ -53,119 +95,230 @@ export default function ReportInterpretationPage() {
       <main className="max-w-max-width-dashboard mx-auto px-margin-mobile pt-6 space-y-6">
         {/* Screen Title */}
         <div>
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-primary bg-primary/10 px-2.5 py-0.5 rounded-full border border-primary/20">
+              {report.report_type || "Medical Analysis"}
+            </span>
+          </div>
           <h2 className="font-headline-lg-mobile md:font-headline-lg text-2xl md:text-headline-lg font-bold text-on-background">
             Your Health Report
           </h2>
-          <p className="font-body-base text-sm text-on-surface-variant mt-1">
-            Here is a gentle, safe breakdown of your extracted medical findings.
+          <p className="font-body-base text-sm text-on-surface-variant mt-0.5">
+            Gentle, comprehensive AI breakdown and personalized care guidance.
           </p>
         </div>
 
-        {/* Summary Card */}
-        <div className="bg-surface-container-lowest rounded-2xl border border-outline p-5 shadow-2xs">
+        {/* Summary Header Card */}
+        <div className="bg-surface-container-lowest rounded-3xl border border-outline p-5 shadow-2xs">
           <div className="flex items-start justify-between">
             <div>
-              <h3 className="font-title-md text-base md:text-lg font-bold text-on-background">{report.title}</h3>
-              <p className="font-body-base text-xs text-on-surface-variant mt-1">Uploaded on {report.date}</p>
+              <h3 className="font-title-md text-base md:text-lg font-bold text-on-background">
+                {report.title}
+              </h3>
+              <p className="font-body-base text-xs text-on-surface-variant mt-1 flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-[14px] text-primary">calendar_today</span>
+                <span>Uploaded on {report.date}</span>
+              </p>
             </div>
-            <div className="bg-surface-container-low w-11 h-11 rounded-full flex items-center justify-center border border-outline-variant text-tertiary">
-              <span className="material-symbols-outlined text-2xl">description</span>
+            <div className="w-12 h-12 rounded-2xl bg-[#5B6FA6] shadow-sm flex items-center justify-center text-white shrink-0">
+              <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>
+                science
+              </span>
             </div>
           </div>
         </div>
 
-        {/* Main Findings */}
-        <section className="space-y-3">
-          <h3 className="font-headline-md text-base md:text-lg font-bold text-on-background">Main Findings</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-            {/* Positive Finding */}
-            <div className="bg-surface-container-lowest rounded-2xl border border-outline p-4 flex items-start gap-3.5 shadow-2xs">
-              <div className="bg-[#486550] text-white w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 shadow-sm">
-                <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>
-                  check_circle
-                </span>
-              </div>
-              <div>
-                <h4 className="font-body-bold text-sm font-bold text-on-background">
-                  Hemoglobin is within normal range
-                </h4>
-                <p className="font-body-base text-xs text-on-surface-variant mt-0.5">
-                  Your blood&apos;s oxygen-carrying capacity looks steady.
-                </p>
-              </div>
-            </div>
+        {/* Dynamic Main Findings Section */}
+        {report.main_pointers && report.main_pointers.length > 0 && (
+          <section className="space-y-3">
+            <h3 className="font-headline-md text-base md:text-lg font-bold text-on-background flex items-center gap-2">
+              <span className="material-symbols-outlined text-primary text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>
+                vital_signs
+              </span>
+              <span>Main Findings &amp; Key Takeaways</span>
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+              {report.main_pointers.map((ptr, idx) => {
+                const isWarn = ptr.status === "warning" || ptr.status === "attention";
+                const isAttention = ptr.status === "attention";
+                const bgColor = isWarn
+                  ? isAttention
+                    ? "bg-[#C97B5C]"
+                    : "bg-escalation"
+                  : "bg-[#486550]";
+                const iconName = isWarn ? "info" : "check_circle";
 
-            {/* Mild Concern Finding */}
-            <div className="bg-surface-container-lowest rounded-2xl border border-outline p-4 flex items-start gap-3.5 shadow-2xs">
-              <div className="bg-[#C97B5C] text-white w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 shadow-sm">
-                <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>
-                  info
-                </span>
-              </div>
-              <div>
-                <h4 className="font-body-bold text-sm font-bold text-on-background">Iron stores slightly low</h4>
-                <p className="font-body-base text-xs text-on-surface-variant mt-0.5">
-                  Ferritin is just below optimal baseline; may contribute to mild fatigue.
-                </p>
-              </div>
+                return (
+                  <div
+                    key={idx}
+                    className="bg-surface-container-lowest rounded-3xl border border-outline p-4 flex items-start gap-3.5 shadow-2xs hover:border-primary/30 transition-colors"
+                  >
+                    <div
+                      className={`${bgColor} text-white w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 shadow-sm`}
+                    >
+                      <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>
+                        {iconName}
+                      </span>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-body-bold text-sm font-bold text-on-background">
+                        {ptr.title}
+                      </h4>
+                      <p className="font-body-base text-xs text-on-surface-variant mt-1 leading-relaxed">
+                        {ptr.description}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
-        {/* AI Interpretation */}
-        <section className="bg-surface-container-lowest rounded-2xl border border-outline p-5 relative overflow-hidden shadow-2xs">
-          <div className="absolute -right-12 -top-12 w-32 h-32 bg-surface-tint opacity-5 rounded-full blur-2xl pointer-events-none"></div>
+        {/* Maya's Clinical Health Insight */}
+        <section className="bg-surface-container-lowest rounded-3xl border border-outline p-5 relative overflow-hidden shadow-2xs">
           <div className="flex items-center gap-2 mb-3 text-primary font-bold">
             <span className="material-symbols-outlined text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>
               auto_awesome
             </span>
-            <h3 className="font-title-md text-base text-on-background">She Care Insight</h3>
+            <h3 className="font-title-md text-base text-on-background">Maya&apos;s Health Summary</h3>
           </div>
           <p className="font-body-base text-sm text-on-surface-variant leading-relaxed">
-            {report.interpretation}
+            {report.health_summary}
           </p>
         </section>
 
-        {/* Technical Details Accordion */}
-        <section className="bg-surface-container-lowest rounded-2xl border border-outline overflow-hidden shadow-2xs">
-          <details className="group" open>
-            <summary className="flex justify-between items-center p-4 cursor-pointer list-none hover:bg-surface-container-low transition-colors">
-              <h3 className="font-body-bold text-sm font-bold text-on-background flex items-center gap-2">
-                <span className="material-symbols-outlined text-on-surface-variant text-lg">science</span>
-                <span>Technical Details &amp; OCR Values</span>
-              </h3>
-              <span className="material-symbols-outlined text-on-surface-variant transition-transform group-open:rotate-180">
-                expand_more
+        {/* Solutions, Remedies & Natural Cure Plan */}
+        {report.solutions_and_remedies && (
+          <section className="space-y-4">
+            <h3 className="font-headline-md text-base md:text-lg font-bold text-on-background flex items-center gap-2">
+              <span className="material-symbols-outlined text-[#486550] text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>
+                spa
               </span>
-            </summary>
-            <div className="p-4 border-t border-outline-variant bg-surface">
-              <ul className="space-y-2.5">
-                {report.findings.map((f, idx) => (
-                  <li
-                    key={idx}
-                    className="flex justify-between items-center pb-2 border-b border-outline-variant/60 last:border-0 last:pb-0"
-                  >
-                    <div>
-                      <span className="font-body-base text-xs md:text-sm text-on-surface font-medium">
-                        {f.test}
-                      </span>
-                      {f.reference_range && (
-                        <p className="text-[10px] text-on-surface-variant">Ref: {f.reference_range}</p>
-                      )}
+              <span>Solutions, Remedies &amp; Holistic Care</span>
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Dietary Care & Herbal Remedies */}
+              {report.solutions_and_remedies.dietary_cure &&
+                report.solutions_and_remedies.dietary_cure.length > 0 && (
+                  <div className="bg-surface-container-lowest rounded-3xl border border-outline p-5 shadow-2xs space-y-3">
+                    <div className="flex items-center gap-2 text-[#C97B5C] font-bold">
+                      <div className="w-8 h-8 rounded-xl bg-[#C97B5C]/15 flex items-center justify-center">
+                        <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>
+                          nutrition
+                        </span>
+                      </div>
+                      <h4 className="text-sm font-bold text-on-surface">Dietary &amp; Herbal Remedies</h4>
                     </div>
-                    <span
-                      className={`font-body-bold text-sm font-bold ${
-                        f.status === "low" ? "text-primary" : "text-on-background"
-                      }`}
-                    >
-                      {f.value} <span className="text-[11px] font-normal text-on-surface-variant">{f.unit}</span>
-                    </span>
-                  </li>
-                ))}
-              </ul>
+                    <ul className="space-y-2">
+                      {report.solutions_and_remedies.dietary_cure.map((item, i) => (
+                        <li key={i} className="text-xs text-on-surface-variant flex items-start gap-2 leading-relaxed">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#C97B5C] mt-1.5 shrink-0"></span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+              {/* Lifestyle & Holistic Care */}
+              {report.solutions_and_remedies.lifestyle_care &&
+                report.solutions_and_remedies.lifestyle_care.length > 0 && (
+                  <div className="bg-surface-container-lowest rounded-3xl border border-outline p-5 shadow-2xs space-y-3">
+                    <div className="flex items-center gap-2 text-[#486550] font-bold">
+                      <div className="w-8 h-8 rounded-xl bg-[#486550]/15 flex items-center justify-center">
+                        <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>
+                          self_improvement
+                        </span>
+                      </div>
+                      <h4 className="text-sm font-bold text-on-surface">Lifestyle &amp; Daily Habits</h4>
+                    </div>
+                    <ul className="space-y-2">
+                      {report.solutions_and_remedies.lifestyle_care.map((item, i) => (
+                        <li key={i} className="text-xs text-on-surface-variant flex items-start gap-2 leading-relaxed">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#486550] mt-1.5 shrink-0"></span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
             </div>
-          </details>
-        </section>
+
+            {/* Questions to ask Doctor */}
+            {report.solutions_and_remedies.questions_for_doctor &&
+              report.solutions_and_remedies.questions_for_doctor.length > 0 && (
+                <div className="bg-[#5B6FA6]/5 border border-[#5B6FA6]/20 rounded-3xl p-5 shadow-2xs space-y-3">
+                  <div className="flex items-center gap-2 text-[#5B6FA6] font-bold">
+                    <div className="w-8 h-8 rounded-xl bg-[#5B6FA6]/15 flex items-center justify-center">
+                      <span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>
+                        contact_support
+                      </span>
+                    </div>
+                    <h4 className="text-sm font-bold text-on-surface">Questions to Ask Your Doctor</h4>
+                  </div>
+                  <ul className="space-y-2">
+                    {report.solutions_and_remedies.questions_for_doctor.map((q, i) => (
+                      <li key={i} className="text-xs text-on-surface-variant flex items-start gap-2 leading-relaxed">
+                        <span className="w-4 h-4 rounded-full bg-[#5B6FA6] text-white text-[10px] flex items-center justify-center font-bold shrink-0 mt-0.5">
+                          {i + 1}
+                        </span>
+                        <span className="font-medium text-on-surface">{q}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+          </section>
+        )}
+
+        {/* Technical Details Accordion */}
+        {report.findings && report.findings.length > 0 && (
+          <section className="bg-surface-container-lowest rounded-3xl border border-outline overflow-hidden shadow-2xs">
+            <details className="group" open>
+              <summary className="flex justify-between items-center p-4 cursor-pointer list-none hover:bg-surface-container-low transition-colors">
+                <h3 className="font-body-bold text-sm font-bold text-on-background flex items-center gap-2">
+                  <span className="material-symbols-outlined text-on-surface-variant text-lg">science</span>
+                  <span>Technical Details &amp; OCR Values ({report.findings.length} Biomarkers)</span>
+                </h3>
+                <span className="material-symbols-outlined text-on-surface-variant transition-transform group-open:rotate-180">
+                  expand_more
+                </span>
+              </summary>
+              <div className="p-4 border-t border-outline-variant bg-surface">
+                <ul className="space-y-2.5">
+                  {report.findings.map((f, idx) => (
+                    <li
+                      key={idx}
+                      className="flex justify-between items-center pb-2 border-b border-outline-variant/60 last:border-0 last:pb-0"
+                    >
+                      <div>
+                        <span className="font-body-base text-xs md:text-sm text-on-surface font-medium">
+                          {f.test}
+                        </span>
+                        {f.reference_range && (
+                          <p className="text-[10px] text-on-surface-variant">Ref: {f.reference_range}</p>
+                        )}
+                      </div>
+                      <span
+                        className={`font-body-bold text-sm font-bold ${
+                          f.status === "high" || f.status === "attention"
+                            ? "text-[#C97B5C]"
+                            : f.status === "warning"
+                            ? "text-escalation"
+                            : "text-on-background"
+                        }`}
+                      >
+                        {f.value} <span className="text-[11px] font-normal text-on-surface-variant">{f.unit}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </details>
+          </section>
+        )}
 
         {/* Next Steps Actions */}
         <section className="space-y-3 pt-2">
