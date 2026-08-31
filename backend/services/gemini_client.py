@@ -15,7 +15,13 @@ except ImportError:  # Allows local rule-based tests without optional LLM depend
     genai = None
 
 _configured = False
-MODEL_NAME = "gemini-1.5-flash"
+MODEL_NAME = "gemini-3.5-flash"
+FALLBACK_MODELS = [
+    "gemini-3.5-flash-lite",
+    "gemini-3.6-flash",
+    "gemini-flash-latest",
+    "gemini-3.7-flash",
+]
 
 
 def _ensure_configured():
@@ -36,35 +42,21 @@ def call_gemini_structured(prompt: str) -> dict:
     """
     _ensure_configured()
 
-    try:
-        model = genai.GenerativeModel(MODEL_NAME)
-        response = model.generate_content(
-            prompt,
-            generation_config={"response_mime_type": "application/json"},
-            request_options={"timeout": 10},
-        )
-
-        text = response.text.strip()
-        if text.startswith("```"):
-            text = text.strip("`")
-            if text.startswith("json"):
-                text = text[4:].strip()
-
-        return json.loads(text)
-    except Exception as exc:
-        # If gemini-1.5-flash is not found or fails, try gemini-2.0-flash
+    for m_name in [MODEL_NAME, *FALLBACK_MODELS]:
         try:
-            fallback_model = genai.GenerativeModel("gemini-2.0-flash")
-            response = fallback_model.generate_content(
+            model = genai.GenerativeModel(m_name)
+            response = model.generate_content(
                 prompt,
                 generation_config={"response_mime_type": "application/json"},
                 request_options={"timeout": 10},
             )
-            text = response.text.strip()
-            if text.startswith("```"):
-                text = text.strip("`")
-                if text.startswith("json"):
-                    text = text[4:].strip()
-            return json.loads(text)
-        except Exception:
-            raise exc
+            raw_text = response.text.strip()
+            # Strip markdown ```json ``` markers if present
+            if raw_text.startswith("```"):
+                lines = raw_text.splitlines()
+                raw_text = "\n".join(lines[1:-1]).strip()
+            return json.loads(raw_text)
+        except Exception as e:
+            continue
+
+    raise RuntimeError("All Gemini models failed to respond.")

@@ -24,6 +24,7 @@ export default function ChatPage() {
   const chatEndRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
+  const recognitionRef = useRef(null);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("idToken");
@@ -58,15 +59,15 @@ export default function ChatPage() {
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [history, sending]);
+  }, [history]);
 
-  async function sendMessage(e) {
-    e?.preventDefault();
-    if (!message.trim() || sending) return;
+  async function handleSend(e) {
+    if (e) e.preventDefault();
+    const userText = message.trim();
+    if (!userText || sending) return;
 
-    const userText = message;
-    setHistory((h) => [...h, { role: "user", text: userText }]);
     setMessage("");
+    setHistory((h) => [...h, { role: "user", text: userText }]);
     setSending(true);
 
     try {
@@ -102,14 +103,61 @@ export default function ChatPage() {
     }
   }
 
-  // Voice Recording with Whisper STT
+  // Voice Recording with Live Web Speech STT + Backend Whisper Fallback
   async function toggleVoiceRecording() {
     if (recording) {
+      // Stop Web Speech if active
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.stop();
+        } catch (e) {}
+      }
+      // Stop MediaRecorder if active
       if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
         mediaRecorderRef.current.stop();
       }
       setRecording(false);
     } else {
+      let speechRecognized = false;
+
+      // Method A: Try Browser Web Speech API for real-time live transcription
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (SpeechRecognition) {
+        try {
+          const recognition = new SpeechRecognition();
+          recognition.continuous = true;
+          recognition.interimResults = true;
+          recognition.lang = "en-IN"; // English (India) with Hindi loan words
+
+          recognition.onresult = (event) => {
+            let currentTranscript = "";
+            for (let i = 0; i < event.results.length; i++) {
+              currentTranscript += event.results[i][0].transcript;
+            }
+            if (currentTranscript.trim()) {
+              speechRecognized = true;
+              setMessage(currentTranscript);
+            }
+          };
+
+          recognition.onerror = (event) => {
+            console.warn("Web Speech API note:", event.error);
+          };
+
+          recognition.onend = () => {
+            setRecording(false);
+          };
+
+          recognition.start();
+          recognitionRef.current = recognition;
+          setRecording(true);
+          return;
+        } catch (speechErr) {
+          console.warn("Web Speech initiation note:", speechErr);
+        }
+      }
+
+      // Method B: Fallback to MediaRecorder -> Backend Whisper / Gemini Audio STT
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         audioChunksRef.current = [];
@@ -124,30 +172,32 @@ export default function ChatPage() {
           const audioBlob = new Blob(audioChunksRef.current, { type: "audio/webm" });
           stream.getTracks().forEach((track) => track.stop());
 
-          const formData = new FormData();
-          formData.append("file", audioBlob, "user_voice.webm");
+          if (!speechRecognized) {
+            const formData = new FormData();
+            formData.append("file", audioBlob, "user_voice.webm");
 
-          try {
-            setSending(true);
-            const res = await fetch(`${BACKEND_URL}/api/voice/transcribe`, {
-              method: "POST",
-              body: formData,
-            });
-            const data = await res.json();
-            if (data?.text) {
-              setMessage(data.text);
+            try {
+              setSending(true);
+              const res = await fetch(`${BACKEND_URL}/api/voice/transcribe`, {
+                method: "POST",
+                body: formData,
+              });
+              const data = await res.json();
+              if (data?.text) {
+                setMessage(data.text);
+              }
+            } catch (err) {
+              console.error("Whisper voice STT error:", err);
+            } finally {
+              setSending(false);
             }
-          } catch (err) {
-            console.error("Whisper voice STT error:", err);
-          } finally {
-            setSending(false);
           }
         };
 
         mediaRecorder.start();
         setRecording(true);
       } catch (err) {
-        alert("Microphone permission denied or not supported.");
+        alert("Microphone access is needed for voice input. Please allow microphone permissions in your browser.");
       }
     }
   }
@@ -343,7 +393,7 @@ export default function ChatPage() {
 
       {/* Floating Bottom Input Area */}
       <div className="fixed bottom-[64px] left-0 w-full px-margin-mobile py-2 bg-gradient-to-t from-surface via-surface/95 to-transparent z-40">
-        <form onSubmit={sendMessage} className="max-w-max-width-dashboard mx-auto flex items-end gap-2.5 pb-1">
+        <form onSubmit={handleSend} className="max-w-max-width-dashboard mx-auto flex items-end gap-2.5 pb-1">
           {/* Voice Action Button with Whisper STT */}
           <button
             type="button"
