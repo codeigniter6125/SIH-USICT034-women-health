@@ -182,6 +182,16 @@ async def upload_report(
     }
 
 
+@app.get("/api/reports")
+def get_user_reports(user_phone: str = "+919876543210"):
+    """
+    Returns persistent report history for the user.
+    """
+    ctx = get_context(user_phone)
+    reports = ctx.get("report_history", [])
+    return {"reports": reports}
+
+
 @app.post("/api/reports/extract")
 def extract_report(payload: ReportRequest, user: dict = Depends(current_user)):
     phone = payload.user_phone or user.get("phone") or user["uid"]
