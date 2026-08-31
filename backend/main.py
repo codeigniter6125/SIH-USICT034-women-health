@@ -101,6 +101,7 @@ class ProfileUpdateRequest(BaseModel):
     user_phone: str
     name: Optional[str] = None
     age: Optional[int] = None
+    email: Optional[str] = None
     language: Optional[str] = "English"
     cycle_length: Optional[int] = 28
     emergency_contact: Optional[str] = None
@@ -427,6 +428,7 @@ def get_user_profile(user_phone: str = "+919876543210"):
         "name": ctx.get("name", "Priya Sharma"),
         "age": ctx.get("age", 29),
         "phone": user_phone,
+        "email": ctx.get("email", ""),
         "language": ctx.get("language", "English"),
         "cycle_length": ctx.get("cycle_history", {}).get("cycle_length_days", 28),
         "emergency_contact": ctx.get("emergency_contact", "+919876543211"),
@@ -439,6 +441,7 @@ def update_user_profile(payload: ProfileUpdateRequest):
     update_context(phone, {
         "name": payload.name or "Priya Sharma",
         "age": payload.age or 29,
+        "email": payload.email or "",
         "language": payload.language or "English",
         "emergency_contact": payload.emergency_contact,
         "cycle_history": {"cycle_length_days": payload.cycle_length or 28},

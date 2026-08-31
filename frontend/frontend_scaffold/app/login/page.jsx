@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   RecaptchaVerifier,
@@ -307,8 +308,14 @@ export default function LoginPage() {
               )}
             </div>
 
-            {/* Footer */}
-            <div className="text-center mt-auto pb-6">
+            {/* Footer & Sign Up Prompt */}
+            <div className="text-center mt-auto pb-6 space-y-3">
+              <p className="text-xs text-on-surface-variant">
+                New to She Care?{" "}
+                <Link href="/signup" className="text-primary font-bold hover:underline">
+                  Create Profile &amp; Sign Up
+                </Link>
+              </p>
               <p className="font-label-caps text-label-caps text-on-surface-variant opacity-70">
                 Secure &amp; Confidential
               </p>
