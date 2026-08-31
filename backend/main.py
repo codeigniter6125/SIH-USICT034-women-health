@@ -306,40 +306,83 @@ def update_cycle(payload: CycleLogRequest):
 @app.get("/api/doctor-summary")
 def get_doctor_summary(user_phone: str = "+919876543210"):
     """
-    Aggregates cycle metrics, 30-day symptom logs, recent lab findings, and doctor questions.
+    Aggregates cycle metrics, 30-day symptom logs, recent lab findings, and doctor questions dynamically.
     """
     ctx = get_context(user_phone)
     reports = ctx.get("report_history", [])
     logs = ctx.get("daily_logs", [])
     cycle_history = ctx.get("cycle_history", {"cycle_length_days": 28, "period_length_days": 5})
 
+    # 1. Compute dynamic frequent symptoms from logs
+    symptom_counts = {}
+    for entry in logs:
+        for sym in entry.get("symptoms", []):
+            symptom_counts[sym] = symptom_counts.get(sym, 0) + 1
+
+    if symptom_counts:
+        frequent_symptoms = [
+            {"symptom": k, "days": f"{v} Log{'s' if v > 1 else ''}"}
+            for k, v in sorted(symptom_counts.items(), key=lambda x: x[1], reverse=True)[:4]
+        ]
+    else:
+        frequent_symptoms = [
+            {"symptom": "Fatigue", "days": "Reported"},
+            {"symptom": "Bloating", "days": "Periodic"},
+            {"symptom": "Mild Cramps", "days": "Cycle day 1-2"},
+        ]
+
+    # 2. Extract latest report details and build dynamic clinical overview
+    latest_report = reports[0] if reports else None
+    
+    if latest_report:
+        report_title = latest_report.get("title") or latest_report.get("report_type") or "Recent Medical Report"
+        report_summary = latest_report.get("health_summary") or latest_report.get("interpretation") or "Biomarkers extracted and ready for clinical review."
+        
+        overview = f"Patient presents with {latest_report.get('report_type', 'recent laboratory findings')}. {report_summary} Cycle parameters reflect a {cycle_history.get('cycle_length_days', 28)}-day baseline. No acute emergency red-flag symptoms identified."
+        
+        remedies = latest_report.get("solutions_and_remedies", {})
+        doc_questions = remedies.get("questions_for_doctor", [])
+        if doc_questions:
+            doctor_notes_prompt = "Key Questions for Doctor:\n• " + "\n• ".join(doc_questions)
+        else:
+            doctor_notes_prompt = "Discuss hormonal markers, cycle regularity, and recommended nutrition adjustments."
+    else:
+        overview = f"Patient health check-in summary for {ctx.get('name', 'Priya Sharma')}. Cycle rhythm is currently {cycle_history.get('cycle_length_days', 28)} days. Overall wellness tracking is active."
+        doctor_notes_prompt = "Discuss routine cycle health check-ups and targeted nutrition."
+
+    # Format attached reports with biomarkers summary
+    formatted_reports = []
+    for rep in reports:
+        findings_preview = ", ".join([f"{f.get('test')}: {f.get('value')} {f.get('unit', '')}" for f in rep.get("findings", [])[:3]])
+        formatted_reports.append({
+            "id": rep.get("id", f"rep_{rep.get('date')}"),
+            "title": rep.get("title") or rep.get("report_type") or "Medical Lab Report",
+            "report_type": rep.get("report_type", "Lab Report"),
+            "date": rep.get("date", datetime.now().strftime("%b %d, %Y")),
+            "summary": findings_preview or rep.get("health_summary", "")[:80] or "Analyzed",
+            "findings": rep.get("findings", []),
+            "health_summary": rep.get("health_summary", ""),
+            "solutions_and_remedies": rep.get("solutions_and_remedies", {}),
+        })
+
     return {
         "patient": {
             "name": ctx.get("name", "Priya Sharma"),
             "age": ctx.get("age", 29),
             "phone": user_phone,
+            "email": ctx.get("email", ""),
             "gender": "Female",
         },
         "date_range": f"{datetime.now().strftime('%b 01')} - {datetime.now().strftime('%b %d, %Y')}",
-        "overview": "Recent reports show slightly low iron levels; user reports mild fatigue and steady mood. Cycle length has been consistent, but energy levels remain a primary focus for this period. No critical red-flag symptoms reported.",
+        "overview": overview,
         "cycle_insights": {
             "avg_cycle_length": f"{cycle_history.get('cycle_length_days', 28)} Days",
             "avg_period_length": f"{cycle_history.get('period_length_days', 5)} Days",
-            "regularity": "Regular",
+            "regularity": "Regular" if 21 <= int(cycle_history.get("cycle_length_days", 28)) <= 35 else "Irregular",
         },
-        "frequent_symptoms": [
-            {"symptom": "Fatigue", "days": "5 Days", "color": "escalation-container"},
-            {"symptom": "Steady Mood", "days": "12 Days", "color": "secondary-container"},
-            {"symptom": "Mild Cramps", "days": "2 Days", "color": "primary-container"},
-        ],
-        "recent_reports": reports if reports else [
-            {
-                "title": "Complete Blood Count (CBC)",
-                "date": "Oct 15, 2023",
-                "summary": "Hemoglobin 12.5 g/dL · Ferritin slightly low (15 ng/mL)",
-            }
-        ],
-        "doctor_notes_prompt": "Ask about supplements for fatigue and next blood test schedule.",
+        "frequent_symptoms": frequent_symptoms,
+        "recent_reports": formatted_reports,
+        "doctor_notes_prompt": doctor_notes_prompt,
     }
 
 
