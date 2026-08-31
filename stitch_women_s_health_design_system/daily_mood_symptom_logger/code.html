@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Daily Check-in - She Care</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Fraunces:opsz,wght@9..144,400;9..144,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#d9c2ba",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#caebd0",
+                        "surface": "#fdf9f4",
+                        "primary-container": "#F6EAE4",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#f7f3ee",
+                        "on-secondary-fixed": "#042110",
+                        "surface-dim": "#ddd9d5",
+                        "surface-tint": "#8f4c31",
+                        "inverse-primary": "#ffb599",
+                        "on-tertiary-fixed": "#2d150c",
+                        "on-secondary-container": "#4e6b56",
+                        "background": "#fdf9f4",
+                        "surface-container-highest": "#e6e2dd",
+                        "inverse-on-surface": "#f4f0eb",
+                        "secondary": "#486550",
+                        "on-surface": "#2B2620",
+                        "surface-container-high": "#ebe8e3",
+                        "on-primary-fixed": "#370e00",
+                        "on-error": "#ffffff",
+                        "surface-container": "#f1ede8",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#304d39",
+                        "on-surface-variant": "#53433d",
+                        "escalation": "#C2452E",
+                        "inverse-surface": "#31302d",
+                        "surface-bright": "#fdf9f4",
+                        "error": "#ba1a1a",
+                        "primary": "#8c4a2f",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#5e4034",
+                        "escalation-container": "#FAEAE6",
+                        "primary-fixed-dim": "#ffb599",
+                        "on-primary-container": "#fffbff",
+                        "tertiary-fixed": "#ffdbce",
+                        "tertiary-fixed-dim": "#e8bdad",
+                        "tertiary": "#755447",
+                        "secondary-fixed-dim": "#aeceb5",
+                        "on-tertiary-container": "#fffbff",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#72351c",
+                        "outline": "#D4C8BB",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#ffdbce",
+                        "on-background": "#1c1c19",
+                        "secondary-container": "#caebd0",
+                        "surface-variant": "#e6e2dd",
+                        "tertiary-container": "#906c5f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "xl": "32px",
+                        "max-width-mobile": "480px",
+                        "margin-mobile": "16px",
+                        "md": "16px",
+                        "gutter": "16px",
+                        "xs": "4px",
+                        "margin-desktop": "32px",
+                        "base-unit": "4px",
+                        "lg": "24px",
+                        "max-width-dashboard": "840px"
+                    },
+                    "fontFamily": {
+                        "body-base": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Fraunces"],
+                        "display-lg": ["Fraunces"],
+                        "label-caps": ["Plus Jakarta Sans"],
+                        "body-bold": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Fraunces"],
+                        "title-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Fraunces"],
+                        "body-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "body-base": ["15px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "700" }],
+                        "body-bold": ["15px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "title-md": ["18px", { "lineHeight": "26px", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["17px", { "lineHeight": "26px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #FAF6F1; /* Fallback if surface class isn't exactly this */
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .mood-btn.selected {
+            background-color: #F6EAE4;
+            border-color: #8c4a2f;
+            color: #8c4a2f;
+        }
+        .symptom-pill.selected {
+            background-color: #caebd0;
+            border-color: #486550;
+            color: #042110;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-base antialiased pb-24 md:pb-0">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-on-surface-variant flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 max-w-dashboard mx-auto left-0 right-0">
+<button aria-label="Menu" class="text-on-surface-variant hover:bg-surface-container-high transition-colors active:scale-95 transition-transform p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">close</span>
+</button>
+<h1 class="font-headline-md text-headline-md-mobile md:text-headline-md text-primary dark:text-primary-fixed">Daily Check-in</h1>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline flex-shrink-0">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A close up, soft focus portrait of a young woman with a warm, natural expression. The lighting is bright, editorial, and flattering, emphasizing a healthy glow. Minimalist white background, high key lighting, conveying health, calm, and wellness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgQ9Yl2dNVpUxLUe_vnl4rSmirZi6eMseiZOJKYwoycoecgy7KkZBZsMJYhBeYB3bOUZz__HZLLsvMDxY7sPbvvDPaSYZ6AjedW9UceU7USEkzm7K-q7Vw8n5GkAl5VLy-DFjtIxfbE1BXJ3Uz5tgBuotcwkDoPWl8auzikQ-E0SWnMG43UmqsjFlr45Ynilaov-naM8zK7MvR-CU2gu-v4moyfZpDWqEXfA0twoS8xROa5umelEU"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-24 px-margin-mobile md:px-margin-desktop max-w-dashboard mx-auto space-y-xl pb-32">
+<!-- Section 1: Mood -->
+<section class="space-y-lg">
+<h2 class="font-title-md text-title-md text-on-surface">How are you feeling today?</h2>
+<div class="flex gap-4 overflow-x-auto hide-scrollbar pb-2 pt-1 -mx-margin-mobile px-margin-mobile md:mx-0 md:px-0 md:flex-wrap">
+<!-- Mood Buttons -->
+<button class="mood-btn flex flex-col items-center justify-center gap-2 min-w-[80px] h-[100px] bg-surface-container-lowest border-1.5 border-outline rounded-2xl transition-all duration-200 hover:border-primary shrink-0 selected" onclick="toggleMood(this)">
+<span class="material-symbols-outlined text-[32px] text-tertiary">sentiment_satisfied</span>
+<span class="font-body-base text-body-base text-on-surface-variant">Calm</span>
+</button>
+<button class="mood-btn flex flex-col items-center justify-center gap-2 min-w-[80px] h-[100px] bg-surface-container-lowest border border-outline rounded-2xl transition-all duration-200 hover:border-primary shrink-0" onclick="toggleMood(this)">
+<span class="material-symbols-outlined text-[32px] text-tertiary">bolt</span>
+<span class="font-body-base text-body-base text-on-surface-variant">Energetic</span>
+</button>
+<button class="mood-btn flex flex-col items-center justify-center gap-2 min-w-[80px] h-[100px] bg-surface-container-lowest border border-outline rounded-2xl transition-all duration-200 hover:border-primary shrink-0" onclick="toggleMood(this)">
+<span class="material-symbols-outlined text-[32px] text-tertiary">bedtime</span>
+<span class="font-body-base text-body-base text-on-surface-variant">Tired</span>
+</button>
+<button class="mood-btn flex flex-col items-center justify-center gap-2 min-w-[80px] h-[100px] bg-surface-container-lowest border border-outline rounded-2xl transition-all duration-200 hover:border-primary shrink-0" onclick="toggleMood(this)">
+<span class="material-symbols-outlined text-[32px] text-tertiary">sentiment_dissatisfied</span>
+<span class="font-body-base text-body-base text-on-surface-variant">Anxious</span>
+</button>
+<button class="mood-btn flex flex-col items-center justify-center gap-2 min-w-[80px] h-[100px] bg-surface-container-lowest border border-outline rounded-2xl transition-all duration-200 hover:border-primary shrink-0" onclick="toggleMood(this)">
+<span class="material-symbols-outlined text-[32px] text-tertiary">sentiment_very_satisfied</span>
+<span class="font-body-base text-body-base text-on-surface-variant">Joyful</span>
+</button>
+</div>
+</section>
+<!-- Section 2: Symptoms -->
+<section class="space-y-lg">
+<h2 class="font-title-md text-title-md text-on-surface">Any symptoms?</h2>
+<div class="flex flex-wrap gap-3">
+<button class="symptom-pill px-5 py-2.5 bg-surface-container-lowest border border-outline rounded-full font-body-base text-body-base text-on-surface-variant transition-all duration-200 hover:border-secondary" onclick="toggleSymptom(this)">Cramps</button>
+<button class="symptom-pill px-5 py-2.5 bg-surface-container-lowest border border-outline rounded-full font-body-base text-body-base text-on-surface-variant transition-all duration-200 hover:border-secondary selected" onclick="toggleSymptom(this)">Bloating</button>
+<button class="symptom-pill px-5 py-2.5 bg-surface-container-lowest border border-outline rounded-full font-body-base text-body-base text-on-surface-variant transition-all duration-200 hover:border-secondary" onclick="toggleSymptom(this)">Headache</button>
+<button class="symptom-pill px-5 py-2.5 bg-surface-container-lowest border border-outline rounded-full font-body-base text-body-base text-on-surface-variant transition-all duration-200 hover:border-secondary" onclick="toggleSymptom(this)">Acne</button>
+<button class="symptom-pill px-5 py-2.5 bg-surface-container-lowest border border-outline rounded-full font-body-base text-body-base text-on-surface-variant transition-all duration-200 hover:border-secondary" onclick="toggleSymptom(this)">Backache</button>
+</div>
+</section>
+<!-- Section 3: Notes -->
+<section class="space-y-sm">
+<label class="block font-title-md text-title-md text-on-surface mb-2" for="notes">Notes for Maya</label>
+<div class="relative">
+<textarea class="w-full bg-surface-container-lowest border border-outline rounded-2xl p-4 font-body-base text-body-base text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all resize-none shadow-sm" id="notes" placeholder="Jot down anything else you're feeling..." rows="4"></textarea>
+</div>
+</section>
+<div class="pt-4 flex justify-end">
+<button class="bg-primary text-on-primary font-body-bold text-body-bold py-3 px-8 rounded-full hover:bg-surface-tint transition-colors w-full md:w-auto h-[50px] shadow-sm">
+                Save Check-in
+            </button>
+</div>
+</main>
+<script>
+        function toggleMood(btn) {
+            // Deselect others if exclusive choice desired, or allow multiple. Assuming exclusive for mood.
+            document.querySelectorAll('.mood-btn').forEach(b => {
+                b.classList.remove('selected', 'border-primary', 'bg-primary-container');
+                b.classList.add('border-outline', 'bg-surface-container-lowest');
+                b.querySelector('span:first-child').classList.remove('text-primary');
+                b.querySelector('span:first-child').classList.add('text-tertiary');
+                b.querySelector('span:last-child').classList.remove('text-primary', 'font-body-bold');
+                b.querySelector('span:last-child').classList.add('text-on-surface-variant', 'font-body-base');
+            });
+            
+            btn.classList.add('selected');
+            btn.classList.remove('border-outline', 'bg-surface-container-lowest');
+            // Using inline classes for selected state to match tailwind
+            btn.classList.add('border-primary', 'bg-primary-container');
+            btn.querySelector('span:first-child').classList.remove('text-tertiary');
+            btn.querySelector('span:first-child').classList.add('text-primary');
+            btn.querySelector('span:last-child').classList.remove('text-on-surface-variant', 'font-body-base');
+            btn.querySelector('span:last-child').classList.add('text-primary', 'font-body-bold');
+        }
+
+        function toggleSymptom(btn) {
+            btn.classList.toggle('selected');
+            if(btn.classList.contains('selected')) {
+                btn.classList.remove('border-outline', 'bg-surface-container-lowest', 'text-on-surface-variant');
+                btn.classList.add('border-secondary', 'bg-secondary-container', 'text-on-secondary-container', 'font-body-bold');
+            } else {
+                btn.classList.add('border-outline', 'bg-surface-container-lowest', 'text-on-surface-variant');
+                btn.classList.remove('border-secondary', 'bg-secondary-container', 'text-on-secondary-container', 'font-body-bold');
+            }
+        }
+        
+        // Initialize selected states
+        document.querySelectorAll('.mood-btn.selected').forEach(toggleMood);
+        document.querySelectorAll('.symptom-pill.selected').forEach(btn => {
+            btn.classList.remove('selected'); // hack to force toggle
+            toggleSymptom(btn);
+        });
+    </script>
+</body></html>

@@ -48,7 +48,7 @@ def route_request(payload: dict) -> dict:
             "structured": structured,
         }
 
-    # Step 3: Route only after each agent's isolated tests pass.
+        # Step 3: Route only after each agent's isolated tests pass.
     lowered = user_message.lower()
     if payload.get("ocr_text") or payload.get("file_path") or any(word in lowered for word in ("report", "lab result", "hemoglobin", "thyroid")):
         result = report_reader_agent.run({
@@ -65,6 +65,29 @@ def route_request(payload: dict) -> dict:
             "cycle_history": payload.get("cycle_history", {}),
             "language": payload.get("language", "English"),
         })
+
+    if "reply" not in result:
+        if result.get("error"):
+            result["reply"] = result["error"]
+        elif result.get("agent") == "care_plan" and result.get("actions"):
+            result["reply"] = (
+                "Here's some general guidance based on what you've shared:\n\n"
+                + "\n".join(f"• {a}" for a in result["actions"])
+                + f"\n\n{result.get('disclaimer', '')}"
+            ).strip()
+        elif result.get("agent") == "report_reader" and result.get("findings") is not None:
+            findings = result["findings"]
+            if findings:
+                lines = [f"• {f.get('test', '?')}: {f.get('value', '?')} {f.get('unit', '')}".strip() for f in findings[:10]]
+                result["reply"] = (
+                    "Here's what I found in your report:\n\n" + "\n".join(lines)
+                    + f"\n\n{result.get('interpretation', '')}"
+                ).strip()
+            else:
+                result["reply"] = "I couldn't extract specific values from that report — please try a clearer photo, or share the values as text."
+        else:
+            result["reply"] = "Thanks — I've noted this."
+
     return {
         **result,
         "escalation": escalation_result,

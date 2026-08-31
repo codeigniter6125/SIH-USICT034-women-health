@@ -1,0 +1,362 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-width=1.0" name="viewport">
+<title>She Care - Profile &amp; Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&amp;family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed": "#caebd0",
+                      "error-container": "#ffdad6",
+                      "surface-container-high": "#ebe8e3",
+                      "surface-container": "#f1ede8",
+                      "primary": "#8c4a2f",
+                      "outline-variant": "#d9c2ba",
+                      "error": "#ba1a1a",
+                      "primary-fixed-dim": "#ffb599",
+                      "on-surface": "#1c1c19",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-fixed-variant": "#304d39",
+                      "tertiary-fixed": "#ffdbce",
+                      "on-tertiary-fixed": "#2d150c",
+                      "on-secondary-fixed": "#042110",
+                      "surface-tint": "#8f4c31",
+                      "on-error": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "inverse-on-surface": "#f4f0eb",
+                      "tertiary-container": "#906c5f",
+                      "inverse-surface": "#31302d",
+                      "on-primary-fixed": "#370e00",
+                      "surface-container-low": "#f7f3ee",
+                      "primary-fixed": "#ffdbce",
+                      "on-secondary-container": "#4e6b56",
+                      "background": "#fdf9f4",
+                      "inverse-primary": "#ffb599",
+                      "tertiary": "#755447",
+                      "outline": "#D4C8BB",
+                      "primary-container": "#aa6244",
+                      "surface-variant": "#e6e2dd",
+                      "surface": "#fdf9f4",
+                      "secondary-container": "#caebd0",
+                      "surface-container-highest": "#e6e2dd",
+                      "on-surface-variant": "#6E655C",
+                      "escalation-container": "#FAEAE6",
+                      "on-error-container": "#93000a",
+                      "on-tertiary-fixed-variant": "#5e4034",
+                      "on-primary-fixed-variant": "#72351c",
+                      "secondary-fixed-dim": "#aeceb5",
+                      "on-background": "#1c1c19",
+                      "escalation": "#C2452E",
+                      "tertiary-fixed-dim": "#e8bdad",
+                      "surface-dim": "#ddd9d5",
+                      "on-tertiary-container": "#fffbff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "secondary": "#486550",
+                      "surface-bright": "#fdf9f4",
+                      "on-primary-container": "#fffbff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px",
+                      "2xl": "1.25rem"
+              },
+              "spacing": {
+                      "gutter": "16px",
+                      "lg": "24px",
+                      "max-width-dashboard": "840px",
+                      "xl": "32px",
+                      "max-width-mobile": "480px",
+                      "sm": "8px",
+                      "base-unit": "4px",
+                      "md": "16px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "32px",
+                      "xs": "4px"
+              },
+              "fontFamily": {
+                      "body-base": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-md": [
+                              "Fraunces"
+                      ],
+                      "headline-lg": [
+                              "Fraunces"
+                      ],
+                      "title-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "label-caps": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-bold": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "display-lg": [
+                              "Fraunces"
+                      ],
+                      "headline-lg-mobile": [
+                              "Fraunces"
+                      ]
+              },
+              "fontSize": {
+                      "body-base": [
+                              "15px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "17px",
+                              {
+                                      "lineHeight": "26px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.015em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "title-md": [
+                              "18px",
+                              {
+                                      "lineHeight": "26px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.04em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-bold": [
+                              "15px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            -webkit-font-smoothing: antialiased;
+        }
+        /* Hide scrollbar for clean mobile look */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+      </style>
+</head>
+<body class="min-h-screen pb-24 md:pb-0 flex flex-col items-center">
+<!-- TopAppBar -->
+<header class="bg-background dark:bg-surface w-full top-0 sticky border-b border-outline-variant dark:border-outline flat no shadows z-40">
+<div class="flex items-center justify-between px-margin-mobile py-sm w-full max-w-max-width-mobile mx-auto md:max-w-max-width-dashboard md:px-margin-desktop">
+<button class="text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low transition-colors active:scale-95 transition-transform p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim">Profile &amp; Settings</h1>
+<button class="text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low transition-colors active:scale-95 transition-transform p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="w-full max-w-max-width-mobile md:max-w-max-width-dashboard px-margin-mobile md:px-margin-desktop mt-lg flex flex-col gap-lg">
+<!-- User Profile Header -->
+<section class="flex flex-col items-center justify-center pt-md pb-lg">
+<div class="relative w-24 h-24 rounded-full overflow-hidden mb-sm border-2 border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A gentle and warm portrait of an Indian woman in her late twenties, slightly smiling, wearing a soft terracotta colored top. Natural lighting, soft focus background, editorial and minimalist style, conveying trust and calm." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQyDxidt5r2_r2fH-Q-rbrDyjeX_We15v4pmJfDCEo55zMw3BkukNPVIqnrKhAIHzW-jC1R6vx4_mBdThHIbZZn74d4zlGY0WQAUf0pCo75Q3KNObDzSxZ1DRS5W1WpUsC8WAhYj1L-ibH1YpLvR07_mzfPrjBWdhafF8nlNdzn1JLbk7UlooQOelupNLdD8yXk46MAV3n8imMAf_7UqL1Qofl2yR0bqO3VRmNHIC-UcB0je6tPDA">
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Priya Sharma</h2>
+<p class="font-body-base text-body-base text-on-surface-variant mt-1">Age 29 • Female</p>
+</section>
+<!-- Account Settings Section -->
+<section>
+<h3 class="font-title-md text-title-md text-primary mb-sm px-2">Account</h3>
+<div class="bg-surface-container-lowest rounded-2xl border border-outline p-2 shadow-[0_2px_8px_rgba(43,38,32,0.04)] flex flex-col gap-1">
+<button class="w-full flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low transition-colors active:scale-95 transition-transform group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</div>
+<span class="font-body-bold text-body-bold text-on-surface">Personal Details</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</button>
+<div class="w-full h-[1px] bg-outline-variant opacity-50 ml-12 pr-4"></div>
+<button class="w-full flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low transition-colors active:scale-95 transition-transform group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined" data-icon="contact_mail">contact_mail</span>
+</div>
+<span class="font-body-bold text-body-bold text-on-surface">Contact Information</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</button>
+<div class="w-full h-[1px] bg-outline-variant opacity-50 ml-12 pr-4"></div>
+<button class="w-full flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low transition-colors active:scale-95 transition-transform group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined" data-icon="language">language</span>
+</div>
+<div class="flex flex-col items-start">
+<span class="font-body-bold text-body-bold text-on-surface">Language Preferences</span>
+<span class="font-body-base text-body-base text-on-surface-variant text-sm">English</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</section>
+<!-- Health Preferences Section -->
+<section>
+<h3 class="font-title-md text-title-md text-primary mb-sm px-2">Health &amp; Care</h3>
+<div class="bg-surface-container-lowest rounded-2xl border border-outline p-2 shadow-[0_2px_8px_rgba(43,38,32,0.04)] flex flex-col gap-1">
+<button class="w-full flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low transition-colors active:scale-95 transition-transform group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined" data-icon="cycle">cycle</span>
+</div>
+<span class="font-body-bold text-body-bold text-on-surface">Cycle Tracking Preferences</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</button>
+<div class="w-full h-[1px] bg-outline-variant opacity-50 ml-12 pr-4"></div>
+<button class="w-full flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low transition-colors active:scale-95 transition-transform group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+</div>
+<span class="font-body-bold text-body-bold text-on-surface">Emergency Contacts</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</button>
+<div class="w-full h-[1px] bg-outline-variant opacity-50 ml-12 pr-4"></div>
+<button class="w-full flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low transition-colors active:scale-95 transition-transform group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</div>
+<span class="font-body-bold text-body-bold text-on-surface">Notification Alerts</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</section>
+<!-- Data & Privacy Section -->
+<section class="mb-lg">
+<h3 class="font-title-md text-title-md text-primary mb-sm px-2">Data &amp; Privacy</h3>
+<div class="bg-surface-container-lowest rounded-2xl border border-outline p-2 shadow-[0_2px_8px_rgba(43,38,32,0.04)] flex flex-col gap-1">
+<button class="w-full flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low transition-colors active:scale-95 transition-transform group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+</div>
+<span class="font-body-bold text-body-bold text-on-surface">Download My Data</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</button>
+<div class="w-full h-[1px] bg-outline-variant opacity-50 ml-12 pr-4"></div>
+<button class="w-full flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low transition-colors active:scale-95 transition-transform group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined" data-icon="policy">policy</span>
+</div>
+<span class="font-body-bold text-body-bold text-on-surface">Privacy Policy</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant" data-icon="chevron_right">chevron_right</span>
+</button>
+<div class="w-full h-[1px] bg-outline-variant opacity-50 ml-12 pr-4"></div>
+<button class="w-full flex items-center justify-between p-3 rounded-lg hover:bg-escalation-container transition-colors active:scale-95 transition-transform group mt-1">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-tertiary group-hover:text-escalation transition-colors">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+</div>
+<span class="font-body-bold text-body-bold text-tertiary group-hover:text-escalation transition-colors">Logout</span>
+</div>
+</button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Hidden on Desktop, Visible on Mobile) -->
+<!-- The nav shell is suppressed on linear/task-focused flows, but the prompt explicitly requests it for continuity, 
+         though notes "ensure none are 'active' or perhaps 'Home' is inactive as we are in a sub-page". 
+         Following semantic mapping, Profile/Settings isn't a top-level tab here, so all items will be inactive. -->
+<nav class="bg-surface dark:bg-surface-container-highest font-label-caps text-label-caps fixed bottom-0 w-full z-50 rounded-t-xl border-t border-outline-variant dark:border-outline shadow-sm flex justify-around items-center h-16 w-full max-w-max-width-mobile mx-auto px-4 md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-container transition-colors active:scale-90 transition-transform rounded-full" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="home">home</span>
+<span class="">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-container transition-colors active:scale-90 transition-transform rounded-full" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="Table_View">qr_code_2</span>
+<span class="">Cycle</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-container transition-colors active:scale-90 transition-transform rounded-full" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="description">description</span>
+<span class="">Reports</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-on-surface-variant px-4 py-1 hover:bg-surface-container transition-colors active:scale-90 transition-transform rounded-full" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="chat_bubble">chat_bubble</span>
+<span class="">Chat</span>
+</a>
+</nav>
+
+
+</body></html>

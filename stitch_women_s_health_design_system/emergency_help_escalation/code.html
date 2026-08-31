@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Emergency Help | आपातकालीन सहायता - Sangini</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;600&amp;family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed": "#caebd0",
+                      "on-tertiary-fixed": "#2d150c",
+                      "on-surface": "#2B2620",
+                      "primary-container": "#F6EAE4",
+                      "tertiary-container": "#906c5f",
+                      "outline-variant": "#d9c2ba",
+                      "background": "#fdf9f4",
+                      "on-background": "#1c1c19",
+                      "primary-fixed": "#ffdbce",
+                      "inverse-primary": "#ffb599",
+                      "surface-tint": "#8f4c31",
+                      "escalation": "#C2452E",
+                      "tertiary-fixed-dim": "#e8bdad",
+                      "on-tertiary-container": "#fffbff",
+                      "escalation-container": "#FAEAE6",
+                      "surface-container": "#f1ede8",
+                      "tertiary": "#755447",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-surface": "#31302d",
+                      "on-primary-container": "#fffbff",
+                      "surface": "#fdf9f4",
+                      "surface-container-highest": "#e6e2dd",
+                      "on-surface-variant": "#6E655C",
+                      "surface-bright": "#fdf9f4",
+                      "error": "#ba1a1a",
+                      "on-secondary": "#ffffff",
+                      "secondary-container": "#caebd0",
+                      "tertiary-fixed": "#ffdbce",
+                      "on-primary-fixed-variant": "#72351c",
+                      "on-error": "#ffffff",
+                      "on-tertiary-fixed-variant": "#5e4034",
+                      "primary-fixed-dim": "#ffb599",
+                      "inverse-on-surface": "#f4f0eb",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-low": "#f7f3ee",
+                      "secondary": "#486550",
+                      "on-error-container": "#93000a",
+                      "on-secondary-fixed": "#042110",
+                      "outline": "#D4C8BB",
+                      "on-secondary-container": "#4e6b56",
+                      "error-container": "#ffdad6",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed": "#370e00",
+                      "surface-variant": "#e6e2dd",
+                      "secondary-fixed-dim": "#aeceb5",
+                      "on-secondary-fixed-variant": "#304d39",
+                      "surface-container-high": "#ebe8e3",
+                      "primary": "#8c4a2f",
+                      "surface-dim": "#ddd9d5"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xs": "4px",
+                      "xl": "32px",
+                      "margin-mobile": "16px",
+                      "sm": "8px",
+                      "gutter": "16px",
+                      "md": "16px",
+                      "max-width-dashboard": "840px",
+                      "max-width-mobile": "480px",
+                      "lg": "24px",
+                      "margin-desktop": "32px",
+                      "base-unit": "4px"
+              },
+              "fontFamily": {
+                      "headline-md": [
+                              "Fraunces"
+                      ],
+                      "title-md": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "display-lg": [
+                              "Fraunces"
+                      ],
+                      "headline-lg-mobile": [
+                              "Fraunces"
+                      ],
+                      "label-caps": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-bold": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "body-base": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-lg": [
+                              "Fraunces"
+                      ]
+              },
+              "fontSize": {
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "title-md": [
+                              "18px",
+                              {
+                                      "lineHeight": "26px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.04em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-bold": [
+                              "15px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "17px",
+                              {
+                                      "lineHeight": "26px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-base": [
+                              "15px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.015em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-surface antialiased flex flex-col min-h-screen">
+<!-- TopAppBar from JSON -->
+<header class="bg-escalation-container dark:bg-escalation-container text-escalation dark:text-escalation border-b border-outline-variant full-width top-0 z-40 sticky">
+<div class="flex justify-between items-center w-full px-margin-mobile h-16 max-w-max-width-dashboard mx-auto">
+<button class="hover:bg-escalation-container/50 active:scale-95 transition-transform p-2 -ml-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-escalation" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-escalation dark:text-escalation text-center flex-1 mx-4 truncate">Emergency Help | आपातकालीन सहायता</h1>
+<button class="hover:bg-escalation-container/50 active:scale-95 transition-transform p-2 -mr-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-escalation" data-icon="info">info</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-max-width-dashboard mx-auto px-margin-mobile py-lg md:py-margin-desktop mb-[80px] md:mb-0 flex flex-col gap-lg">
+<!-- Primary Escalation Action Area -->
+<section class="flex flex-col gap-md items-center justify-center text-center mt-md mb-xl">
+<div class="w-24 h-24 bg-escalation-container rounded-full flex items-center justify-center mb-sm shadow-sm animate-pulse">
+<span class="material-symbols-outlined text-[48px] text-escalation" data-icon="emergency" data-weight="fill" style="font-variation-settings: 'FILL' 1;">emergency</span>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-[400px]">
+                If you are experiencing a medical emergency, request help immediately.<br/>
+<span class="font-body-base text-body-base opacity-80 mt-1 block">यदि आप एक चिकित्सा आपात स्थिति का अनुभव कर रहे हैं, तो तुरंत सहायता का अनुरोध करें।</span>
+</p>
+<button class="mt-sm w-full md:w-auto min-h-[64px] bg-escalation text-white rounded-full px-8 py-4 flex flex-col items-center justify-center shadow-[0_4px_12px_rgba(194,69,46,0.25)] hover:bg-[#a63925] active:scale-[0.98] transition-all relative overflow-hidden group">
+<div class="absolute inset-0 bg-white/20 w-full h-full -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
+<div class="flex items-center gap-2 z-10">
+<span class="material-symbols-outlined" data-icon="phone_in_talk" data-weight="fill" style="font-variation-settings: 'FILL' 1;">phone_in_talk</span>
+<span class="font-title-md text-title-md">Call Helpline</span>
+</div>
+<span class="font-body-bold text-body-bold text-white/90 mt-0.5 z-10">हेल्पलाइन को कॉल करें</span>
+</button>
+</section>
+<!-- Secondary Actions Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Find Hospital -->
+<button class="bg-surface-container-lowest border-[1.5px] border-outline hover:border-surface-tint hover:bg-surface-container-low transition-colors rounded-2xl p-lg flex items-start gap-md text-left active:scale-[0.99]">
+<div class="w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex flex-shrink-0 items-center justify-center">
+<span class="material-symbols-outlined" data-icon="local_hospital">local_hospital</span>
+</div>
+<div class="flex flex-col gap-1 pt-1">
+<span class="font-title-md text-title-md text-on-surface">Find Nearest Hospital</span>
+<span class="font-body-base text-body-base text-on-surface-variant">नजदीकी अस्पताल खोजें</span>
+</div>
+</button>
+<!-- Share Location -->
+<button class="bg-surface-container-lowest border-[1.5px] border-outline hover:border-surface-tint hover:bg-surface-container-low transition-colors rounded-2xl p-lg flex items-start gap-md text-left active:scale-[0.99]">
+<div class="w-12 h-12 rounded-full bg-primary-container text-primary flex flex-shrink-0 items-center justify-center">
+<span class="material-symbols-outlined" data-icon="share_location">share_location</span>
+</div>
+<div class="flex flex-col gap-1 pt-1">
+<span class="font-title-md text-title-md text-on-surface">Share Location with Contact</span>
+<span class="font-body-base text-body-base text-on-surface-variant">आपातकालीन संपर्क के साथ स्थान साझा करें</span>
+</div>
+</button>
+</section>
+<!-- Guidance Section -->
+<section class="bg-surface-container border-[1.5px] border-outline-variant rounded-2xl p-lg mt-md">
+<div class="flex items-center gap-sm mb-md">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="list_alt">list_alt</span>
+<h2 class="font-title-md text-title-md text-on-surface">What to do next | आगे क्या करें</h2>
+</div>
+<ul class="flex flex-col gap-md">
+<li class="flex items-start gap-sm">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="font-label-caps text-label-caps">1</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-bold text-body-bold text-on-surface">Stay calm and find a safe spot.</span>
+<span class="font-body-base text-body-base text-on-surface-variant">शांत रहें और एक सुरक्षित स्थान खोजें।</span>
+</div>
+</li>
+<li class="flex items-start gap-sm">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="font-label-caps text-label-caps">2</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-bold text-body-bold text-on-surface">Keep your ID and medical information ready.</span>
+<span class="font-body-base text-body-base text-on-surface-variant">अपना आईडी और चिकित्सा जानकारी तैयार रखें।</span>
+</div>
+</li>
+<li class="flex items-start gap-sm">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest text-on-surface-variant flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="font-label-caps text-label-caps">3</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-bold text-body-bold text-on-surface">Clearly share your symptoms with the responder.</span>
+<span class="font-body-base text-body-base text-on-surface-variant">जवाब देने वाले को अपने लक्षण स्पष्ट रूप से बताएं।</span>
+</div>
+</li>
+</ul>
+</section>
+</main>
+<!-- BottomNavBar from JSON - visible on mobile md:hidden -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 bg-surface dark:bg-surface-container border-t border-outline-variant shadow-sm flex justify-around items-center px-4 py-2">
+<!-- Inactive: Home -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high rounded-xl" href="#">
+<span class="material-symbols-outlined text-escalation dark:text-escalation" data-icon="home">home</span>
+<span class="font-label-caps text-label-caps mt-1">Home</span>
+</a>
+<!-- Active: Helplines (Closest match to Emergency Help) -->
+<a class="flex flex-col items-center justify-center bg-escalation-container text-escalation rounded-xl px-4 py-1 hover:bg-surface-container-high scale-90 transition-all" href="#">
+<span class="material-symbols-outlined text-escalation dark:text-escalation" data-icon="phone_in_talk">phone_in_talk</span>
+<span class="font-label-caps text-label-caps mt-1">Helplines</span>
+</a>
+<!-- Inactive: Nearby -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-high rounded-xl" href="#">
+<span class="material-symbols-outlined text-escalation dark:text-escalation" data-icon="location_on">location_on</span>
+<span class="font-label-caps text-label-caps mt-1">Nearby</span>
+</a>
+</nav>
+<style>
+        @keyframes shimmer {
+            100% {
+                transform: translateX(100%);
+            }
+        }
+    </style>
+</body></html>
