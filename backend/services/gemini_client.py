@@ -15,7 +15,7 @@ except ImportError:  # Allows local rule-based tests without optional LLM depend
     genai = None
 
 _configured = False
-MODEL_NAME = "gemini-3.6-flash"
+MODEL_NAME = "gemini-1.5-flash"
 
 
 def _ensure_configured():
@@ -33,32 +33,38 @@ def _ensure_configured():
 def call_gemini_structured(prompt: str) -> dict:
     """
     Sends a prompt to Gemini and expects a JSON object back.
-
-    Args:
-        prompt: the full prompt text, should explicitly ask the model to
-                 return ONLY valid JSON (no markdown fences, no preamble).
-
-    Returns:
-        Parsed dict from the model's JSON response.
-
-    Raises:
-        RuntimeError if GEMINI_API_KEY is missing.
-        json.JSONDecodeError if the model didn't return valid JSON (caller
-        should catch this and handle gracefully rather than crash the agent).
     """
     _ensure_configured()
 
-    model = genai.GenerativeModel(MODEL_NAME)
-    response = model.generate_content(
-        prompt,
-        generation_config={"response_mime_type": "application/json"},
-    )
+    try:
+        model = genai.GenerativeModel(MODEL_NAME)
+        response = model.generate_content(
+            prompt,
+            generation_config={"response_mime_type": "application/json"},
+            request_options={"timeout": 10},
+        )
 
-    text = response.text.strip()
-    # Defensive: strip markdown code fences if the model adds them anyway.
-    if text.startswith("```"):
-        text = text.strip("`")
-        if text.startswith("json"):
-            text = text[4:].strip()
+        text = response.text.strip()
+        if text.startswith("```"):
+            text = text.strip("`")
+            if text.startswith("json"):
+                text = text[4:].strip()
 
-    return json.loads(text)
+        return json.loads(text)
+    except Exception as exc:
+        # If gemini-1.5-flash is not found or fails, try gemini-2.0-flash
+        try:
+            fallback_model = genai.GenerativeModel("gemini-2.0-flash")
+            response = fallback_model.generate_content(
+                prompt,
+                generation_config={"response_mime_type": "application/json"},
+                request_options={"timeout": 10},
+            )
+            text = response.text.strip()
+            if text.startswith("```"):
+                text = text.strip("`")
+                if text.startswith("json"):
+                    text = text[4:].strip()
+            return json.loads(text)
+        except Exception:
+            raise exc
