@@ -40,15 +40,31 @@ def run(payload: dict) -> dict:
         from services.gemini_client import call_gemini_structured
 
         if chunks:
-            prompt = f"""You are the Cycle Agent for a women's health app.
-Answer the user's question using ONLY the retrieved public guidance below.
-Do not diagnose, prescribe, or claim certainty. Explain what to track and when to
-seek professional care. Use the requested language: {payload.get('language', 'English')}.
-Return JSON with exactly these keys: reply (string), safety_note (string),
-follow_up_questions (array of strings), sources (array of integers).
-User question: {message}
-Cycle history, if provided: {cycle_history}
-Retrieved guidance:\n{format_context(chunks)}"""
+            prompt = f"""You are the Cycle Agent for a women's health app. A user has asked a specific question.
+
+USER'S QUESTION: {message}
+
+User's cycle history (if any): {cycle_history}
+
+Retrieved public guidance for reference:
+{format_context(chunks)}
+
+Your job: Answer the user's SPECIFIC question directly and concisely.
+- Address exactly what the user asked — do NOT give generic advice unrelated to their question.
+- If they describe a symptom, explain what it could mean and what they can do about it.
+- If they ask about timing, give specific day ranges or patterns.
+- Be warm and conversational, not clinical.
+- Mention when to see a doctor if genuinely relevant.
+- Do NOT diagnose or prescribe.
+- Language to use: {payload.get('language', 'English')}
+
+Return JSON with exactly these keys:
+{{
+  "reply": "Direct, specific answer to the user's question (2-4 sentences minimum)",
+  "safety_note": "When to seek professional care, if relevant (empty string if not needed)",
+  "follow_up_questions": ["relevant follow-up question 1", "question 2"],
+  "sources": [list of source index numbers used, e.g. [1, 2]]
+}}"""
             grounded = call_gemini_structured(prompt)
             if isinstance(grounded, dict) and grounded.get("reply"):
                 response = grounded["reply"]

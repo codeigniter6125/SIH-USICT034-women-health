@@ -5,7 +5,7 @@ pydantic
 python-multipart
 
 # Agent / LLM
-google-generativeai
+google-genai
 
 # OCR & image preprocessing
 google-cloud-vision

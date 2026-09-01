@@ -70,11 +70,16 @@ def route_request(payload: dict) -> dict:
         if result.get("error"):
             result["reply"] = result["error"]
         elif result.get("agent") == "care_plan" and result.get("actions"):
-            result["reply"] = (
-                "Here's some general guidance based on what you've shared:\n\n"
-                + "\n".join(f"• {a}" for a in result["actions"])
-                + f"\n\n{result.get('disclaimer', '')}"
-            ).strip()
+            # Use AI-generated reply paragraph if available, else format action bullets
+            if result.get("reply"):
+                pass  # reply already set by Gemini
+            else:
+                actions_text = "\n".join(f"• {a}" for a in result["actions"])
+                seek_note = "\n\n⚕️ Please consult a doctor for your symptoms." if result.get("seek_doctor") else ""
+                result["reply"] = (
+                    f"Based on what you've shared:\n\n{actions_text}{seek_note}"
+                    + f"\n\n{result.get('disclaimer', '')}"
+                ).strip()
         elif result.get("agent") == "report_reader" and result.get("findings") is not None:
             findings = result["findings"]
             if findings:
