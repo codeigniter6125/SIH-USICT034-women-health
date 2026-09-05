@@ -237,29 +237,65 @@
         "duration": "",
         "severity": "unknown",
         "flags": []
+      },
+      {
+        "user_phone": "+919876543210",
+        "symptoms": [
+          "Cramps",
+          "Fatigue"
+        ],
+        "raw_message": "Mood: Calm. Symptoms: Cramps, Fatigue. Notes: Feeling a little bit tired after work",
+        "duration": "",
+        "severity": "mild",
+        "flags": [
+          "mild_cramping"
+        ]
+      },
+      {
+        "date": "2026-09-06",
+        "symptom": "Cramps"
+      },
+      {
+        "date": "2026-09-06",
+        "symptom": "Fatigue"
+      },
+      {
+        "user_phone": "+919876543210",
+        "symptoms": [
+          "chest pain",
+          "heavy bleeding"
+        ],
+        "raw_message": "severe chest pain and uncontrollable heavy bleeding",
+        "duration": "",
+        "severity": "severe",
+        "flags": [
+          "heavy_bleeding",
+          "severe_pain_or_fainting_or_heavy_bleeding"
+        ]
+      },
+      {
+        "user_phone": "+919876543210",
+        "symptoms": [],
+        "raw_message": "Hello Maya, I want to know more about the luteal phase",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
+      },
+      {
+        "user_phone": "+919876543210",
+        "symptoms": [
+          "tiredness"
+        ],
+        "raw_message": "Hello Maya, I am feeling tired today",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
       }
     ],
     "latest_mood": "Calm",
     "last_cycle_interaction": {
-      "sources": [
-        {
-          "title": "WHO — Menstrual health",
-          "url": "https://www.who.int/news-room/fact-sheets/detail/menstrual-health"
-        },
-        {
-          "title": "UNICEF — Guidance on Menstrual Health and Hygiene",
-          "url": "https://www.unicef.org/documents/guidance-menstrual-health-and-hygiene"
-        },
-        {
-          "title": "ACOG — Heavy and Abnormal Periods",
-          "url": "https://www.acog.org/womens-health/faqs/heavy-and-abnormal-periods"
-        },
-        {
-          "title": "ACOG — Heavy and Abnormal Periods",
-          "url": "https://www.acog.org/womens-health/faqs/heavy-and-abnormal-periods"
-        }
-      ],
-      "message": "Hello Maya, I want to know more about the luteal phase"
+      "sources": [],
+      "message": "Hello Maya, I am feeling tired today"
     },
     "care_plans": [
       {
@@ -330,8 +366,8 @@
         "context_used": {
           "symptoms": "cramps, fatigue",
           "symptom_count": 2,
-          "report_count": 8,
           "severity": "mild",
+          "report_count": 8,
           "has_cycle_history": false
         },
         "stage": "low",
@@ -351,8 +387,8 @@
         "context_used": {
           "symptoms": "Cramps, Fatigue",
           "symptom_count": 2,
-          "severity": "mild",
           "report_count": 4,
+          "severity": "mild",
           "has_cycle_history": false
         },
         "stage": "low",
@@ -372,8 +408,8 @@
         "context_used": {
           "symptoms": "Cramps, Fatigue",
           "symptom_count": 2,
-          "report_count": 4,
           "severity": "mild",
+          "report_count": 4,
           "has_cycle_history": false
         },
         "stage": "low",
@@ -388,6 +424,27 @@
         "seek_doctor": false,
         "disclaimer": "This is general wellness information, not a diagnosis or prescription.",
         "agent": "care_plan"
+      },
+      {
+        "context_used": {
+          "symptoms": "Cramps, Fatigue",
+          "symptom_count": 2,
+          "report_count": 4,
+          "severity": "mild",
+          "has_cycle_history": false
+        },
+        "stage": "low",
+        "reply": "I hear you, dealing with mild cramps and fatigue can really take the wind out of your sails. Since you're already keeping track of your health through previous reports, let's focus on some gentle, immediate ways to help your body recharge and find some relief right at home.",
+        "urgency": "low",
+        "actions": [
+          "Apply a warm heating pad or take a warm bath to help relax the muscles causing those mild cramps.",
+          "Brew a soothing cup of ginger or peppermint tea to help ease any underlying tension and hydrate.",
+          "Find a comfortable spot to rest your feet up for 20 minutes, allowing your body to gently combat that fatigue.",
+          "Eat a small, iron-friendly snack like a handful of pumpkin seeds or dark chocolate if your energy is dipping."
+        ],
+        "seek_doctor": false,
+        "disclaimer": "This is general wellness information, not a diagnosis or prescription.",
+        "agent": "care_plan"
       }
     ],
     "cycle_state": {
@@ -398,12 +455,14 @@
     "last_intake": {
       "user_phone": "+919876543210",
       "duration": "",
-      "raw_message": "Hello Maya, I want to know more about the luteal phase",
-      "symptoms": [],
+      "raw_message": "Hello Maya, I am feeling tired today",
+      "symptoms": [
+        "tiredness"
+      ],
       "severity": "unknown",
       "flags": []
     },
-    "updated_at": "2026-09-05T18:13:40.537988+00:00",
+    "updated_at": "2026-09-05T19:18:58.026711+00:00",
     "daily_logs": [
       {
         "mood": "Calm",
@@ -474,9 +533,165 @@
         "date": "2026-09-05",
         "timestamp": "2026-09-05T18:12:10.975878+00:00",
         "notes": "Feeling a little bit tired after work"
+      },
+      {
+        "mood": "Calm",
+        "symptoms": [
+          "Cramps",
+          "Fatigue"
+        ],
+        "date": "2026-09-06",
+        "timestamp": "2026-09-05T19:17:26.373021+00:00",
+        "notes": "Feeling a little bit tired after work"
       }
     ],
     "report_history": [
+      {
+        "report_type": "Complete Blood Count (CBC)",
+        "raw_ocr": "COMPLETE BLOOD COUNT (CBC)\nHemoglobin (Hb): 12.5 g/dL (Reference: 12.0 - 15.5)\nFerritin: 15 ng/mL (Reference: 20 - 200)\nWhite Blood Cells (WBC): 6.2 10^3/uL (Reference: 4.5 - 11.0)\nPlatelet Count: 250 10^3/uL (Reference: 150 - 450)\nRBC Count: 4.4 10^6/uL (Reference: 4.0 - 5.2)\n",
+        "date": "Sep 06, 2026",
+        "id": "rep_1788635860",
+        "category": "Lab Reports",
+        "findings": [
+          {
+            "value": "12.5",
+            "test": "Hemoglobin (Hb)",
+            "status": "normal",
+            "reference_range": "12.0 - 15.5",
+            "unit": "g/dL"
+          },
+          {
+            "value": "15",
+            "test": "Ferritin",
+            "status": "low",
+            "reference_range": "20 - 200",
+            "unit": "ng/mL"
+          },
+          {
+            "value": "6.2",
+            "test": "White Blood Cells (WBC)",
+            "status": "normal",
+            "reference_range": "4.5 - 11.0",
+            "unit": "10^3/uL"
+          },
+          {
+            "value": "250",
+            "test": "Platelet Count",
+            "status": "normal",
+            "reference_range": "150 - 450",
+            "unit": "10^3/uL"
+          },
+          {
+            "value": "4.4",
+            "test": "RBC Count",
+            "status": "normal",
+            "reference_range": "4.0 - 5.2",
+            "unit": "10^6/uL"
+          }
+        ],
+        "title": "document",
+        "needs_doctor_review": true,
+        "main_pointers": [
+          {
+            "description": "Your ferritin is at 15 ng/mL, which is below the normal threshold of 20 ng/mL. This indicates depleted iron reserves that need replenishing to keep your energy and vitality high.",
+            "title": "Low Iron Stores (Ferritin)",
+            "status": "attention"
+          },
+          {
+            "description": "Your hemoglobin is at 12.5 g/dL, falling comfortably within the normal range. This means your current oxygen-carrying capacity is stable.",
+            "title": "Healthy Hemoglobin Levels",
+            "status": "positive"
+          }
+        ],
+        "solutions_and_remedies": {
+          "lifestyle_care": [
+            "Avoid drinking coffee or tea within one hour of eating iron-rich meals, as the tannins can block iron absorption.",
+            "Prioritize 7 to 8 hours of restorative sleep to help your body manage fatigue while your iron stores recover."
+          ],
+          "questions_for_doctor": [
+            "Given that my ferritin is low at 15 ng/mL while my hemoglobin is normal, would you recommend a specific iron supplement or further testing for iron deficiency without anemia?"
+          ],
+          "dietary_cure": [
+            "Increase consumption of iron-rich foods like dark leafy greens, lentils, pumpkin seeds, and grass-fed meats or organic poultry.",
+            "Pair your plant-based iron sources with Vitamin C (like a squeeze of lemon or bell peppers) to significantly boost iron absorption.",
+            "Consider drinking nettle tea or cooking in a cast-iron skillet to naturally support your iron intake."
+          ]
+        },
+        "health_summary": "Hello there! Your Complete Blood Count shows that your hemoglobin is nicely within the normal range, meaning you are not anemic. However, your ferritin level—which measures your body's stored iron—is sitting below the optimal reference range at 15 ng/mL. This suggests that while your active blood is doing okay right now, your iron reserves are running low, which can sometimes lead to fatigue or hair thinning if not gently supported.",
+        "interpretation": "Hello there! Your Complete Blood Count shows that your hemoglobin is nicely within the normal range, meaning you are not anemic. However, your ferritin level—which measures your body's stored iron—is sitting below the optimal reference range at 15 ng/mL. This suggests that while your active blood is doing okay right now, your iron reserves are running low, which can sometimes lead to fatigue or hair thinning if not gently supported."
+      },
+      {
+        "report_type": "Complete Blood Count (CBC)",
+        "health_summary": "Hello there! Your Complete Blood Count shows that your hemoglobin is nicely within the normal range, meaning you are not anemic. However, your ferritin level—which measures your body's stored iron—is sitting below the optimal reference range at 15 ng/mL. This suggests that while your active blood is doing okay right now, your iron reserves are running low, which can sometimes lead to fatigue or hair thinning if not gently supported.",
+        "raw_text_preview": "COMPLETE BLOOD COUNT (CBC)\nHemoglobin (Hb): 12.5 g/dL (Reference: 12.0 - 15.5)\nFerritin: 15 ng/mL (Reference: 20 - 200)\nWhite Blood Cells (WBC): 6.2 10^3/uL (Reference: 4.5 - 11.0)\nPlatelet Count: 250 10^3/uL (Reference: 150 - 450)\nRBC Count: 4.4 10^6/uL (Reference: 4.0 - 5.2)",
+        "main_pointers": [
+          {
+            "title": "Low Iron Stores (Ferritin)",
+            "description": "Your ferritin is at 15 ng/mL, which is below the normal threshold of 20 ng/mL. This indicates depleted iron reserves that need replenishing to keep your energy and vitality high.",
+            "status": "attention"
+          },
+          {
+            "title": "Healthy Hemoglobin Levels",
+            "description": "Your hemoglobin is at 12.5 g/dL, falling comfortably within the normal range. This means your current oxygen-carrying capacity is stable.",
+            "status": "positive"
+          }
+        ],
+        "findings": [
+          {
+            "test": "Hemoglobin (Hb)",
+            "value": "12.5",
+            "status": "normal",
+            "reference_range": "12.0 - 15.5",
+            "unit": "g/dL"
+          },
+          {
+            "test": "Ferritin",
+            "value": "15",
+            "status": "low",
+            "reference_range": "20 - 200",
+            "unit": "ng/mL"
+          },
+          {
+            "test": "White Blood Cells (WBC)",
+            "value": "6.2",
+            "status": "normal",
+            "reference_range": "4.5 - 11.0",
+            "unit": "10^3/uL"
+          },
+          {
+            "test": "Platelet Count",
+            "value": "250",
+            "status": "normal",
+            "reference_range": "150 - 450",
+            "unit": "10^3/uL"
+          },
+          {
+            "test": "RBC Count",
+            "value": "4.4",
+            "status": "normal",
+            "reference_range": "4.0 - 5.2",
+            "unit": "10^6/uL"
+          }
+        ],
+        "needs_doctor_review": true,
+        "solutions_and_remedies": {
+          "lifestyle_care": [
+            "Avoid drinking coffee or tea within one hour of eating iron-rich meals, as the tannins can block iron absorption.",
+            "Prioritize 7 to 8 hours of restorative sleep to help your body manage fatigue while your iron stores recover."
+          ],
+          "dietary_cure": [
+            "Increase consumption of iron-rich foods like dark leafy greens, lentils, pumpkin seeds, and grass-fed meats or organic poultry.",
+            "Pair your plant-based iron sources with Vitamin C (like a squeeze of lemon or bell peppers) to significantly boost iron absorption.",
+            "Consider drinking nettle tea or cooking in a cast-iron skillet to naturally support your iron intake."
+          ],
+          "questions_for_doctor": [
+            "Given that my ferritin is low at 15 ng/mL while my hemoglobin is normal, would you recommend a specific iron supplement or further testing for iron deficiency without anemia?"
+          ]
+        },
+        "disclaimer": "This is AI-assisted report extraction and wellness guidance, not a definitive clinical diagnosis. Please share this summary with your healthcare provider.",
+        "interpretation": "Hello there! Your Complete Blood Count shows that your hemoglobin is nicely within the normal range, meaning you are not anemic. However, your ferritin level—which measures your body's stored iron—is sitting below the optimal reference range at 15 ng/mL. This suggests that while your active blood is doing okay right now, your iron reserves are running low, which can sometimes lead to fatigue or hair thinning if not gently supported.",
+        "agent": "report_reader"
+      },
       {
         "report_type": "Complete Blood Count (CBC)",
         "raw_ocr": "COMPLETE BLOOD COUNT (CBC)\nHemoglobin (Hb): 12.5 g/dL (Reference: 12.0 - 15.5)\nFerritin: 15 ng/mL (Reference: 20 - 200)\nWhite Blood Cells (WBC): 6.2 10^3/uL (Reference: 4.5 - 11.0)\nPlatelet Count: 250 10^3/uL (Reference: 150 - 450)\nRBC Count: 4.4 10^6/uL (Reference: 4.0 - 5.2)\n",
@@ -559,87 +774,6 @@
         },
         "health_summary": "Your complete blood count shows fantastic overall foundation with healthy red blood cells, white blood cells, and platelet levels, which is wonderful news. However, your ferritin level is at 15 ng/mL, which indicates depleted iron stores in your body, even though your hemoglobin is still within the normal range. Low iron stores can often lead to subtle symptoms like unexplained fatigue, brain fog, cold sensitivity, or hair thinning before full anemia develops. Gently building back your iron reserves through targeted nutrition and doctor-guided care will help restore your energy and long-term vitality.",
         "interpretation": "Your complete blood count shows fantastic overall foundation with healthy red blood cells, white blood cells, and platelet levels, which is wonderful news. However, your ferritin level is at 15 ng/mL, which indicates depleted iron stores in your body, even though your hemoglobin is still within the normal range. Low iron stores can often lead to subtle symptoms like unexplained fatigue, brain fog, cold sensitivity, or hair thinning before full anemia develops. Gently building back your iron reserves through targeted nutrition and doctor-guided care will help restore your energy and long-term vitality."
-      },
-      {
-        "report_type": "Complete Blood Count (CBC)",
-        "health_summary": "Your complete blood count shows fantastic overall foundation with healthy red blood cells, white blood cells, and platelet levels, which is wonderful news. However, your ferritin level is at 15 ng/mL, which indicates depleted iron stores in your body, even though your hemoglobin is still within the normal range. Low iron stores can often lead to subtle symptoms like unexplained fatigue, brain fog, cold sensitivity, or hair thinning before full anemia develops. Gently building back your iron reserves through targeted nutrition and doctor-guided care will help restore your energy and long-term vitality.",
-        "raw_text_preview": "COMPLETE BLOOD COUNT (CBC)\nHemoglobin (Hb): 12.5 g/dL (Reference: 12.0 - 15.5)\nFerritin: 15 ng/mL (Reference: 20 - 200)\nWhite Blood Cells (WBC): 6.2 10^3/uL (Reference: 4.5 - 11.0)\nPlatelet Count: 250 10^3/uL (Reference: 150 - 450)\nRBC Count: 4.4 10^6/uL (Reference: 4.0 - 5.2)",
-        "main_pointers": [
-          {
-            "title": "Low Iron Reserves (Ferritin)",
-            "description": "Ferritin measures your body's stored iron. A level of 15 ng/mL indicates low iron reserves, which can cause fatigue and decreased stamina even when hemoglobin appears normal.",
-            "status": "attention"
-          },
-          {
-            "title": "Normal Hemoglobin & RBC Count",
-            "description": "Your hemoglobin and red blood cell counts are healthy, showing that your body is currently producing enough oxygen-carrying cells and you do not have overt anemia.",
-            "status": "positive"
-          },
-          {
-            "title": "Healthy Immune & Clotting Cells",
-            "description": "Your white blood cell and platelet counts are well within normal reference ranges, confirming good baseline immune health and normal blood clotting function.",
-            "status": "positive"
-          }
-        ],
-        "findings": [
-          {
-            "test": "Hemoglobin (Hb)",
-            "value": "12.5",
-            "status": "normal",
-            "reference_range": "12.0 - 15.5",
-            "unit": "g/dL"
-          },
-          {
-            "test": "Ferritin",
-            "value": "15",
-            "status": "low",
-            "reference_range": "20 - 200",
-            "unit": "ng/mL"
-          },
-          {
-            "test": "White Blood Cells (WBC)",
-            "value": "6.2",
-            "status": "normal",
-            "reference_range": "4.5 - 11.0",
-            "unit": "10^3/uL"
-          },
-          {
-            "test": "Platelet Count",
-            "value": "250",
-            "status": "normal",
-            "reference_range": "150 - 450",
-            "unit": "10^3/uL"
-          },
-          {
-            "test": "RBC Count",
-            "value": "4.4",
-            "status": "normal",
-            "reference_range": "4.0 - 5.2",
-            "unit": "10^6/uL"
-          }
-        ],
-        "needs_doctor_review": true,
-        "solutions_and_remedies": {
-          "lifestyle_care": [
-            "Focus on low-to-moderate intensity exercise like walking, pilates, or gentle yoga while rebuilding your iron stores to avoid over-exertion.",
-            "Track your menstrual cycle flow closely, noting if heavy bleeding days might be contributing to monthly iron loss.",
-            "Prioritize 7-9 hours of restorative sleep each night to help your body mitigate fatigue while iron stores recover."
-          ],
-          "dietary_cure": [
-            "Incorporate iron-rich foods such as lean red meat, poultry, spinach, lentils, pumpkin seeds, and cooked beans into your daily meals.",
-            "Pair non-heme (plant) iron foods with Vitamin C rich options (like lemon juice, bell peppers, or strawberries) to dramatically boost absorption.",
-            "Avoid consuming coffee, black tea, or calcium supplements within 1 to 2 hours of iron-rich meals, as they hinder iron absorption.",
-            "Sip on nettle leaf tea, a deeply nourishing herb traditionally used to support mineral status."
-          ],
-          "questions_for_doctor": [
-            "Based on my ferritin level of 15 ng/mL, would you recommend a therapeutic iron supplement, such as gentle iron bisglycinate?",
-            "Could heavy period flow or digestive absorption issues be contributing to my lower iron reserves?",
-            "When would you like me to repeat this blood test to check if my ferritin levels are rising?"
-          ]
-        },
-        "disclaimer": "This is AI-assisted report extraction and wellness guidance, not a definitive clinical diagnosis. Please share this summary with your healthcare provider.",
-        "interpretation": "Your complete blood count shows fantastic overall foundation with healthy red blood cells, white blood cells, and platelet levels, which is wonderful news. However, your ferritin level is at 15 ng/mL, which indicates depleted iron stores in your body, even though your hemoglobin is still within the normal range. Low iron stores can often lead to subtle symptoms like unexplained fatigue, brain fog, cold sensitivity, or hair thinning before full anemia develops. Gently building back your iron reserves through targeted nutrition and doctor-guided care will help restore your energy and long-term vitality.",
-        "agent": "report_reader"
       },
       {
         "raw_ocr": "COMPLETE BLOOD COUNT (CBC)\nHemoglobin (Hb): 12.5 g/dL (Reference: 12.0 - 15.5)\nFerritin: 15 ng/mL (Reference: 20 - 200)\nWhite Blood Cells (WBC): 6.2 10^3/uL (Reference: 4.5 - 11.0)\nPlatelet Count: 250 10^3/uL (Reference: 150 - 450)\nRBC Count: 4.4 10^6/uL (Reference: 4.0 - 5.2)\n",
