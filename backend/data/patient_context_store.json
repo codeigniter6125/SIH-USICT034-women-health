@@ -1168,5 +1168,658 @@
     },
     "user_id": "+917777766666",
     "updated_at": "2026-09-05T18:32:56.854400+00:00"
+  },
+  "+911234567890": {
+    "cycle_history": {
+      "period_start_dates": [
+        "2026-09-05"
+      ],
+      "last_period_start": "2026-09-05",
+      "cycle_length_days": 28,
+      "period_length_days": 5
+    },
+    "symptoms": [
+      {
+        "user_phone": "+911234567890",
+        "symptoms": [
+          "heavy bleeding"
+        ],
+        "raw_message": "I have heavy bleeding",
+        "duration": "",
+        "severity": "unknown",
+        "flags": [
+          "heavy_bleeding"
+        ]
+      },
+      {
+        "user_phone": "+911234567890",
+        "symptoms": [
+          "cramps"
+        ],
+        "raw_message": "mild cramps today",
+        "duration": "today",
+        "severity": "mild",
+        "flags": [
+          "mild_cramping"
+        ]
+      },
+      {
+        "user_phone": "+911234567890",
+        "symptoms": [
+          "heavy bleeding"
+        ],
+        "raw_message": "I have heavy bleeding",
+        "duration": "",
+        "severity": "unknown",
+        "flags": [
+          "heavy_bleeding",
+          "severe_pain_or_fainting_or_heavy_bleeding"
+        ]
+      },
+      {
+        "user_phone": "+911234567890",
+        "symptoms": [
+          "heavy bleeding"
+        ],
+        "raw_message": "I have heavy bleeding",
+        "duration": "",
+        "severity": "unknown",
+        "flags": [
+          "heavy_bleeding",
+          "severe_pain_or_fainting_or_heavy_bleeding"
+        ]
+      },
+      {
+        "user_phone": "+911234567890",
+        "symptoms": [
+          "cramps"
+        ],
+        "raw_message": "I have mild cramps today, what should I do?",
+        "duration": "today",
+        "severity": "mild",
+        "flags": [
+          "mild_cramping"
+        ]
+      },
+      {
+        "user_phone": "+911234567890",
+        "symptoms": [
+          "mild cramps"
+        ],
+        "raw_message": "I have mild cramps today, what should I do",
+        "duration": "today",
+        "severity": "mild",
+        "flags": [
+          "mild_cramping"
+        ]
+      },
+      {
+        "user_phone": "+911234567890",
+        "symptoms": [
+          "heavy period bleeding"
+        ],
+        "raw_message": "i have  heavy period bleeding",
+        "duration": "",
+        "severity": "unknown",
+        "flags": [
+          "heavy_bleeding",
+          "severe_pain_or_fainting_or_heavy_bleeding"
+        ]
+      },
+      {
+        "user_phone": "+911234567890",
+        "symptoms": [
+          "Mood: Tired. Symptoms: Bloating, Cramps, Backache. Notes: I am experiencing mild cramps today and feeling a bit tired. I am experiencing mild cramps today and feeling a bit tired."
+        ],
+        "raw_message": "Mood: Tired. Symptoms: Bloating, Cramps, Backache. Notes: I am experiencing mild cramps today and feeling a bit tired. I am experiencing mild cramps today and feeling a bit tired.",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
+      },
+      {
+        "date": "2026-09-01",
+        "symptom": "Bloating"
+      },
+      {
+        "date": "2026-09-01",
+        "symptom": "Cramps"
+      },
+      {
+        "date": "2026-09-01",
+        "symptom": "Backache"
+      },
+      {
+        "user_phone": "+911234567890",
+        "symptoms": [
+          "Explain my new pdf"
+        ],
+        "raw_message": "Explain my new pdf",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
+      },
+      {
+        "user_phone": "+911234567890",
+        "symptoms": [
+          "Maya I am feeling very tired today and I am getting a fatigue what should I do"
+        ],
+        "raw_message": "Maya I am feeling very tired today and I am getting a fatigue what should I do",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
+      },
+      {
+        "user_phone": "+911234567890",
+        "symptoms": [],
+        "raw_message": "please explain my report",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
+      },
+      {
+        "user_phone": "+911234567890",
+        "symptoms": [
+          "mild cramps"
+        ],
+        "raw_message": "mild cramps",
+        "duration": "",
+        "severity": "mild",
+        "flags": [
+          "mild_cramping"
+        ]
+      },
+      {
+        "user_phone": "+911234567890",
+        "symptoms": [
+          "mild cramps"
+        ],
+        "raw_message": "mild cramps",
+        "duration": "",
+        "severity": "mild",
+        "flags": [
+          "mild_cramping"
+        ]
+      },
+      {
+        "user_phone": "+911234567890",
+        "symptoms": [
+          "mild cramps"
+        ],
+        "raw_message": "mild cramps",
+        "duration": "",
+        "severity": "mild",
+        "flags": [
+          "mild_cramping"
+        ]
+      },
+      {
+        "symptoms": [
+          "severse bleeding"
+        ],
+        "duration": "",
+        "severity": "severe",
+        "flags": [
+          "heavy_bleeding",
+          "severe_pain_or_fainting_or_heavy_bleeding"
+        ],
+        "user_phone": "+911234567890",
+        "raw_message": "severse bleeding"
+      }
+    ],
+    "latest_mood": "Tired",
+    "last_cycle_interaction": {
+      "sources": [
+        {
+          "title": "WHO — Menstrual health",
+          "url": "https://www.who.int/news-room/fact-sheets/detail/menstrual-health"
+        },
+        {
+          "title": "WHO — Menstrual health",
+          "url": "https://www.who.int/news-room/fact-sheets/detail/menstrual-health"
+        }
+      ],
+      "message": "mild cramps"
+    },
+    "current_cycle_day": 1,
+    "care_plans": [
+      {
+        "actions": [
+          "Record bleeding dates, duration, flow, pain level, and related symptoms.",
+          "Review patterns over multiple cycles rather than relying on one prediction.",
+          "Discuss persistent, severe, unusual, or activity-limiting symptoms with a qualified clinician."
+        ],
+        "stage": "general wellness information",
+        "context_used": {
+          "symptom_count": 5,
+          "report_count": 0,
+          "has_cycle_history": false
+        },
+        "needs_doctor_review": false,
+        "disclaimer": "This is general wellness information, not a diagnosis or prescription.",
+        "agent": "care_plan"
+      },
+      {
+        "actions": [
+          "Record bleeding dates, duration, flow, pain level, and related symptoms.",
+          "Review patterns over multiple cycles rather than relying on one prediction.",
+          "Discuss persistent, severe, unusual, or activity-limiting symptoms with a qualified clinician."
+        ],
+        "stage": "general wellness information",
+        "context_used": {
+          "symptom_count": 6,
+          "report_count": 0,
+          "has_cycle_history": false
+        },
+        "needs_doctor_review": false,
+        "disclaimer": "This is general wellness information, not a diagnosis or prescription.",
+        "agent": "care_plan"
+      },
+      {
+        "actions": [
+          "Record bleeding dates, duration, flow, pain level, and related symptoms.",
+          "Review patterns over multiple cycles rather than relying on one prediction.",
+          "Discuss persistent, severe, unusual, or activity-limiting symptoms with a qualified clinician."
+        ],
+        "stage": "general wellness information",
+        "context_used": {
+          "symptom_count": 11,
+          "report_count": 0,
+          "has_cycle_history": false
+        },
+        "needs_doctor_review": false,
+        "disclaimer": "This is general wellness information, not a diagnosis or prescription.",
+        "agent": "care_plan"
+      },
+      {
+        "actions": [
+          "Record bleeding dates, duration, flow, pain level, and related symptoms.",
+          "Review patterns over multiple cycles rather than relying on one prediction.",
+          "Discuss persistent, severe, unusual, or activity-limiting symptoms with a qualified clinician."
+        ],
+        "stage": "general wellness information",
+        "context_used": {
+          "symptom_count": 13,
+          "report_count": 2,
+          "has_cycle_history": false
+        },
+        "needs_doctor_review": true,
+        "disclaimer": "This is general wellness information, not a diagnosis or prescription.",
+        "agent": "care_plan"
+      }
+    ],
+    "cycle_state": {
+      "has_data": true,
+      "avg_cycle_length_days": 28,
+      "message": "Log your first period start date to begin cycle tracking.",
+      "last_period_start": "2026-09-05",
+      "fertile_window": {
+        "end": "2026-09-20",
+        "start": "2026-09-14"
+      },
+      "cycle_day": 2,
+      "predicted_next_period": "2026-10-03",
+      "predicted_ovulation_day": 14,
+      "is_irregular": false,
+      "phase": "menstrual",
+      "note": "Estimates based on your own logged history — cycles vary, and this is not a guarantee."
+    },
+    "user_id": "+911234567890",
+    "last_intake": {
+      "user_phone": "+911234567890",
+      "duration": "",
+      "raw_message": "severse bleeding",
+      "symptoms": [
+        "severse bleeding"
+      ],
+      "severity": "severe",
+      "flags": [
+        "heavy_bleeding",
+        "severe_pain_or_fainting_or_heavy_bleeding"
+      ]
+    },
+    "updated_at": "2026-09-05T19:34:13.226678+00:00",
+    "daily_logs": [
+      {
+        "mood": "Tired",
+        "symptoms": [
+          "Bloating",
+          "Cramps",
+          "Backache"
+        ],
+        "date": "2026-09-01",
+        "timestamp": "2026-08-31T19:33:55.684875+00:00",
+        "notes": "I am experiencing mild cramps today and feeling a bit tired. I am experiencing mild cramps today and feeling a bit tired."
+      }
+    ],
+    "report_history": [
+      {
+        "report_type": "PCOS / Hormonal Profile",
+        "raw_ocr": "WOMEN'S HEALTH & DIAGNOSTIC REPORT\nSample / Educational Report — NOT FOR CLINICAL USE\nPatient Name Ananya Sharma Age / Sex 24 / Female\nReport Date 01 September 2026 Patient ID SAMPLE-2026-001\nClinical Indication Irregular menstrual cycles, acne, facial hair Status Sample\n\n1. General Examination\nParameter Result Reference\nHeight 162 cm —\nWeight 68 kg —\nBMI 25.9 kg/m² 18.5–24.9\nBlood Pressure 118/76 mmHg <120/80\nPulse Rate 78 bpm 60–100 bpm\n\n2. Menstrual History\nParameter Finding\nCycle length 35–50 days\nMenstrual cycles Irregular\nDuration of bleeding 4–5 days\nLast menstrual period 15 August 2026\nDysmenorrhea Mild\n\n3. Hormonal Investigations\nTest Result Reference / Interpretation\nLH 12.4 mIU/mL Elevated\nFSH 5.8 mIU/mL Within expected range\nLH/FSH Ratio 2.1 Increased\nTotal Testosterone 68 ng/dL Mildly elevated\nDHEA-S 285 µg/dL Within expected range\nProlactin 14 ng/mL Within expected range\nTSH 2.3 µIU/mL Within expected range\n\n4. Metabolic Investigations\nTest Result\nFasting Blood Glucose 96",
+        "date": "Sep 06, 2026",
+        "id": "rep_1788636373",
+        "category": "Lab Reports",
+        "findings": [
+          {
+            "value": "25.9",
+            "test": "BMI",
+            "status": "high",
+            "reference_range": "18.5–24.9",
+            "unit": "kg/m²"
+          },
+          {
+            "value": "12.4",
+            "test": "LH",
+            "status": "high",
+            "reference_range": "Elevated",
+            "unit": "mIU/mL"
+          },
+          {
+            "value": "5.8",
+            "test": "FSH",
+            "status": "normal",
+            "reference_range": "Within expected range",
+            "unit": "mIU/mL"
+          },
+          {
+            "value": "2.1",
+            "test": "LH/FSH Ratio",
+            "status": "high",
+            "reference_range": "Increased",
+            "unit": ""
+          },
+          {
+            "value": "68",
+            "test": "Total Testosterone",
+            "status": "high",
+            "reference_range": "Mildly elevated",
+            "unit": "ng/dL"
+          },
+          {
+            "value": "285",
+            "test": "DHEA-S",
+            "status": "normal",
+            "reference_range": "Within expected range",
+            "unit": "µg/dL"
+          },
+          {
+            "value": "14",
+            "test": "Prolactin",
+            "status": "normal",
+            "reference_range": "Within expected range",
+            "unit": "ng/mL"
+          },
+          {
+            "value": "2.3",
+            "test": "TSH",
+            "status": "normal",
+            "reference_range": "Within expected range",
+            "unit": "µIU/mL"
+          },
+          {
+            "value": "96",
+            "test": "Fasting Blood Glucose",
+            "status": "normal",
+            "reference_range": "Normal",
+            "unit": "mg/dL"
+          },
+          {
+            "value": "5.5",
+            "test": "HbA1c",
+            "status": "normal",
+            "reference_range": "Normal",
+            "unit": "%"
+          },
+          {
+            "value": "16",
+            "test": "Fasting Insulin",
+            "status": "high",
+            "reference_range": "Optimal < 10",
+            "unit": "µIU/mL"
+          }
+        ],
+        "title": "sample_pcos_womens_health_report",
+        "needs_doctor_review": true,
+        "main_pointers": [
+          {
+            "description": "Your LH is 12.4 mIU/mL with an increased ratio of 2.1, alongside a mildly elevated total testosterone of 68 ng/dL, which explains the acne and facial hair you've been experiencing.",
+            "title": "Elevated LH to FSH Ratio & Testosterone",
+            "status": "attention"
+          },
+          {
+            "description": "Your pelvic ultrasound confirmed multiple small follicles in both ovaries, which is a classic physical sign associated with PCOS.",
+            "title": "Polycystic Ovarian Morphology",
+            "status": "attention"
+          },
+          {
+            "description": "While your blood glucose and HbA1c are normal, your fasting insulin is elevated at 16 µIU/mL, highlighting a need to support your metabolic health through nutrition.",
+            "title": "Insulin Resistance Indicators",
+            "status": "warning"
+          }
+        ],
+        "solutions_and_remedies": {
+          "lifestyle_care": [
+            "Engage in 30 minutes of moderate daily movement such as brisk walking, pilates, or strength training to improve insulin sensitivity.",
+            "Prioritize 7-9 hours of quality sleep and maintain a consistent circadian rhythm to support healthy cortisol and reproductive hormone levels.",
+            "Incorporate stress-reduction practices like deep-breathing exercises or yoga to help regulate the hypothalamic-pituitary-ovarian axis."
+          ],
+          "questions_for_doctor": [
+            "Given my fasting insulin of 16 µIU/mL, would you recommend supplements like Inositol or further metabolic evaluation?",
+            "What are the best options to help regulate my 35-50 day menstrual cycles and manage androgenic symptoms safely?",
+            "Should we schedule regular follow-up blood work to monitor my lipid and glucose parameters over the next 6 months?"
+          ],
+          "dietary_cure": [
+            "Adopt a low-glycemic, anti-inflammatory diet focused on whole grains, healthy fats, and lean proteins to help lower insulin levels.",
+            "Incorporate spearmint tea daily, which has been clinically shown to help manage mild androgen excess.",
+            "Practice seed-cycling (pumpkin and flax seeds in the first half of your cycle, sunflower and sesame in the second half) to gently support hormone balance."
+          ]
+        },
+        "health_summary": "Hello Ananya. Your recent diagnostic report shows a pattern that is very characteristic of Polycystic Ovary Syndrome (PCOS), including irregular menstrual cycles, mild androgen elevation, and polycystic ovarian morphology on your ultrasound. Additionally, your fasting insulin levels suggest some underlying insulin resistance, which is very common with PCOS and can influence your energy, weight, and cycle regularity. Please know that this is a very manageable condition, and with targeted lifestyle adjustments, we can work together to restore your hormonal balance.",
+        "interpretation": "Hello Ananya. Your recent diagnostic report shows a pattern that is very characteristic of Polycystic Ovary Syndrome (PCOS), including irregular menstrual cycles, mild androgen elevation, and polycystic ovarian morphology on your ultrasound. Additionally, your fasting insulin levels suggest some underlying insulin resistance, which is very common with PCOS and can influence your energy, weight, and cycle regularity. Please know that this is a very manageable condition, and with targeted lifestyle adjustments, we can work together to restore your hormonal balance."
+      },
+      {
+        "report_type": "PCOS / Hormonal Profile",
+        "health_summary": "Hello Ananya. Your recent diagnostic report shows a pattern that is very characteristic of Polycystic Ovary Syndrome (PCOS), including irregular menstrual cycles, mild androgen elevation, and polycystic ovarian morphology on your ultrasound. Additionally, your fasting insulin levels suggest some underlying insulin resistance, which is very common with PCOS and can influence your energy, weight, and cycle regularity. Please know that this is a very manageable condition, and with targeted lifestyle adjustments, we can work together to restore your hormonal balance.",
+        "raw_text_preview": "WOMEN'S HEALTH & DIAGNOSTIC REPORT\nSample / Educational Report — NOT FOR CLINICAL USE\nPatient Name Ananya Sharma Age / Sex 24 / Female\nReport Date 01 September 2026 Patient ID SAMPLE-2026-001\nClinical Indication Irregular menstrual cycles, acne, facial hair Status Sample\n\n1. General Examination\nParameter Result Reference\nHeight 162 cm —\nWeight 68 kg —\nBMI 25.9 kg/m² 18.5–24.9\nBlood Pressure 118/76 mmHg <120/80\nPulse Rate 78 bpm 60–100 bpm\n\n2. Menstrual History\nParameter Finding\nCycle length 35–50 days\nMenstrual cycles Irregular\nDuration of bleeding 4–5 days\nLast menstrual period 15 August 2026\nDysmenorrhea Mild\n\n3. Hormonal Investigations\nTest Result Reference / Interpretation\nLH 12.4 mIU/mL Elevated\nFSH 5.8 mIU/mL Within expected range\nLH/FSH Ratio 2.1 Increased\nTotal Testosterone 68 ng/dL Mildly elevated\nDHEA-S 285 µg/dL Within expected range\nProlactin 14 ng/mL Within expected range\nTSH 2.3 µIU/mL Within expected range\n\n4. Metabolic Investigations\nTest Result\nFasting Blood Glucose 96",
+        "main_pointers": [
+          {
+            "title": "Elevated LH to FSH Ratio & Testosterone",
+            "description": "Your LH is 12.4 mIU/mL with an increased ratio of 2.1, alongside a mildly elevated total testosterone of 68 ng/dL, which explains the acne and facial hair you've been experiencing.",
+            "status": "attention"
+          },
+          {
+            "title": "Polycystic Ovarian Morphology",
+            "description": "Your pelvic ultrasound confirmed multiple small follicles in both ovaries, which is a classic physical sign associated with PCOS.",
+            "status": "attention"
+          },
+          {
+            "title": "Insulin Resistance Indicators",
+            "description": "While your blood glucose and HbA1c are normal, your fasting insulin is elevated at 16 µIU/mL, highlighting a need to support your metabolic health through nutrition.",
+            "status": "warning"
+          }
+        ],
+        "findings": [
+          {
+            "test": "BMI",
+            "value": "25.9",
+            "status": "high",
+            "reference_range": "18.5–24.9",
+            "unit": "kg/m²"
+          },
+          {
+            "test": "LH",
+            "value": "12.4",
+            "status": "high",
+            "reference_range": "Elevated",
+            "unit": "mIU/mL"
+          },
+          {
+            "test": "FSH",
+            "value": "5.8",
+            "status": "normal",
+            "reference_range": "Within expected range",
+            "unit": "mIU/mL"
+          },
+          {
+            "test": "LH/FSH Ratio",
+            "value": "2.1",
+            "status": "high",
+            "reference_range": "Increased",
+            "unit": ""
+          },
+          {
+            "test": "Total Testosterone",
+            "value": "68",
+            "status": "high",
+            "reference_range": "Mildly elevated",
+            "unit": "ng/dL"
+          },
+          {
+            "test": "DHEA-S",
+            "value": "285",
+            "status": "normal",
+            "reference_range": "Within expected range",
+            "unit": "µg/dL"
+          },
+          {
+            "test": "Prolactin",
+            "value": "14",
+            "status": "normal",
+            "reference_range": "Within expected range",
+            "unit": "ng/mL"
+          },
+          {
+            "test": "TSH",
+            "value": "2.3",
+            "status": "normal",
+            "reference_range": "Within expected range",
+            "unit": "µIU/mL"
+          },
+          {
+            "test": "Fasting Blood Glucose",
+            "value": "96",
+            "status": "normal",
+            "reference_range": "Normal",
+            "unit": "mg/dL"
+          },
+          {
+            "test": "HbA1c",
+            "value": "5.5",
+            "status": "normal",
+            "reference_range": "Normal",
+            "unit": "%"
+          },
+          {
+            "test": "Fasting Insulin",
+            "value": "16",
+            "status": "high",
+            "reference_range": "Optimal < 10",
+            "unit": "µIU/mL"
+          }
+        ],
+        "needs_doctor_review": true,
+        "solutions_and_remedies": {
+          "lifestyle_care": [
+            "Engage in 30 minutes of moderate daily movement such as brisk walking, pilates, or strength training to improve insulin sensitivity.",
+            "Prioritize 7-9 hours of quality sleep and maintain a consistent circadian rhythm to support healthy cortisol and reproductive hormone levels.",
+            "Incorporate stress-reduction practices like deep-breathing exercises or yoga to help regulate the hypothalamic-pituitary-ovarian axis."
+          ],
+          "dietary_cure": [
+            "Adopt a low-glycemic, anti-inflammatory diet focused on whole grains, healthy fats, and lean proteins to help lower insulin levels.",
+            "Incorporate spearmint tea daily, which has been clinically shown to help manage mild androgen excess.",
+            "Practice seed-cycling (pumpkin and flax seeds in the first half of your cycle, sunflower and sesame in the second half) to gently support hormone balance."
+          ],
+          "questions_for_doctor": [
+            "Given my fasting insulin of 16 µIU/mL, would you recommend supplements like Inositol or further metabolic evaluation?",
+            "What are the best options to help regulate my 35-50 day menstrual cycles and manage androgenic symptoms safely?",
+            "Should we schedule regular follow-up blood work to monitor my lipid and glucose parameters over the next 6 months?"
+          ]
+        },
+        "disclaimer": "This is AI-assisted report extraction and wellness guidance, not a definitive clinical diagnosis. Please share this summary with your healthcare provider.",
+        "interpretation": "Hello Ananya. Your recent diagnostic report shows a pattern that is very characteristic of Polycystic Ovary Syndrome (PCOS), including irregular menstrual cycles, mild androgen elevation, and polycystic ovarian morphology on your ultrasound. Additionally, your fasting insulin levels suggest some underlying insulin resistance, which is very common with PCOS and can influence your energy, weight, and cycle regularity. Please know that this is a very manageable condition, and with targeted lifestyle adjustments, we can work together to restore your hormonal balance.",
+        "agent": "report_reader"
+      },
+      {
+        "raw_ocr": "S47- RADHA DIAGNOSTICS\nG.T.ROAD, JHUNSI, AWAS VIKAS COLONY,\nYOJNA-2, NR POLICE CHOWKI, ALLAHABAD,\nUP\n(Hons) Brig Dr. Arvind Lal\nMBBS,D.CP.\nKandana hal\nDr. Vandana Lal\nMLD (PATHL CAP\nChief of Pathology\nName\nMr. NEERAJ OJHA\nCollected\nReceived\n1/8/2017 8:21:00AM\nLab No.\n: 242862201\nAge: 27 Years\nGender: Male\nA/c Status P\nRef By: Dr. V. K. PANDEY\nReported\nReport Status\n1/8/2017 8:37:03AM\n1/8/2017 6:52:30PM\n: Final\nTest Name\nCOMPLETE BLOOD COUNT (CBC)\nResults\nUnits\nBio. Ref. Interval\nHemoglobin\nPacked Cell Volume (PCV)\nRBC Count\n12.00\ng/dL\n37.70\n%\n13.00-17.00\n40.00 - 50.00\n5.79\nmill/mm3\n4.50-5.50\nMCV\nMCH\n65.00\n1\n80.00 -100.00\n20.70\npg\n27.00 -32.00\nMCHC\n31.90\ng/dL\n32.00 -35.00\nRed Cell Distribution Width (RDW)\n15.90\n%\nTotal Leukocyte Count (TLC)\n4.20\nthou/mm3\n11.50-14.50\n4.00-10.00\nDifferential Leucocyte Count (DLC)\nSegmented Neutrophils\n39.60\nLymphocytes\n50.30\nMonocytes\n8.10\nEosinophils\n1.40\nBasophils\n0.60\nde de de de de\n40.00 -80.00\n20.00 - 40.00\n2.00-10.00\n1.00 -6.00\n<2.00\nAbsolute Leucoc",
+        "date": "Sep 01, 2026",
+        "id": "rep_1788206649",
+        "category": "Lab Reports",
+        "findings": [
+          {
+            "value": "2",
+            "test": "YOJNA",
+            "unit": ""
+          },
+          {
+            "value": "27",
+            "test": "Age",
+            "unit": "Years"
+          }
+        ],
+        "title": "WhatsApp Image 2026-09-01 at 01.32.31.jpeg",
+        "needs_doctor_review": true,
+        "interpretation": "These extracted values need clinical interpretation in the context of your symptoms and the report's reference ranges."
+      },
+      {
+        "raw_ocr": "COMPLETE BLOOD COUNT (CBC)\nHemoglobin (Hb): 12.5 g/dL (Reference: 12.0 - 15.5)\nFerritin: 15 ng/mL (Reference: 20 - 200)\nWhite Blood Cells (WBC): 6.2 10^3/uL (Reference: 4.5 - 11.0)\nPlatelet Count: 250 10^3/uL (Reference: 150 - 450)\nRBC Count: 4.4 10^6/uL (Reference: 4.0 - 5.2)\n",
+        "date": "Sep 01, 2026",
+        "id": "rep_1788208882",
+        "category": "Lab Reports",
+        "findings": [
+          {
+            "value": "12.5",
+            "test": "Hemoglobin (Hb)",
+            "unit": "g/dL"
+          },
+          {
+            "value": "12.0",
+            "test": "Reference",
+            "unit": "-"
+          },
+          {
+            "value": "15",
+            "test": "Ferritin",
+            "unit": "ng/mL"
+          },
+          {
+            "value": "20",
+            "test": "Reference",
+            "unit": "-"
+          },
+          {
+            "value": "6.2",
+            "test": "White Blood Cells (WBC)",
+            "unit": "10^3/uL"
+          },
+          {
+            "value": "4.5",
+            "test": "Reference",
+            "unit": "-"
+          },
+          {
+            "value": "250",
+            "test": "Platelet Count",
+            "unit": "10^3/uL"
+          },
+          {
+            "value": "150",
+            "test": "Reference",
+            "unit": "-"
+          },
+          {
+            "value": "4.4",
+            "test": "RBC Count",
+            "unit": "10^6/uL"
+          },
+          {
+            "value": "4.0",
+            "test": "Reference",
+            "unit": "-"
+          }
+        ],
+        "title": "sample_pcos_womens_health_report",
+        "needs_doctor_review": true,
+        "interpretation": "These extracted values need clinical interpretation in the context of your symptoms and the report's reference ranges."
+      }
+    ]
   }
 }
