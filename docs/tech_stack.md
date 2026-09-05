@@ -1,159 +1,409 @@
-# Tech-Stack Doc
-## Agentic AI Women's Health Platform
-**Smart India Hackathon — Team Draft v1**
-
-This document locks the concrete technical stack so the AI coding assistant (and the team) doesn't switch frameworks mid-build. Put this file in the project root alongside the PRD and design doc.
+# Tech Stack Document — v2
+## She Care · Agentic AI Women's Health Platform
+**Smart India Hackathon — Updated to reflect actual implementation**
 
 ---
 
 ## 1. Guiding Principles
 
-- **Optimize for finishing a real, demoable build in hackathon time**, not for architectural purity.
-- **Python for anything touching the agents, LLMs, OCR, or voice** — the ecosystem (Whisper, OpenCV, Vision SDKs, textbee REST API) is strongest there, and it keeps all "brains" of the app in one language.
-- **Managed/hosted services over self-hosted infrastructure** wherever a free/generous tier exists — no team should be debugging a database server at 2am before a demo.
-- Every choice below should also work offline-first/low-bandwidth where feasible, per the PRD's target users.
+- **Finish a real, demoable build in hackathon time** — not architectural purity.
+- **Python for everything touching agents, LLMs, OCR, and voice** — ecosystem depth with Whisper, Vision SDKs, Gemini, and textbee's REST API.
+- **Managed/hosted services over self-hosted** wherever a free/generous tier exists — no debugging database servers at 2am before a demo.
+- **Cascading fallback at every AI call** — every LLM, OCR, and STT call has at least two fallbacks and a hard-coded safe response. Zero API keys configured = still a demoable app.
+- **Offline-first where possible** — Whisper runs locally; Shared Memory reads from disk; rule engine is pure Python with JSON files.
 
 ---
 
-## 2. Stack Overview
+## 2. Full Stack Overview
 
-| Layer | Choice | Why |
+| Layer | Technology | Version / Notes |
 |---|---|---|
-| Frontend | **Next.js (React)**, responsive web app | Fast to build, works on any phone browser without an app-store install — important for a hackathon demo and for real low-end-device users; can be wrapped as a PWA for an installable feel |
-| Backend / Agent orchestration | **Python (FastAPI)** | Async-friendly, clean fit with Whisper/OpenCV/Vision SDKs, simple to expose each agent as a function the Orchestrator calls |
-| LLM provider | **Google Gemini API (`gemini-3.6-flash`)** | Free tier, no payment method required — 15 RPM / 1,500 RPD, 1M token context. Multimodal (text + image), which also covers the Report-Reader Agent's image understanding needs. Lives in the same Google Cloud project already set up for Vision/Maps/TTS. |
-| Authentication | **Firebase Authentication (Phone/OTP)** | Handles OTP delivery and verification out of the box, avoids building custom OTP infra; integrates cleanly with a Next.js frontend |
-| Database / Shared Memory Store | **Firebase Firestore** | Document-based, fits the per-agent structured-JSON pattern well, real-time sync is a bonus for a live demo, generous free tier |
-| File storage (report photos) | **Firebase Storage** | Same ecosystem as Auth/Firestore, simple upload flow from the frontend |
-| OCR | **Google Cloud Vision API** | Higher accuracy than Tesseract on real phone-camera photos of printed reports (per PRD §8.2) |
-| Image preprocessing | **OpenCV (Python)** | Grayscale, deskew, threshold before OCR |
-| Speech-to-text | **Whisper** (small/base model) | Per PRD §8.3; run via `openai-whisper` or a hosted Whisper API if local compute is a constraint |
-| Text-to-speech | **Google Cloud Text-to-Speech** | Strong Hindi support, simple API integration, lower implementation risk than Coqui for demo timelines |
-| Audio handling | **pydub** | Format conversion/trimming before Whisper |
-| SMS/Call gateway | **textbee.dev** | Per PRD §7.2 — real escalation SMS integration via a linked Android device; free tier, no verified-recipient restriction |
-| Maps / nearest hospital | **Google Maps Places API** | Per PRD §7.3 |
-| Agent orchestration pattern | **Plain Python function chaining** (no LangGraph/CrewAI) | Per PRD §8.1 — simpler to build, debug, and explain to judges in hackathon time |
-| Hosting — frontend | **Vercel** | Native Next.js support, zero-config deploys, free tier |
-| Hosting — backend | **Render** or **Railway** | Simple Python/FastAPI deploys, free/cheap tier, easy env-var/secrets management |
-| Version control / CI | **GitHub + CodeRabbit** | Per the original workflow — CodeRabbit reviews every PR automatically |
+| **Backend framework** | **FastAPI** | Python 3.10+; `uvicorn[standard]` server; CORS open for local dev |
+| **LLM / reasoning** | **Google Gemini** | Primary: `gemini-3.5-flash`; fallback chain: `gemini-3.5-flash-lite` → `gemini-3.6-flash` → `gemini-flash-latest` → `gemini-3.7-flash` |
+| **OCR (primary)** | **Google Cloud Vision API** | `DOCUMENT_TEXT_DETECTION`; REST via `requests`; env var: `GOOGLE_CLOUD_VISION_API_KEY` |
+| **OCR (fallback 1)** | **Gemini Vision — new SDK** | `google.genai` (`google-genai` package); `Part.from_bytes()` multimodal |
+| **OCR (fallback 2)** | **Gemini Vision — legacy SDK** | `google-generativeai` package; inline `{"mime_type": ..., "data": ...}` |
+| **OCR (fallback 3)** | **Hard-coded demo CBC text** | Prevents crash / blank demo when no API key is configured |
+| **Speech-to-text (primary)** | **OpenAI Whisper — local** | `openai-whisper` package; `base` model; writes temp `.webm` file; requires `ffmpeg` on PATH |
+| **Speech-to-text (fallback 1)** | **Gemini Audio — new SDK** | Same `google.genai` client; audio `Part.from_bytes()` with `mime_type` auto-detect |
+| **Speech-to-text (fallback 2)** | **Gemini Audio — legacy SDK** | `google-generativeai`; same model fallback chain |
+| **Speech-to-text (fallback 3)** | **Hard-coded demo phrase** | Returns "I am experiencing mild cramps today and feeling a bit tired." |
+| **Text-to-speech** | **Google Cloud Text-to-Speech** | `google-cloud-texttospeech` package; strong Hindi support |
+| **Audio handling** | **pydub** | Format conversion / trimming before Whisper |
+| **Image preprocessing** | `opencv-python-headless` | Listed in `requirements.txt`; not yet wired to the OCR pipeline — deferred to post-hackathon |
+| **SMS gateway** | **textbee.dev** | `POST https://api.textbee.dev/api/v1/gateway/send-sms`; `x-api-key` header; env var: `TEXTBEE_API_KEY` |
+| **Maps / hospital lookup** | **Google Maps Places API** | Nearby Search; `type=hospital`; radius 20 km; returns `name`, `address`, `lat`, `lng`, `maps_link` |
+| **Authentication (frontend)** | **Firebase Phone/OTP** | `firebase` JS SDK v10; OTP → `idToken` stored in `localStorage` |
+| **Authentication (backend)** | **Firebase Admin SDK** | `firebase-admin` Python package; `auth.verify_id_token()`; HMAC-signed demo tokens for local dev |
+| **Shared Memory (tier 1)** | **In-process Python dict** | `_MEMORY: dict[str, dict]`; O(1) reads; lost on server restart |
+| **Shared Memory (tier 2)** | **Disk JSON** | `backend/data/patient_context_store.json`; survives server restarts; saved on every `update_context()` call |
+| **Shared Memory (tier 3)** | **Google Firestore** | `firebase-admin` Firestore client; active when `FIREBASE_ADMIN_CREDENTIALS` env var points to a valid service account JSON |
+| **Cycle RAG retriever** | **Custom keyword-overlap scorer** | `backend/services/cycle_rag.py`; token overlap + phrase bonus; no vector embeddings or external retriever needed |
+| **Cycle RAG corpus** | **JSON file** | `backend/data/cycle_guidelines.json`; sourced from WHO, UNICEF, CDC, ACOG; refreshed via ingestion script |
+| **Agent orchestration** | **Hand-rolled Python function calls** | No LangGraph / CrewAI; Orchestrator calls agents sequentially; structured JSON output from each |
+| **Frontend framework** | **Next.js 14** | App Router; `next@^14.2.35` |
+| **Frontend language** | **React 18 + JSX** | `react@18.3.1`, `react-dom@18.3.1` |
+| **Styling** | **Tailwind CSS v3** | `tailwindcss@^3.4.19`; custom design-system tokens (see §6) |
+| **Icons** | **Material Symbols (Google Fonts)** | Loaded via CDN in `layout.jsx`; `FILL` variation settings used |
+| **Hosting — frontend** | **Vercel** *(planned)* | Native Next.js support; zero-config; free tier |
+| **Hosting — backend** | **Render / Railway** *(planned)* | Simple FastAPI deploy; env-var secrets management |
+| **Version control** | **GitHub** | Main repo; `.gitignore` excludes `.env`, `firebase-admin-key.json`, `venv/`, `__pycache__/` |
 
 ---
 
-## 2a. APIs Explicitly NOT Used (Avoid Enabling These)
+## 3. Two Separate Google Cloud Projects (Critical)
 
-To prevent confusion or accidental setup later, note explicitly:
+The team uses **two separate Google Cloud projects** to keep Gemini on the genuine free tier:
 
-- **Google Cloud Speech-to-Text API — NOT used.** Speech-to-text is handled by **Whisper**, run locally in Python (`openai-whisper` package). No Google Cloud API or key needed for STT.
-- **Google Cloud Video Intelligence API — NOT used.** Video/AR consultations are explicitly out of scope for the hackathon build (per PRD §10). Nothing in this architecture processes video.
-
-Only enable these four Google Cloud APIs: **Cloud Vision API, Maps JavaScript API, Places API, Cloud Text-to-Speech API.**
-
-## 2b. Two Separate Google Cloud Projects (Important)
-
-The team uses **two separate Google Cloud projects**, not one, to keep Gemini on the genuine free tier:
-
-| Project | Billing | Used for |
+| Project | Billing | APIs enabled |
 |---|---|---|
-| `women-health-sih` (main) | **Blaze** (pay-as-you-go, billing linked) | Firebase (Auth, Firestore, Storage), Cloud Vision API, Maps/Places API, Text-to-Speech API |
+| `women-health-sih` (main) | **Blaze** (billing linked) | Firebase Auth, Firestore, Storage · Cloud Vision API · Maps/Places API · Cloud TTS |
 | **"Default Gemini Project"** (Google-managed) | **No billing linked** | Gemini API only |
 
-**Why:** Gemini's free tier requires the linked project to have **no** Cloud Billing account attached. The moment a project is upgraded to Blaze (needed for Firebase Storage/Vision/Maps), it moves to Gemini's paid tier and returns a "prepayment credits depleted" error instead of using free quota.
+**Why separate?** The moment a project is upgraded to Blaze (required for Vision/Maps/Firebase Storage), it exits Gemini's free tier. Google AI Studio's key-creation flow provides a pre-existing "Default Gemini Project" that is never linked to billing by design — use this when generating the `GEMINI_API_KEY`.
 
-**Resolution used:** Rather than manually creating and managing a second Cloud project, Google AI Studio's key-creation flow offers a pre-existing, auto-created **"Default Gemini Project"** — a project Google provisions specifically for free-tier Gemini API keys, kept separate from a developer's regular Cloud projects by design and never linked to billing. The team selected this project when generating the Gemini API key instead of a manually created project, which avoided both the billing ambiguity and the project-sync delay of a newly created project not yet appearing in AI Studio's picker.
-
-**Do not** link a billing account to the Default Gemini Project for any reason — doing so will break the free tier for this key.
+> **Do not** link a billing account to the Default Gemini Project. Doing so breaks the free tier for all Gemini calls.
 
 ---
 
-## 3. Why Not Alternatives (Brief)
+## 4. APIs Explicitly NOT Used
 
-- **Claude API / OpenAI API:** Both are strong providers, but neither offers a free tier as of the team's setup — Anthropic requires a minimum $5 credit purchase and OpenAI removed free credits entirely. Gemini's free tier removes this cost entirely for a hackathon-scope build; revisit Claude/OpenAI post-hackathon if the project continues and budget allows (Claude in particular is strong for long-context reasoning and prompt caching).
-- **LangGraph/CrewAI:** Real tools, but add a learning curve and abstraction overhead the team doesn't need to prove out multi-agent reasoning in a hackathon timeframe. Revisit post-hackathon if the project continues.
-- **React Native / Flutter (native app):** A true native app is heavier to build and deploy under time pressure; a responsive Next.js web app (optionally PWA-wrapped) demos just as well and is dramatically faster to ship and iterate on.
-- **Self-hosted Postgres/MongoDB:** Firestore removes an entire category of "did the database survive the demo" risk, and its document model maps naturally onto each agent's JSON output.
-- **Tesseract (OCR):** Free and offline-capable, but noticeably less accurate on skewed/low-quality phone photos than Vision API — accuracy matters more than cost for a report-reading demo.
-
----
-
-## 4. Environment / Secrets Checklist
-
-All of the following go in environment variables (`.env`, excluded via `.gitignore`) — never hardcoded, never committed:
-
-- `GEMINI_API_KEY` (LLM provider)
-- `FIREBASE_*` config keys (Auth, Firestore, Storage)
-- `GOOGLE_CLOUD_VISION_API_KEY` (or service account JSON)
-- `GOOGLE_TTS_API_KEY` (or shared with Vision service account)
-- `GOOGLE_MAPS_API_KEY`
-- `TEXTBEE_API_KEY`
+| API | Why not |
+|---|---|
+| **Google Cloud Speech-to-Text API** | STT is handled by Whisper locally, with Gemini Audio as fallback. No Cloud STT key needed. |
+| **Google Cloud Video Intelligence API** | Video/AR consultations are out of scope for v1 (PRD §16). |
+| **Twilio** | Trial tier only sends SMS to pre-verified recipient numbers — a blocker for live demo to judge's phone. Replaced by textbee.dev. |
+| **LangGraph / CrewAI** | Adds learning curve and abstraction overhead without benefit for hackathon-scope multi-agent demonstration. |
+| **OpenCV preprocessing (active)** | `opencv-python-headless` is installed but the deskew/threshold pipeline is not yet wired to the OCR call. Vision API + Gemini Vision handle most phone-camera photo quality variations sufficiently for demo. |
 
 ---
 
-## 5. Repository Structure (Proposed)
+## 5. Python Dependencies (`backend/requirements.txt`)
 
 ```
-/frontend           → Next.js app
-/backend
-  /agents
-    orchestrator.py
-    intake_agent.py
-    cycle_agent.py
-    report_reader_agent.py
-    care_plan_agent.py
-    escalation_agent.py
-  /rules
-    red_flag_table.json      # PRD §8.4 table, as data
-    lab_reference_ranges.json # PRD §8.4 table, as data
-  /services
-    textbee_client.py
-    maps_client.py
-    vision_client.py
-    tts_client.py
-    whisper_client.py
-  main.py            # FastAPI entrypoint
-/docs
-  PRD.md
-  design_doc.md
-  tech_stack.md       # this file
+fastapi
+uvicorn[standard]
+python-dotenv
+pydantic
+python-multipart
+
+# Agent / LLM
+google-generativeai          # legacy Gemini SDK (fallback)
+# google-genai               # new Gemini SDK (import: from google import genai)
+
+# OCR & image preprocessing
+google-cloud-vision
+opencv-python-headless
+
+# Voice
+openai-whisper
+pydub
+google-cloud-texttospeech
+
+# SMS / escalation
+requests
+beautifulsoup4               # used in ingestion scripts
+
+# Firebase
+firebase-admin
 ```
 
-Keeping the red-flag and reference-range tables as standalone JSON files (not buried in code) makes them easy to review with a medical advisor (per PRD open question) and easy to test independently of the LLM logic.
+> **Note on Gemini SDKs:** Both SDKs coexist in the repo. `vision_client.py` and `whisper_client.py` try the new `google.genai` SDK first (imported as `from google import genai`), then fall back to the legacy `google.generativeai` SDK. Install both: `pip install google-genai google-generativeai`.
 
 ---
 
-## 6. Build Order (Aligns with PRD Rollout Plan)
+## 6. Frontend Dependencies (`package.json`)
 
-1. Scaffold repo per structure above; `git init`, push to GitHub, install CodeRabbit.
-2. Firebase project setup (Auth phone/OTP, Firestore, Storage) + textbee.dev + Google Cloud (Vision, Maps, TTS) accounts provisioned.
-3. Orchestrator + Intake Agent + Escalation Agent wired end-to-end, with a real textbee SMS firing off the red-flag table — this is the highest-risk, most demo-critical path, build and test it first.
-4. Cycle Agent, Report-Reader Agent (OCR pipeline), Care-Plan Agent added incrementally, each reading/writing Firestore.
-5. Frontend screens per the design doc, wired to the backend via REST calls to FastAPI.
-6. Action Layer (reminders, PDF summary, nearest-hospital lookup) layered on top.
-7. Staging test pass, then final demo rehearsal.
+```json
+{
+  "dependencies": {
+    "firebase": "^10.12.4",
+    "next": "^14.2.35",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.5.4",
+    "postcss": "^8.5.26",
+    "tailwindcss": "^3.4.19"
+  }
+}
+```
+
+### Design System
+Custom Tailwind extension from `stitch_women_s_health_design_system/` applied via `tailwind.config.js`:
+- **Color tokens:** `primary`, `on-primary`, `background`, `surface-container-*`, `outline`, `outline-variant`, `on-surface`, `on-surface-variant`
+- **Typography tokens:** `font-headline-lg-mobile`, `font-display-lg`, `font-body-base`, `font-body-bold`, `font-title-md`, `font-label-caps`
+- **Shadow tokens:** `shadow-2xs`, `shadow-xs`
+- **Spacing:** `max-width-dashboard`, `margin-mobile`
 
 ---
 
-## 7. Cycle Agent RAG Extension
+## 7. Repository Structure (Actual)
 
-The Cycle Agent uses retrieval-augmented generation over a local corpus fetched from publicly available menstrual-health guidance. The initial source set includes WHO, UNICEF, CDC, and ACOG pages. The ingestion script stores source URL, title, fetch timestamp, and text chunks under `backend/data/cycle_guidelines.json`.
+```
+womens-health-sih/
+├── backend/
+│   ├── .env                         ← secrets (gitignored)
+│   ├── .env.example                 ← template (committed)
+│   ├── firebase-admin-key.json      ← service account (gitignored)
+│   ├── main.py                      ← FastAPI app, all 15 endpoints
+│   ├── requirements.txt
+│   ├── test_all_agents.py           ← quick smoke-test runner
+│   ├── agents/
+│   │   ├── __init__.py
+│   │   ├── orchestrator.py          ← routes /api/chat
+│   │   ├── intake_agent.py          ← Gemini structured JSON extraction
+│   │   ├── cycle_agent.py           ← RAG over cycle guidelines corpus
+│   │   ├── report_reader_agent.py   ← OCR → Gemini → structured findings
+│   │   ├── care_plan_agent.py       ← non-prescriptive guidance synthesis
+│   │   └── escalation_agent.py     ← rule engine + textbee SMS + Maps
+│   ├── services/
+│   │   ├── __init__.py
+│   │   ├── auth_service.py          ← Firebase token verify + demo tokens
+│   │   ├── cycle_rag.py             ← keyword-overlap retriever
+│   │   ├── gemini_client.py         ← call_gemini_structured() + fallback chain
+│   │   ├── maps_client.py           ← get_nearest_hospital() via Places API
+│   │   ├── shared_memory.py         ← dict → disk JSON → Firestore
+│   │   ├── textbee_client.py        ← send_sms() via textbee.dev
+│   │   ├── tts_client.py            ← Google Cloud TTS wrapper
+│   │   ├── vision_client.py         ← extract_text_from_image() + fallbacks
+│   │   └── whisper_client.py        ← transcribe_audio() + fallbacks
+│   ├── rules/
+│   │   ├── red_flag_table.json      ← escalation rule engine data
+│   │   └── lab_reference_ranges.json← biomarker thresholds
+│   ├── data/
+│   │   ├── cycle_guidelines.json    ← RAG corpus (WHO/UNICEF/CDC/ACOG)
+│   │   └── patient_context_store.json← disk-tier Shared Memory
+│   ├── scripts/
+│   │   └── fetch_cycle_guidelines.py← corpus ingestion script
+│   └── tests/
+│       └── (unit tests)
+├── frontend/
+│   └── frontend_scaffold/           ← Next.js 14 App Router project
+│       ├── app/
+│       │   ├── layout.jsx
+│       │   ├── page.jsx             ← Home Dashboard
+│       │   ├── login/               ← Firebase OTP login
+│       │   ├── signup/
+│       │   ├── chat/                ← Maya AI Chat (text + voice)
+│       │   ├── cycle/               ← Cycle Tracker + phase display
+│       │   ├── log/                 ← Daily Check-in (mood + symptoms)
+│       │   ├── reports/             ← Upload + view medical reports
+│       │   ├── doctor-summary/      ← Doctor-visit prep summary
+│       │   ├── emergency/           ← Direct escalation trigger
+│       │   ├── insights/            ← Educational content
+│       │   └── profile/             ← User settings
+│       ├── components/
+│       │   ├── TopHeader.jsx
+│       │   └── BottomNav.jsx
+│       ├── lib/
+│       ├── tailwind.config.js       ← design-system token extension
+│       ├── package.json
+│       └── .env.local               ← frontend secrets (gitignored)
+├── docs/
+│   ├── PRD.md                       ← original PRD draft
+│   ├── tech_stack.md                ← original tech stack draft
+│   ├── design_doc.md
+│   ├── cycle_agent_rag.md
+│   └── setup_environment_credentials.md
+├── stitch_women_s_health_design_system/  ← design token source
+└── README.md
+```
 
-| Component | Implementation | Purpose |
+---
+
+## 8. Environment Variables
+
+### Backend (`backend/.env`)
+
+| Variable | Service | Project |
 |---|---|---|
-| Source ingestion | `backend/scripts/fetch_cycle_guidelines.py` | Fetch current public guidance pages and extract readable text |
-| Chunk store | `backend/data/cycle_guidelines.json` | Keep source-tagged chunks available locally for low-bandwidth/offline-after-sync use |
-| Retriever | `backend/services/cycle_rag.py` | Rank chunks using lightweight lexical overlap and health-topic phrase boosts |
-| Grounded response | `backend/agents/cycle_agent.py` | Provide retrieved context to Gemini when configured, with a safe deterministic fallback |
-| Citation output | `sources` field in `/api/chat` response | Preserve title and URL for transparency and review |
+| `GEMINI_API_KEY` | All LLM calls (text, vision, audio) | Default Gemini Project (no billing) |
+| `GOOGLE_CLOUD_VISION_API_KEY` | Cloud Vision OCR | Blaze project |
+| `GOOGLE_MAPS_API_KEY` | Places API — hospital lookup | Blaze project |
+| `GOOGLE_TTS_API_KEY` | Cloud Text-to-Speech | Blaze project |
+| `TEXTBEE_API_KEY` | textbee.dev SMS gateway | textbee.dev account |
+| `FIREBASE_API_KEY` | Firebase (frontend config) | Blaze project |
+| `FIREBASE_AUTH_DOMAIN` | Firebase Auth | Blaze project |
+| `FIREBASE_PROJECT_ID` | Firebase | Blaze project |
+| `FIREBASE_STORAGE_BUCKET` | Firebase Storage | Blaze project |
+| `FIREBASE_MESSAGING_SENDER_ID` | Firebase Messaging | Blaze project |
+| `FIREBASE_APP_ID` | Firebase App | Blaze project |
+| `FIREBASE_ADMIN_CREDENTIALS` | Path to `firebase-admin-key.json` for Firestore backend sync | Blaze project |
+| `AUTH_DEMO_SECRET` | HMAC key for local demo tokens | Local only |
 
-Run the ingestion job from the backend directory:
+### Frontend (`frontend/frontend_scaffold/.env.local`)
 
-```bash
-python scripts/fetch_cycle_guidelines.py
-```
-
-The Cycle Agent is deliberately **non-diagnostic**. It may explain general information, suggest what cycle observations to record, and recommend professional care. It must not prescribe medication, make definitive diagnoses, or allow retrieved text to override the hard-coded Escalation Agent rules.
-
-The chat request now accepts optional `language` and `cycle_history` fields. The response includes `agent`, `retrieval_used`, `sources`, and a medical-information disclaimer. Source content should be refreshed before a public demo and reviewed by a qualified medical advisor before production use.
+| Variable | Purpose |
+|---|---|
+| `NEXT_PUBLIC_BACKEND_URL` | FastAPI base URL (default: `http://localhost:8000`) |
+| `NEXT_PUBLIC_FIREBASE_*` | Firebase frontend config (API key, auth domain, project ID, etc.) |
 
 ---
 
-*This completes the three-document set: PRD → Design Doc → Tech-Stack Doc, per the original workflow.*
+## 9. Service Call Architecture
+
+```
+ User (browser)
+    │  text / audio / image
+    ▼
+Next.js Frontend (port 3000)
+    │  REST  /api/*
+    ▼
+FastAPI Backend (port 8000)
+    │
+    ├─► Gemini API (LLM text)         → gemini_client.py
+    │       └─ call_gemini_structured()
+    │           Model fallback chain: 3.5-flash → 3.5-flash-lite → 3.6-flash → flash-latest → 3.7-flash
+    │
+    ├─► Google Cloud Vision API       → vision_client.py
+    │       └─ DOCUMENT_TEXT_DETECTION
+    │           Fallback: Gemini new SDK → Gemini legacy SDK → demo string
+    │
+    ├─► Whisper (local, base model)   → whisper_client.py
+    │       └─ Writes temp .webm → transcribes → deletes
+    │           Fallback: Gemini Audio new SDK → Gemini Audio legacy SDK → demo string
+    │
+    ├─► Google Maps Places API        → maps_client.py
+    │       └─ Nearby Search type=hospital radius=20km
+    │
+    ├─► textbee.dev SMS API           → textbee_client.py
+    │       └─ POST /api/v1/gateway/send-sms (fires via Android SIM)
+    │
+    ├─► Firebase Admin SDK            → auth_service.py + shared_memory.py
+    │       └─ verify_id_token() + Firestore read/write
+    │
+    └─► Disk JSON + in-process dict   → shared_memory.py
+            └─ Always available, no network required
+```
+
+---
+
+## 10. Gemini Model Fallback Chain (Applies to All LLM Calls)
+
+All LLM-dependent functions (`gemini_client.py`, `vision_client.py`, `whisper_client.py`) iterate through this ordered list and return the first successful response:
+
+```
+1. gemini-3.5-flash          ← primary
+2. gemini-3.5-flash-lite
+3. gemini-3.6-flash
+4. gemini-flash-latest
+5. gemini-3.7-flash
+6. [hard-coded safe fallback] ← never raises an unhandled exception
+```
+
+This ensures the app remains functional if a specific model version is deprecated, rate-limited, or unavailable during the demo.
+
+---
+
+## 11. OCR Strategy (Implemented Priority Order)
+
+```
+1. Google Cloud Vision API (DOCUMENT_TEXT_DETECTION)
+   ✓ Highest accuracy on phone-camera photos
+   ✓ Handles skew/noise better than local engines
+   Requires: GOOGLE_CLOUD_VISION_API_KEY
+
+2. Gemini Vision — new SDK (google.genai)
+   Prompt: "Extract ALL text, lab tests, values, units, and reference ranges verbatim."
+   Requires: GEMINI_API_KEY
+
+3. Gemini Vision — legacy SDK (google-generativeai)
+   Same prompt; fallback for SDK version mismatches
+   Requires: GEMINI_API_KEY
+
+4. Hard-coded demo CBC text
+   "COMPLETE BLOOD COUNT (CBC)\nHemoglobin (Hb): 12.5 g/dL ..."
+   Always succeeds — keeps demo working with zero API keys
+```
+
+> **OpenCV preprocessing** (`grayscale → deskew → threshold`) is installed but not yet wired inline. Queued for post-hackathon polish pass.
+
+---
+
+## 12. STT Strategy (Implemented Priority Order)
+
+```
+1. Whisper local (base model)
+   ✓ Fully offline after first model download (~75 MB)
+   ✓ No API cost
+   Requires: ffmpeg on PATH + openai-whisper installed
+
+2. Gemini Audio — new SDK (google.genai, Part.from_bytes)
+   Prompt: "Transcribe accurately in English, Hindi, or Hinglish."
+   Requires: GEMINI_API_KEY
+
+3. Gemini Audio — legacy SDK (google-generativeai)
+   Same prompt and model chain
+   Requires: GEMINI_API_KEY
+
+4. Hard-coded demo phrase
+   "I am experiencing mild cramps today and feeling a bit tired."
+   Always succeeds — keeps demo working with zero API keys
+```
+
+---
+
+## 13. Shared Memory Architecture
+
+```
+update_context(user_id, patch)
+        │
+        ├─ Merge into in-process _MEMORY dict (immediate, synchronous)
+        ├─ Write full context to patient_context_store.json (immediate)
+        └─ If Firestore client available: set(context, merge=True) (async, best-effort)
+
+get_context(user_id)
+        ├─ Try Firestore first (most up-to-date across instances)
+        ├─ Fall back to in-process _MEMORY dict
+        └─ If not in dict: reload from disk JSON → return
+```
+
+**Merge semantics:**
+- `report_history[]` → de-duplicated by `id` or `(title, date)`, new entries prepended
+- Other lists → new items **appended** (preserves full symptom/log timeline)
+- Dicts → shallow merge `{**existing, **patch}`
+- Scalars → overwrite
+
+---
+
+## 14. Cycle RAG Pipeline
+
+```
+Query (user message)
+    │
+    ▼
+cycle_rag.retrieve(query, top_k=4)
+    │  Keyword tokenization + synonym expansion
+    │  Score = token_overlap + phrase_bonus (2.0 per matched health phrase)
+    │  Sorted descending; top 4 chunks returned
+    ▼
+format_context(chunks)
+    │  "[1] Title (URL)\nChunk text\n\n[2] ..."
+    ▼
+Gemini prompt (constrained)
+    "Answer using ONLY the retrieved guidance below.
+     Do not diagnose or prescribe. Language: {English|Hindi}.
+     Return JSON: {reply, safety_note, follow_up_questions, sources}"
+    ▼
+citation_list(chunks)  →  [{title, url}, ...]  (included in API response)
+```
+
+**Corpus ingestion:**
+```bash
+# From backend/
+python scripts/fetch_cycle_guidelines.py
+# Outputs: data/cycle_guidelines.json
+# Sources: WHO, UNICEF, CDC, ACOG public guidance pages
+```
+
+---
+
+## 15. Why Not Alternatives
+
+| Alternative | Reason not chosen |
+|---|---|
+| **Claude / OpenAI API** | No free tier as of team setup — Anthropic requires minimum $5 credit; OpenAI removed free credits. Gemini free tier removes cost for hackathon scope. |
+| **LangGraph / CrewAI** | Adds framework learning curve and abstraction overhead. Simple chained function calls are easier to build, debug, and explain to judges. |
+| **React Native / Flutter** | Native apps are heavier to build under time pressure. Responsive Next.js web app (optionally PWA-wrapped) demos just as well. |
