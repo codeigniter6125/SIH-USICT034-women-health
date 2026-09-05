@@ -316,11 +316,19 @@ def get_cycle_status(user_phone: str = "+919876543210"):
 @app.post("/api/cycle/log")
 def update_cycle(payload: CycleLogRequest):
     phone = payload.user_phone
+    target_date = payload.period_start_date or datetime.now().strftime("%Y-%m-%d")
+    ctx = get_context(phone)
+    hist = ctx.get("cycle_history", {})
+    dates = list(hist.get("period_start_dates", []))
+    if target_date not in dates:
+        dates.append(target_date)
+    dates.sort()
     update_context(phone, {
         "cycle_history": {
-            "cycle_length_days": payload.cycle_length_days or 28,
-            "period_length_days": payload.period_length_days or 5,
-            "last_period_start": payload.period_start_date or datetime.now().strftime("%Y-%m-%d"),
+            "cycle_length_days": payload.cycle_length_days or hist.get("cycle_length_days", 28),
+            "period_length_days": payload.period_length_days or hist.get("period_length_days", 5),
+            "last_period_start": target_date,
+            "period_start_dates": dates,
         },
         "current_cycle_day": 1,
     })

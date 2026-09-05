@@ -52,7 +52,13 @@ export default function App() {
   });
   const [screen, setScreen] = useState<Screen>(() => {
     try {
-      return (localStorage.getItem("idToken") || localStorage.getItem("userPhone")) ? "home" : "login";
+      const logged = Boolean(localStorage.getItem("idToken") || localStorage.getItem("userPhone"));
+      if (!logged) return "login";
+      const saved = sessionStorage.getItem("currentScreen") as Screen | null;
+      if (saved && saved !== "login" && saved !== "onboarding") {
+        return saved;
+      }
+      return "home";
     } catch {
       return "login";
     }
@@ -68,6 +74,11 @@ export default function App() {
   const desktopScrollRef = useRef<HTMLDivElement>(null);
 
   function navigate(s: Screen) {
+    try {
+      sessionStorage.setItem("currentScreen", s);
+    } catch {
+      // ignore
+    }
     setScreen(s);
     mobileScrollRef.current?.scrollTo({ top: 0, behavior: "instant" });
     desktopScrollRef.current?.scrollTo({ top: 0, behavior: "instant" });
