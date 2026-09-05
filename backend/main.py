@@ -84,6 +84,14 @@ class DailyLogRequest(BaseModel):
     cycle_day: Optional[int] = None
 
 
+class CheckInRequest(BaseModel):
+    mood: Optional[int] = None
+    symptoms: List[str] = []
+    energy: Optional[int] = None
+    sleep_hours: Optional[float] = None
+    notes: Optional[str] = None
+
+
 class CycleLogRequest(BaseModel):
     user_phone: str
     period_start_date: Optional[str] = None
@@ -245,6 +253,15 @@ def submit_daily_log(payload: DailyLogRequest):
     }
 
 
+@app.post("/api/checkin")
+def checkin(payload: CheckInRequest, user: dict = Depends(current_user)):
+    """Saves mood, symptoms, energy, sleep, notes from the Check-In screen."""
+    uid = user.get("uid") or user.get("phone", "demo-user")
+    entry = {**payload.model_dump(), "logged_at": datetime.now(timezone.utc).isoformat()}
+    context = update_context(uid, {"checkin_history": [entry]})
+    return {"status": "saved", "checkin_history_count": len(context.get("checkin_history", []))}
+
+
 # ==========================================
 # 4. CYCLE TRACKING & STATUS
 # ==========================================
@@ -310,22 +327,49 @@ def update_cycle(payload: CycleLogRequest):
     return {"status": "success", "message": "Cycle details updated"}
 
 
+@app.get("/api/cycle")
+def cycle_state(user: dict = Depends(current_user), user_phone: Optional[str] = None):
+    """Returns the computed cycle state using deterministic cycle math."""
+    from services.cycle_math import compute_cycle_state
+    uid = user_phone or user.get("uid") or user.get("phone", "demo-user")
+    ctx = get_context(uid)
+    cycle_hist = ctx.get("cycle_history", {})
+    dates = cycle_hist.get("period_start_dates", [])
+    if not dates and cycle_hist.get("last_period_start"):
+        dates = [cycle_hist["last_period_start"]]
+    return compute_cycle_state(dates)
+
+
 # ==========================================
 # 5. DOCTOR-VISIT SUMMARY
 # ==========================================
 @app.get("/api/doctor-summary")
-def get_doctor_summary(user_phone: str = "+919876543210"):
+def get_doctor_summary(user_phone: Optional[str] = None, user: dict = Depends(current_user)):
     """
     Aggregates cycle metrics, 30-day symptom logs, recent lab findings, and doctor questions dynamically.
+    Returns both roadmap fields (patient_snapshot, cycle_overview, recent_symptoms, recent_reports, questions_to_discuss)
+    and backward-compatible fields (patient, overview, cycle_insights, frequent_symptoms, doctor_notes_prompt).
     """
-    ctx = get_context(user_phone)
+    from services.cycle_math import compute_cycle_state
+
+    uid = user_phone or user.get("uid") or user.get("phone", "+919876543210")
+    ctx = get_context(uid)
     reports = ctx.get("report_history", [])
     logs = ctx.get("daily_logs", [])
+    checkins = ctx.get("checkin_history", [])
     cycle_history = ctx.get("cycle_history", {"cycle_length_days": 28, "period_length_days": 5})
 
-    # 1. Compute dynamic frequent symptoms from logs
+    dates = cycle_history.get("period_start_dates", [])
+    if not dates and cycle_history.get("last_period_start"):
+        dates = [cycle_history["last_period_start"]]
+    cycle_overview = compute_cycle_state(dates)
+
+    # 1. Compute dynamic frequent symptoms from logs & checkins
     symptom_counts = {}
     for entry in logs:
+        for sym in entry.get("symptoms", []):
+            symptom_counts[sym] = symptom_counts.get(sym, 0) + 1
+    for entry in checkins:
         for sym in entry.get("symptoms", []):
             symptom_counts[sym] = symptom_counts.get(sym, 0) + 1
 
@@ -343,13 +387,13 @@ def get_doctor_summary(user_phone: str = "+919876543210"):
 
     # 2. Extract latest report details and build dynamic clinical overview
     latest_report = reports[0] if reports else None
-    
+
     if latest_report:
         report_title = latest_report.get("title") or latest_report.get("report_type") or "Recent Medical Report"
         report_summary = latest_report.get("health_summary") or latest_report.get("interpretation") or "Biomarkers extracted and ready for clinical review."
-        
-        overview = f"Patient presents with {latest_report.get('report_type', 'recent laboratory findings')}. {report_summary} Cycle parameters reflect a {cycle_history.get('cycle_length_days', 28)}-day baseline. No acute emergency red-flag symptoms identified."
-        
+
+        overview = f"Patient presents with {latest_report.get('report_type', 'recent laboratory findings')}. {report_summary} Cycle parameters reflect a {cycle_overview.get('avg_cycle_length_days', 28)}-day baseline. No acute emergency red-flag symptoms identified."
+
         remedies = latest_report.get("solutions_and_remedies", {})
         doc_questions = remedies.get("questions_for_doctor", [])
         if doc_questions:
@@ -357,7 +401,7 @@ def get_doctor_summary(user_phone: str = "+919876543210"):
         else:
             doctor_notes_prompt = "Discuss hormonal markers, cycle regularity, and recommended nutrition adjustments."
     else:
-        overview = f"Patient health check-in summary for {ctx.get('name', 'Priya Sharma')}. Cycle rhythm is currently {cycle_history.get('cycle_length_days', 28)} days. Overall wellness tracking is active."
+        overview = f"Patient health check-in summary for {ctx.get('name', 'Priya Sharma')}. Cycle rhythm is currently {cycle_overview.get('avg_cycle_length_days', 28)} days. Overall wellness tracking is active."
         doctor_notes_prompt = "Discuss routine cycle health check-ups and targeted nutrition."
 
     # Format attached reports with biomarkers summary
@@ -375,20 +419,58 @@ def get_doctor_summary(user_phone: str = "+919876543210"):
             "solutions_and_remedies": rep.get("solutions_and_remedies", {}),
         })
 
+    questions_to_discuss = [
+        f["reply"] if isinstance(f, dict) else f
+        for f in ctx.get("last_cycle_interaction", {}).get("follow_up_questions", [])
+    ]
+    if not questions_to_discuss and latest_report:
+        questions_to_discuss = latest_report.get("solutions_and_remedies", {}).get("questions_for_doctor", [])
+
+    observations = []
+    if latest_report:
+        if latest_report.get("health_summary"):
+            observations.append(latest_report["health_summary"])
+        for f in latest_report.get("findings", [])[:2]:
+            observations.append(f"Biomarker noted: {f.get('test')} is {f.get('value')} {f.get('unit', '')}.")
+    if cycle_overview.get("is_irregular"):
+        observations.append(f"Cycle variability flagged ({cycle_overview.get('cycle_drift_days', 0)} days drift).")
+    elif cycle_overview.get("has_data"):
+        observations.append(f"Cycle length is within typical range ({cycle_overview.get('avg_cycle_length_days', 28)} days).")
+    if not observations:
+        observations = [
+            "Haemoglobin and nutritional biomarkers should be reviewed during next clinical check.",
+            "Cycle length and period duration baseline logged.",
+            "Discuss any persistent fatigue or late-luteal mood changes with doctor."
+        ]
+
     return {
+        # Roadmap Part 1.3 spec
+        "patient_snapshot": {
+            "user_id": uid,
+            "name": ctx.get("name", "Priya Sharma"),
+            "age": ctx.get("age", 29),
+            "phone": uid,
+        },
+        "cycle_overview": cycle_overview,
+        "recent_symptoms": checkins[-10:] if checkins else frequent_symptoms,
+        "recent_reports": formatted_reports[-5:] if formatted_reports else reports[-5:],
+        "observations": observations,
+        "questions_to_discuss": questions_to_discuss,
+
+        # Backward-compatible fields
         "patient": {
             "name": ctx.get("name", "Priya Sharma"),
             "age": ctx.get("age", 29),
-            "phone": user_phone,
+            "phone": uid,
             "email": ctx.get("email", ""),
             "gender": "Female",
         },
         "date_range": f"{datetime.now().strftime('%b 01')} - {datetime.now().strftime('%b %d, %Y')}",
         "overview": overview,
         "cycle_insights": {
-            "avg_cycle_length": f"{cycle_history.get('cycle_length_days', 28)} Days",
+            "avg_cycle_length": f"{cycle_overview.get('avg_cycle_length_days', 28)} Days",
             "avg_period_length": f"{cycle_history.get('period_length_days', 5)} Days",
-            "regularity": "Regular" if 21 <= int(cycle_history.get("cycle_length_days", 28)) <= 35 else "Irregular",
+            "regularity": "Irregular" if cycle_overview.get("is_irregular") else "Regular",
         },
         "frequent_symptoms": frequent_symptoms,
         "recent_reports": formatted_reports,
@@ -506,10 +588,18 @@ def update_user_profile(payload: ProfileUpdateRequest):
 # 9. MAIN ORCHESTRATOR CHAT ENDPOINT
 # ==========================================
 @app.post("/api/chat")
-def chat(payload: ChatRequest):
+def chat(payload: ChatRequest, user: dict = Depends(current_user)):
     """
     Main chat endpoint routing through Orchestrator -> Intake -> Escalation -> Cycle/Report/Care-Plan agents.
+    Enforces a 3-second per-user rate limit to safeguard Gemini & SMS quotas.
     """
+    user_id = payload.user_phone or user.get("uid", "demo-user")
+    from services.rate_limit import check_rate_limit
+    if not check_rate_limit(user_id):
+        raise HTTPException(
+            status_code=429,
+            detail="Too many requests. Please wait a moment before asking again.",
+        )
     data = payload.model_dump()
     data["user_id"] = data.get("user_phone")
     return route_request(data)

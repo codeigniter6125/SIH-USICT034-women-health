@@ -1,0 +1,10 @@
+{
+  "description": "Empowering women to track their menstrual health, log symptoms, and receive personalized guidance with an AI companion for informed healthcare decisions.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

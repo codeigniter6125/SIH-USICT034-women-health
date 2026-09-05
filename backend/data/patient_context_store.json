@@ -1,0 +1,1038 @@
+{
+  "+919876543210": {
+    "cycle_history": {},
+    "symptoms": [
+      {
+        "user_phone": "+919876543210",
+        "symptoms": [
+          "cramps",
+          "fatigue"
+        ],
+        "raw_message": "Mood: Calm. Symptoms: Cramps, Fatigue. Notes: Feeling a little bit tired after work",
+        "duration": "",
+        "severity": "mild",
+        "flags": [
+          "mild_cramping",
+          "typical_pms_symptoms"
+        ]
+      },
+      {
+        "date": "2026-09-01",
+        "symptom": "Cramps"
+      },
+      {
+        "date": "2026-09-01",
+        "symptom": "Fatigue"
+      },
+      {
+        "user_phone": "+919876543210",
+        "symptoms": [
+          "Mood: Calm. Symptoms: Cramps, Fatigue. Notes: Feeling a little bit tired after work"
+        ],
+        "raw_message": "Mood: Calm. Symptoms: Cramps, Fatigue. Notes: Feeling a little bit tired after work",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
+      },
+      {
+        "date": "2026-09-01",
+        "symptom": "Cramps"
+      },
+      {
+        "date": "2026-09-01",
+        "symptom": "Fatigue"
+      },
+      {
+        "user_phone": "+919876543210",
+        "symptoms": [
+          "severe chest pain and uncontrollable heavy bleeding"
+        ],
+        "raw_message": "severe chest pain and uncontrollable heavy bleeding",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
+      },
+      {
+        "user_phone": "+919876543210",
+        "symptoms": [
+          "Mood: Calm. Symptoms: Cramps, Fatigue. Notes: Feeling a little bit tired after work"
+        ],
+        "raw_message": "Mood: Calm. Symptoms: Cramps, Fatigue. Notes: Feeling a little bit tired after work",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
+      },
+      {
+        "date": "2026-09-01",
+        "symptom": "Cramps"
+      },
+      {
+        "date": "2026-09-01",
+        "symptom": "Fatigue"
+      },
+      {
+        "user_phone": "+919876543210",
+        "symptoms": [
+          "severe chest pain and uncontrollable heavy bleeding"
+        ],
+        "raw_message": "severe chest pain and uncontrollable heavy bleeding",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
+      },
+      {
+        "user_phone": "+919876543210",
+        "symptoms": [
+          "Hello Maya, I want to know more about the luteal phase"
+        ],
+        "raw_message": "Hello Maya, I want to know more about the luteal phase",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
+      },
+      {
+        "user_phone": "+919876543210",
+        "symptoms": [
+          "Mood: Calm. Symptoms: Cramps, Fatigue. Notes: Feeling a little bit tired after work"
+        ],
+        "raw_message": "Mood: Calm. Symptoms: Cramps, Fatigue. Notes: Feeling a little bit tired after work",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
+      },
+      {
+        "date": "2026-09-01",
+        "symptom": "Cramps"
+      },
+      {
+        "date": "2026-09-01",
+        "symptom": "Fatigue"
+      },
+      {
+        "user_phone": "+919876543210",
+        "symptoms": [
+          "cramps",
+          "fatigue"
+        ],
+        "raw_message": "Mood: Calm. Symptoms: Cramps, Fatigue. Notes: Feeling a little bit tired after work",
+        "duration": "",
+        "severity": "mild",
+        "flags": [
+          "mild_cramping",
+          "typical_pms_symptoms"
+        ]
+      },
+      {
+        "date": "2026-09-05",
+        "symptom": "Cramps"
+      },
+      {
+        "date": "2026-09-05",
+        "symptom": "Fatigue"
+      },
+      {
+        "user_phone": "+919876543210",
+        "symptoms": [
+          "severe chest pain",
+          "heavy bleeding"
+        ],
+        "raw_message": "severe chest pain and uncontrollable heavy bleeding",
+        "duration": "",
+        "severity": "severe",
+        "flags": [
+          "heavy_bleeding",
+          "severe_pain_or_fainting_or_heavy_bleeding"
+        ]
+      },
+      {
+        "user_phone": "+919876543210",
+        "symptoms": [],
+        "raw_message": "Hello Maya, I want to know more about the luteal phase",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
+      },
+      {
+        "user_phone": "+919876543210",
+        "symptoms": [
+          "Cramps",
+          "Fatigue"
+        ],
+        "raw_message": "Mood: Calm. Symptoms: Cramps, Fatigue. Notes: Feeling a little bit tired after work",
+        "duration": "",
+        "severity": "mild",
+        "flags": [
+          "typical_pms_symptoms"
+        ]
+      },
+      {
+        "date": "2026-09-05",
+        "symptom": "Cramps"
+      },
+      {
+        "date": "2026-09-05",
+        "symptom": "Fatigue"
+      },
+      {
+        "user_phone": "+919876543210",
+        "symptoms": [
+          "severe chest pain",
+          "uncontrollable heavy bleeding"
+        ],
+        "raw_message": "severe chest pain and uncontrollable heavy bleeding",
+        "duration": "",
+        "severity": "severe",
+        "flags": [
+          "heavy_bleeding",
+          "severe_pain_or_fainting_or_heavy_bleeding"
+        ]
+      },
+      {
+        "user_phone": "+919876543210",
+        "symptoms": [],
+        "raw_message": "Hello Maya, I want to know more about the luteal phase",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
+      },
+      {
+        "user_phone": "+919876543210",
+        "symptoms": [
+          "Cramps",
+          "Fatigue"
+        ],
+        "raw_message": "Mood: Calm. Symptoms: Cramps, Fatigue. Notes: Feeling a little bit tired after work",
+        "duration": "",
+        "severity": "mild",
+        "flags": [
+          "mild_cramping"
+        ]
+      },
+      {
+        "date": "2026-09-05",
+        "symptom": "Cramps"
+      },
+      {
+        "date": "2026-09-05",
+        "symptom": "Fatigue"
+      },
+      {
+        "user_phone": "+919876543210",
+        "symptoms": [
+          "chest pain",
+          "heavy bleeding"
+        ],
+        "raw_message": "severe chest pain and uncontrollable heavy bleeding",
+        "duration": "",
+        "severity": "severe",
+        "flags": [
+          "heavy_bleeding",
+          "severe_pain_or_fainting_or_heavy_bleeding"
+        ]
+      },
+      {
+        "user_phone": "+919876543210",
+        "symptoms": [],
+        "raw_message": "Hello Maya, I want to know more about the luteal phase",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
+      }
+    ],
+    "latest_mood": "Calm",
+    "last_cycle_interaction": {
+      "sources": [
+        {
+          "title": "WHO — Menstrual health",
+          "url": "https://www.who.int/news-room/fact-sheets/detail/menstrual-health"
+        },
+        {
+          "title": "UNICEF — Guidance on Menstrual Health and Hygiene",
+          "url": "https://www.unicef.org/documents/guidance-menstrual-health-and-hygiene"
+        },
+        {
+          "title": "ACOG — Heavy and Abnormal Periods",
+          "url": "https://www.acog.org/womens-health/faqs/heavy-and-abnormal-periods"
+        },
+        {
+          "title": "ACOG — Heavy and Abnormal Periods",
+          "url": "https://www.acog.org/womens-health/faqs/heavy-and-abnormal-periods"
+        }
+      ],
+      "message": "Hello Maya, I want to know more about the luteal phase"
+    },
+    "care_plans": [
+      {
+        "actions": [
+          "Record bleeding dates, duration, flow, pain level, and related symptoms.",
+          "Review patterns over multiple cycles rather than relying on one prediction.",
+          "Discuss persistent, severe, unusual, or activity-limiting symptoms with a qualified clinician."
+        ],
+        "stage": "general wellness information",
+        "context_used": {
+          "symptom_count": 3,
+          "report_count": 0,
+          "has_cycle_history": false
+        },
+        "needs_doctor_review": false,
+        "disclaimer": "This is general wellness information, not a diagnosis or prescription.",
+        "agent": "care_plan"
+      },
+      {
+        "actions": [
+          "Record bleeding dates, duration, flow, pain level, and related symptoms.",
+          "Review patterns over multiple cycles rather than relying on one prediction.",
+          "Discuss persistent, severe, unusual, or activity-limiting symptoms with a qualified clinician."
+        ],
+        "stage": "general wellness information",
+        "context_used": {
+          "symptom_count": 6,
+          "report_count": 2,
+          "has_cycle_history": false
+        },
+        "needs_doctor_review": true,
+        "disclaimer": "This is general wellness information, not a diagnosis or prescription.",
+        "agent": "care_plan"
+      },
+      {
+        "actions": [
+          "Record bleeding dates, duration, flow, pain level, and related symptoms.",
+          "Review patterns over multiple cycles rather than relying on one prediction.",
+          "Discuss persistent, severe, unusual, or activity-limiting symptoms with a qualified clinician."
+        ],
+        "stage": "general wellness information",
+        "context_used": {
+          "symptom_count": 10,
+          "report_count": 4,
+          "has_cycle_history": false
+        },
+        "needs_doctor_review": true,
+        "disclaimer": "This is general wellness information, not a diagnosis or prescription.",
+        "agent": "care_plan"
+      },
+      {
+        "actions": [
+          "Record bleeding dates, duration, flow, pain level, and related symptoms.",
+          "Review patterns over multiple cycles rather than relying on one prediction.",
+          "Discuss persistent, severe, unusual, or activity-limiting symptoms with a qualified clinician."
+        ],
+        "stage": "general wellness information",
+        "context_used": {
+          "symptom_count": 15,
+          "report_count": 6,
+          "has_cycle_history": false
+        },
+        "needs_doctor_review": true,
+        "disclaimer": "This is general wellness information, not a diagnosis or prescription.",
+        "agent": "care_plan"
+      },
+      {
+        "context_used": {
+          "symptoms": "cramps, fatigue",
+          "symptom_count": 2,
+          "report_count": 8,
+          "severity": "mild",
+          "has_cycle_history": false
+        },
+        "stage": "low",
+        "reply": "I'm so sorry you are feeling drained and dealing with cramps today, but please take comfort in knowing that these mild symptoms are very typical for PMS and are highly manageable. Since your symptoms are mild, we can focus on gentle, comforting ways to soothe your body and help you regain your energy. While these symptoms are expected, please listen to your body and consult a healthcare provider if your pain suddenly intensifies or becomes unmanageable.",
+        "urgency": "low",
+        "actions": [
+          "Apply a warm heating pad or hot water bottle to your lower abdomen to help relax your muscles and ease the cramping.",
+          "Prioritize rest today by aiming for an extra hour of sleep tonight or taking a short, restorative nap to help combat the fatigue.",
+          "Sip on warm ginger or chamomile tea, which can help reduce inflammation and soothe your body.",
+          "Engage in very gentle movement, like light stretching or a short walk, to release natural endorphins that help relieve pain."
+        ],
+        "seek_doctor": false,
+        "disclaimer": "This is general wellness information, not a diagnosis or prescription.",
+        "agent": "care_plan"
+      },
+      {
+        "context_used": {
+          "symptoms": "Cramps, Fatigue",
+          "symptom_count": 2,
+          "severity": "mild",
+          "report_count": 4,
+          "has_cycle_history": false
+        },
+        "stage": "low",
+        "reply": "I'm sorry to hear you're dealing with cramps and fatigue today, but please know it is very common to feel this way, especially as these are typical PMS symptoms. Since your symptoms are mild, we can focus on gentle, comforting ways to help you feel better right now. Because you have some past lab reports, it's always a good idea to keep those in mind (for instance, checking if iron levels ever relate to your fatigue), but for today, let's focus on getting you some relief and rest.",
+        "urgency": "low",
+        "actions": [
+          "Apply a warm heating pad or hot water bottle to your lower abdomen to help relax the uterine muscles and ease the cramping.",
+          "Take a short, gentle walk or do some light stretching; mild movement can actually help reduce cramp pain and boost your energy levels.",
+          "Sip on warm ginger or chamomile tea, which can help soothe pelvic discomfort and promote relaxation.",
+          "Prioritize rest today by aiming for an early bedtime and avoiding strenuous activities to help your body recover from the fatigue."
+        ],
+        "seek_doctor": false,
+        "disclaimer": "This is general wellness information, not a diagnosis or prescription.",
+        "agent": "care_plan"
+      },
+      {
+        "context_used": {
+          "symptoms": "Cramps, Fatigue",
+          "symptom_count": 2,
+          "report_count": 4,
+          "severity": "mild",
+          "has_cycle_history": false
+        },
+        "stage": "low",
+        "reply": "I hear you, dealing with mild cramps and that heavy fatigue can really drain your energy, especially when you're trying to get through your day. Since your past lab reports give you a good baseline of your health history, let's focus on some gentle ways to help your body rest and recover right now.",
+        "urgency": "low",
+        "actions": [
+          "Wrap up in a cozy blanket and place a warm heating pad or hot water bottle gently across your lower abdomen.",
+          "Brew a soothing cup of chamomile or peppermint tea to help relax your muscles and ease tension.",
+          "Find a comfortable spot to lie down with your legs slightly elevated on a pillow to take the pressure off your lower back.",
+          "Put on a comforting podcast or soft playlist and give yourself permission to take a 20-minute power nap."
+        ],
+        "seek_doctor": false,
+        "disclaimer": "This is general wellness information, not a diagnosis or prescription.",
+        "agent": "care_plan"
+      }
+    ],
+    "cycle_state": {
+      "has_data": false,
+      "message": "Log your first period start date to begin cycle tracking."
+    },
+    "user_id": "+919876543210",
+    "last_intake": {
+      "user_phone": "+919876543210",
+      "duration": "",
+      "raw_message": "Hello Maya, I want to know more about the luteal phase",
+      "symptoms": [],
+      "severity": "unknown",
+      "flags": []
+    },
+    "updated_at": "2026-09-05T18:13:40.537988+00:00",
+    "daily_logs": [
+      {
+        "mood": "Calm",
+        "symptoms": [
+          "Cramps",
+          "Fatigue"
+        ],
+        "date": "2026-09-01",
+        "timestamp": "2026-08-31T19:13:30.908984+00:00",
+        "notes": "Feeling a little bit tired after work"
+      },
+      {
+        "mood": "Calm",
+        "symptoms": [
+          "Cramps",
+          "Fatigue"
+        ],
+        "date": "2026-09-01",
+        "timestamp": "2026-08-31T19:16:03.022923+00:00",
+        "notes": "Feeling a little bit tired after work"
+      },
+      {
+        "mood": "Calm",
+        "symptoms": [
+          "Cramps",
+          "Fatigue"
+        ],
+        "date": "2026-09-01",
+        "timestamp": "2026-08-31T19:16:41.812523+00:00",
+        "notes": "Feeling a little bit tired after work"
+      },
+      {
+        "mood": "Calm",
+        "symptoms": [
+          "Cramps",
+          "Fatigue"
+        ],
+        "date": "2026-09-01",
+        "timestamp": "2026-08-31T20:28:55.424662+00:00",
+        "notes": "Feeling a little bit tired after work"
+      },
+      {
+        "mood": "Calm",
+        "symptoms": [
+          "Cramps",
+          "Fatigue"
+        ],
+        "date": "2026-09-05",
+        "timestamp": "2026-09-05T17:20:19.380552+00:00",
+        "notes": "Feeling a little bit tired after work"
+      },
+      {
+        "mood": "Calm",
+        "symptoms": [
+          "Cramps",
+          "Fatigue"
+        ],
+        "date": "2026-09-05",
+        "timestamp": "2026-09-05T17:30:08.713988+00:00",
+        "notes": "Feeling a little bit tired after work"
+      },
+      {
+        "mood": "Calm",
+        "symptoms": [
+          "Cramps",
+          "Fatigue"
+        ],
+        "date": "2026-09-05",
+        "timestamp": "2026-09-05T18:12:10.975878+00:00",
+        "notes": "Feeling a little bit tired after work"
+      }
+    ],
+    "report_history": [
+      {
+        "report_type": "Complete Blood Count (CBC)",
+        "raw_ocr": "COMPLETE BLOOD COUNT (CBC)\nHemoglobin (Hb): 12.5 g/dL (Reference: 12.0 - 15.5)\nFerritin: 15 ng/mL (Reference: 20 - 200)\nWhite Blood Cells (WBC): 6.2 10^3/uL (Reference: 4.5 - 11.0)\nPlatelet Count: 250 10^3/uL (Reference: 150 - 450)\nRBC Count: 4.4 10^6/uL (Reference: 4.0 - 5.2)\n",
+        "date": "Sep 05, 2026",
+        "id": "rep_1788631978",
+        "category": "Lab Reports",
+        "findings": [
+          {
+            "value": "12.5",
+            "test": "Hemoglobin (Hb)",
+            "status": "normal",
+            "reference_range": "12.0 - 15.5",
+            "unit": "g/dL"
+          },
+          {
+            "value": "15",
+            "test": "Ferritin",
+            "status": "low",
+            "reference_range": "20 - 200",
+            "unit": "ng/mL"
+          },
+          {
+            "value": "6.2",
+            "test": "White Blood Cells (WBC)",
+            "status": "normal",
+            "reference_range": "4.5 - 11.0",
+            "unit": "10^3/uL"
+          },
+          {
+            "value": "250",
+            "test": "Platelet Count",
+            "status": "normal",
+            "reference_range": "150 - 450",
+            "unit": "10^3/uL"
+          },
+          {
+            "value": "4.4",
+            "test": "RBC Count",
+            "status": "normal",
+            "reference_range": "4.0 - 5.2",
+            "unit": "10^6/uL"
+          }
+        ],
+        "title": "document",
+        "needs_doctor_review": true,
+        "main_pointers": [
+          {
+            "description": "Ferritin measures your body's stored iron. A level of 15 ng/mL indicates low iron reserves, which can cause fatigue and decreased stamina even when hemoglobin appears normal.",
+            "title": "Low Iron Reserves (Ferritin)",
+            "status": "attention"
+          },
+          {
+            "description": "Your hemoglobin and red blood cell counts are healthy, showing that your body is currently producing enough oxygen-carrying cells and you do not have overt anemia.",
+            "title": "Normal Hemoglobin & RBC Count",
+            "status": "positive"
+          },
+          {
+            "description": "Your white blood cell and platelet counts are well within normal reference ranges, confirming good baseline immune health and normal blood clotting function.",
+            "title": "Healthy Immune & Clotting Cells",
+            "status": "positive"
+          }
+        ],
+        "solutions_and_remedies": {
+          "lifestyle_care": [
+            "Focus on low-to-moderate intensity exercise like walking, pilates, or gentle yoga while rebuilding your iron stores to avoid over-exertion.",
+            "Track your menstrual cycle flow closely, noting if heavy bleeding days might be contributing to monthly iron loss.",
+            "Prioritize 7-9 hours of restorative sleep each night to help your body mitigate fatigue while iron stores recover."
+          ],
+          "questions_for_doctor": [
+            "Based on my ferritin level of 15 ng/mL, would you recommend a therapeutic iron supplement, such as gentle iron bisglycinate?",
+            "Could heavy period flow or digestive absorption issues be contributing to my lower iron reserves?",
+            "When would you like me to repeat this blood test to check if my ferritin levels are rising?"
+          ],
+          "dietary_cure": [
+            "Incorporate iron-rich foods such as lean red meat, poultry, spinach, lentils, pumpkin seeds, and cooked beans into your daily meals.",
+            "Pair non-heme (plant) iron foods with Vitamin C rich options (like lemon juice, bell peppers, or strawberries) to dramatically boost absorption.",
+            "Avoid consuming coffee, black tea, or calcium supplements within 1 to 2 hours of iron-rich meals, as they hinder iron absorption.",
+            "Sip on nettle leaf tea, a deeply nourishing herb traditionally used to support mineral status."
+          ]
+        },
+        "health_summary": "Your complete blood count shows fantastic overall foundation with healthy red blood cells, white blood cells, and platelet levels, which is wonderful news. However, your ferritin level is at 15 ng/mL, which indicates depleted iron stores in your body, even though your hemoglobin is still within the normal range. Low iron stores can often lead to subtle symptoms like unexplained fatigue, brain fog, cold sensitivity, or hair thinning before full anemia develops. Gently building back your iron reserves through targeted nutrition and doctor-guided care will help restore your energy and long-term vitality.",
+        "interpretation": "Your complete blood count shows fantastic overall foundation with healthy red blood cells, white blood cells, and platelet levels, which is wonderful news. However, your ferritin level is at 15 ng/mL, which indicates depleted iron stores in your body, even though your hemoglobin is still within the normal range. Low iron stores can often lead to subtle symptoms like unexplained fatigue, brain fog, cold sensitivity, or hair thinning before full anemia develops. Gently building back your iron reserves through targeted nutrition and doctor-guided care will help restore your energy and long-term vitality."
+      },
+      {
+        "report_type": "Complete Blood Count (CBC)",
+        "health_summary": "Your complete blood count shows fantastic overall foundation with healthy red blood cells, white blood cells, and platelet levels, which is wonderful news. However, your ferritin level is at 15 ng/mL, which indicates depleted iron stores in your body, even though your hemoglobin is still within the normal range. Low iron stores can often lead to subtle symptoms like unexplained fatigue, brain fog, cold sensitivity, or hair thinning before full anemia develops. Gently building back your iron reserves through targeted nutrition and doctor-guided care will help restore your energy and long-term vitality.",
+        "raw_text_preview": "COMPLETE BLOOD COUNT (CBC)\nHemoglobin (Hb): 12.5 g/dL (Reference: 12.0 - 15.5)\nFerritin: 15 ng/mL (Reference: 20 - 200)\nWhite Blood Cells (WBC): 6.2 10^3/uL (Reference: 4.5 - 11.0)\nPlatelet Count: 250 10^3/uL (Reference: 150 - 450)\nRBC Count: 4.4 10^6/uL (Reference: 4.0 - 5.2)",
+        "main_pointers": [
+          {
+            "title": "Low Iron Reserves (Ferritin)",
+            "description": "Ferritin measures your body's stored iron. A level of 15 ng/mL indicates low iron reserves, which can cause fatigue and decreased stamina even when hemoglobin appears normal.",
+            "status": "attention"
+          },
+          {
+            "title": "Normal Hemoglobin & RBC Count",
+            "description": "Your hemoglobin and red blood cell counts are healthy, showing that your body is currently producing enough oxygen-carrying cells and you do not have overt anemia.",
+            "status": "positive"
+          },
+          {
+            "title": "Healthy Immune & Clotting Cells",
+            "description": "Your white blood cell and platelet counts are well within normal reference ranges, confirming good baseline immune health and normal blood clotting function.",
+            "status": "positive"
+          }
+        ],
+        "findings": [
+          {
+            "test": "Hemoglobin (Hb)",
+            "value": "12.5",
+            "status": "normal",
+            "reference_range": "12.0 - 15.5",
+            "unit": "g/dL"
+          },
+          {
+            "test": "Ferritin",
+            "value": "15",
+            "status": "low",
+            "reference_range": "20 - 200",
+            "unit": "ng/mL"
+          },
+          {
+            "test": "White Blood Cells (WBC)",
+            "value": "6.2",
+            "status": "normal",
+            "reference_range": "4.5 - 11.0",
+            "unit": "10^3/uL"
+          },
+          {
+            "test": "Platelet Count",
+            "value": "250",
+            "status": "normal",
+            "reference_range": "150 - 450",
+            "unit": "10^3/uL"
+          },
+          {
+            "test": "RBC Count",
+            "value": "4.4",
+            "status": "normal",
+            "reference_range": "4.0 - 5.2",
+            "unit": "10^6/uL"
+          }
+        ],
+        "needs_doctor_review": true,
+        "solutions_and_remedies": {
+          "lifestyle_care": [
+            "Focus on low-to-moderate intensity exercise like walking, pilates, or gentle yoga while rebuilding your iron stores to avoid over-exertion.",
+            "Track your menstrual cycle flow closely, noting if heavy bleeding days might be contributing to monthly iron loss.",
+            "Prioritize 7-9 hours of restorative sleep each night to help your body mitigate fatigue while iron stores recover."
+          ],
+          "dietary_cure": [
+            "Incorporate iron-rich foods such as lean red meat, poultry, spinach, lentils, pumpkin seeds, and cooked beans into your daily meals.",
+            "Pair non-heme (plant) iron foods with Vitamin C rich options (like lemon juice, bell peppers, or strawberries) to dramatically boost absorption.",
+            "Avoid consuming coffee, black tea, or calcium supplements within 1 to 2 hours of iron-rich meals, as they hinder iron absorption.",
+            "Sip on nettle leaf tea, a deeply nourishing herb traditionally used to support mineral status."
+          ],
+          "questions_for_doctor": [
+            "Based on my ferritin level of 15 ng/mL, would you recommend a therapeutic iron supplement, such as gentle iron bisglycinate?",
+            "Could heavy period flow or digestive absorption issues be contributing to my lower iron reserves?",
+            "When would you like me to repeat this blood test to check if my ferritin levels are rising?"
+          ]
+        },
+        "disclaimer": "This is AI-assisted report extraction and wellness guidance, not a definitive clinical diagnosis. Please share this summary with your healthcare provider.",
+        "interpretation": "Your complete blood count shows fantastic overall foundation with healthy red blood cells, white blood cells, and platelet levels, which is wonderful news. However, your ferritin level is at 15 ng/mL, which indicates depleted iron stores in your body, even though your hemoglobin is still within the normal range. Low iron stores can often lead to subtle symptoms like unexplained fatigue, brain fog, cold sensitivity, or hair thinning before full anemia develops. Gently building back your iron reserves through targeted nutrition and doctor-guided care will help restore your energy and long-term vitality.",
+        "agent": "report_reader"
+      },
+      {
+        "raw_ocr": "COMPLETE BLOOD COUNT (CBC)\nHemoglobin (Hb): 12.5 g/dL (Reference: 12.0 - 15.5)\nFerritin: 15 ng/mL (Reference: 20 - 200)\nWhite Blood Cells (WBC): 6.2 10^3/uL (Reference: 4.5 - 11.0)\nPlatelet Count: 250 10^3/uL (Reference: 150 - 450)\nRBC Count: 4.4 10^6/uL (Reference: 4.0 - 5.2)\n",
+        "date": "Sep 01, 2026",
+        "id": "rep_1788203654",
+        "category": "Lab Reports",
+        "findings": [
+          {
+            "value": "12.5",
+            "test": "Hemoglobin (Hb)",
+            "reference_range": "12.0 - 15.5",
+            "unit": "g/dL",
+            "needs_review": false
+          },
+          {
+            "value": "15",
+            "test": "Ferritin",
+            "reference_range": "20 - 200",
+            "unit": "ng/mL",
+            "needs_review": true
+          },
+          {
+            "value": "6.2",
+            "test": "White Blood Cells (WBC)",
+            "reference_range": "4.5 - 11.0",
+            "unit": "10^3/uL",
+            "needs_review": false
+          },
+          {
+            "value": "250",
+            "test": "Platelet Count",
+            "reference_range": "150 - 450",
+            "unit": "10^3/uL",
+            "needs_review": false
+          },
+          {
+            "value": "4.4",
+            "test": "RBC Count",
+            "reference_range": "4.0 - 5.2",
+            "unit": "10^6/uL",
+            "needs_review": false
+          }
+        ],
+        "title": "document",
+        "needs_doctor_review": true,
+        "interpretation": "The report text was structured by a vision-language model; values still require clinician review and comparison with the report's own reference ranges."
+      },
+      {
+        "raw_ocr": "COMPLETE BLOOD COUNT (CBC)\nHemoglobin (Hb): 12.5 g/dL (Reference: 12.0 - 15.5)\nFerritin: 15 ng/mL (Reference: 20 - 200)\nWhite Blood Cells (WBC): 6.2 10^3/uL (Reference: 4.5 - 11.0)\nPlatelet Count: 250 10^3/uL (Reference: 150 - 450)\nRBC Count: 4.4 10^6/uL (Reference: 4.0 - 5.2)\n",
+        "date": "Sep 01, 2026",
+        "id": "rep_1788209005",
+        "category": "Lab Reports",
+        "findings": [
+          {
+            "value": 12.5,
+            "test": "Hemoglobin (Hb)",
+            "reference_range": "12.0 - 15.5",
+            "unit": "g/dL",
+            "needs_review": false
+          },
+          {
+            "value": 15,
+            "test": "Ferritin",
+            "reference_range": "20 - 200",
+            "unit": "ng/mL",
+            "needs_review": true
+          },
+          {
+            "value": 6.2,
+            "test": "White Blood Cells (WBC)",
+            "reference_range": "4.5 - 11.0",
+            "unit": "10^3/uL",
+            "needs_review": false
+          },
+          {
+            "value": 250,
+            "test": "Platelet Count",
+            "reference_range": "150 - 450",
+            "unit": "10^3/uL",
+            "needs_review": false
+          },
+          {
+            "value": 4.4,
+            "test": "RBC Count",
+            "reference_range": "4.0 - 5.2",
+            "unit": "10^6/uL",
+            "needs_review": false
+          }
+        ],
+        "title": "cbc_test",
+        "needs_doctor_review": true,
+        "interpretation": "The report text was structured by a vision-language model; values still require clinician review and comparison with the report's own reference ranges."
+      }
+    ]
+  },
+  "test-user-checkin-001": {
+    "user_id": "test-user-checkin-001",
+    "updated_at": "2026-09-05T18:32:42.962805+00:00",
+    "checkin_history": [
+      {
+        "energy": 4,
+        "symptoms": [
+          "Bloating",
+          "Headache"
+        ],
+        "mood": 4,
+        "sleep_hours": 7.5,
+        "logged_at": "2026-09-05T17:26:41.954475+00:00",
+        "notes": "Feeling good today after a walk."
+      },
+      {
+        "energy": 4,
+        "symptoms": [
+          "Bloating",
+          "Headache"
+        ],
+        "mood": 4,
+        "sleep_hours": 7.5,
+        "logged_at": "2026-09-05T17:28:14.206038+00:00",
+        "notes": "Feeling good today after a walk."
+      },
+      {
+        "energy": 4,
+        "symptoms": [
+          "Bloating",
+          "Headache"
+        ],
+        "mood": 4,
+        "sleep_hours": 7.5,
+        "logged_at": "2026-09-05T18:08:55.625250+00:00",
+        "notes": "Feeling good today after a walk."
+      },
+      {
+        "energy": 4,
+        "symptoms": [
+          "Bloating",
+          "Headache"
+        ],
+        "mood": 4,
+        "sleep_hours": 7.5,
+        "logged_at": "2026-09-05T18:18:54.290203+00:00",
+        "notes": "Feeling good today after a walk."
+      },
+      {
+        "mood": 4,
+        "symptoms": [
+          "Bloating",
+          "Headache"
+        ],
+        "energy": 4,
+        "sleep_hours": 7.5,
+        "notes": "Feeling good today after a walk.",
+        "logged_at": "2026-09-05T18:32:40.442072+00:00"
+      }
+    ]
+  },
+  "test-user-cycle-002": {
+    "cycle_history": {
+      "period_start_dates": [
+        "2026-08-28"
+      ]
+    },
+    "user_id": "test-user-cycle-002",
+    "updated_at": "2026-09-05T18:32:45.013350+00:00"
+  },
+  "test-user-doc-003": {
+    "cycle_history": {
+      "period_start_dates": [
+        "2026-08-24"
+      ],
+      "cycle_length_days": 28,
+      "period_length_days": 5
+    },
+    "age": 27,
+    "checkin_history": [
+      {
+        "energy": 3,
+        "symptoms": [
+          "Mild Cramps"
+        ],
+        "sleep_hours": 8,
+        "mood": 3
+      },
+      {
+        "energy": 3,
+        "symptoms": [
+          "Mild Cramps"
+        ],
+        "sleep_hours": 8,
+        "mood": 3
+      },
+      {
+        "energy": 3,
+        "symptoms": [
+          "Mild Cramps"
+        ],
+        "sleep_hours": 8,
+        "mood": 3
+      },
+      {
+        "energy": 3,
+        "symptoms": [
+          "Mild Cramps"
+        ],
+        "sleep_hours": 8,
+        "mood": 3
+      },
+      {
+        "mood": 3,
+        "symptoms": [
+          "Mild Cramps"
+        ],
+        "energy": 3,
+        "sleep_hours": 8
+      }
+    ],
+    "user_id": "test-user-doc-003",
+    "updated_at": "2026-09-05T18:32:48.185755+00:00",
+    "report_history": [
+      {
+        "id": "rep_test_doc",
+        "title": "Complete Blood Count",
+        "date": "Sep 01, 2026",
+        "findings": [
+          {
+            "test": "Hemoglobin",
+            "value": "11.2",
+            "unit": "g/dL"
+          }
+        ],
+        "health_summary": "Mild iron deficiency anemia indicated."
+      }
+    ],
+    "name": "Ananya Roy"
+  },
+  "+919999988888": {
+    "cycle_history": {},
+    "symptoms": [
+      {
+        "user_phone": "+919999988888",
+        "symptoms": [],
+        "raw_message": "Hello Maya, what phase am I in?",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
+      },
+      {
+        "user_phone": "+919999988888",
+        "symptoms": [],
+        "raw_message": "Hello Maya again",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
+      },
+      {
+        "user_phone": "+919999988888",
+        "symptoms": [],
+        "raw_message": "Hello Maya after rate limit reset",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
+      },
+      {
+        "user_phone": "+919999988888",
+        "symptoms": [],
+        "raw_message": "Hello Maya after rate limit reset",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
+      },
+      {
+        "user_phone": "+919999988888",
+        "symptoms": [],
+        "raw_message": "Hello Maya after rate limit reset",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
+      },
+      {
+        "user_phone": "+919999988888",
+        "symptoms": [],
+        "raw_message": "Hello Maya after rate limit reset",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
+      }
+    ],
+    "last_cycle_interaction": {
+      "sources": [
+        {
+          "title": "WHO — Menstrual health",
+          "url": "https://www.who.int/news-room/fact-sheets/detail/menstrual-health"
+        },
+        {
+          "title": "WHO — Menstrual health",
+          "url": "https://www.who.int/news-room/fact-sheets/detail/menstrual-health"
+        },
+        {
+          "title": "WHO — Menstrual health",
+          "url": "https://www.who.int/news-room/fact-sheets/detail/menstrual-health"
+        },
+        {
+          "title": "ACOG — The Menstrual Cycle",
+          "url": "https://www.acog.org/womens-health/infographics/the-menstrual-cycle"
+        }
+      ],
+      "message": "Hello Maya after rate limit reset"
+    },
+    "cycle_state": {
+      "has_data": false,
+      "message": "Log your first period start date to begin cycle tracking."
+    },
+    "user_id": "+919999988888",
+    "last_intake": {
+      "user_phone": "+919999988888",
+      "duration": "",
+      "raw_message": "Hello Maya after rate limit reset",
+      "symptoms": [],
+      "severity": "unknown",
+      "flags": []
+    },
+    "updated_at": "2026-09-05T18:33:03.492155+00:00"
+  },
+  "+917777766666": {
+    "cycle_history": {},
+    "symptoms": [
+      {
+        "user_phone": "+917777766666",
+        "symptoms": [],
+        "raw_message": "Hello from a different user",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
+      },
+      {
+        "user_phone": "+917777766666",
+        "symptoms": [],
+        "raw_message": "Hello from a different user",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
+      },
+      {
+        "user_phone": "+917777766666",
+        "symptoms": [],
+        "raw_message": "Hello from a different user",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
+      },
+      {
+        "user_phone": "+917777766666",
+        "symptoms": [],
+        "raw_message": "Hello from a different user",
+        "duration": "",
+        "severity": "unknown",
+        "flags": []
+      }
+    ],
+    "last_cycle_interaction": {
+      "sources": [
+        {
+          "title": "WHO — Menstrual health",
+          "url": "https://www.who.int/news-room/fact-sheets/detail/menstrual-health"
+        },
+        {
+          "title": "WHO — Menstrual health",
+          "url": "https://www.who.int/news-room/fact-sheets/detail/menstrual-health"
+        },
+        {
+          "title": "WHO — Menstrual health",
+          "url": "https://www.who.int/news-room/fact-sheets/detail/menstrual-health"
+        },
+        {
+          "title": "WHO — Menstrual health",
+          "url": "https://www.who.int/news-room/fact-sheets/detail/menstrual-health"
+        }
+      ],
+      "message": "Hello from a different user"
+    },
+    "cycle_state": {
+      "has_data": false,
+      "message": "Log your first period start date to begin cycle tracking."
+    },
+    "last_intake": {
+      "user_phone": "+917777766666",
+      "duration": "",
+      "raw_message": "Hello from a different user",
+      "symptoms": [],
+      "severity": "unknown",
+      "flags": []
+    },
+    "user_id": "+917777766666",
+    "updated_at": "2026-09-05T18:32:56.854400+00:00"
+  }
+}
