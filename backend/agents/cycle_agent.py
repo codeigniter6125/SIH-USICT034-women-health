@@ -1,6 +1,9 @@
-"""Cycle Agent with lightweight RAG over public menstrual-health guidance."""
+"""Cycle Agent with lightweight RAG over public menstrual-health guidance,
+real deterministic cycle-day math, and awareness of Report-Reader findings.
+"""
 from __future__ import annotations
 
+from services.cycle_math import compute_cycle_state
 from services.cycle_rag import citation_list, format_context, retrieve
 from services.shared_memory import get_context, update_context
 
@@ -23,61 +26,86 @@ def _fallback_reply(message: str, chunks: list[dict]) -> str:
     )
 
 
-def run(payload: dict) -> dict:
-    """Run Cycle Agent RAG.
+def _relevant_report_flags(report_history: list[dict]) -> list[str]:
+    """
+    Pulls out report findings that are specifically relevant to cycle
+    guidance (e.g. low hemoglobin relevant to heavy-bleeding-driven anemia,
+    abnormal TSH relevant to cycle irregularity). This is the piece that was
+    previously missing entirely — Report-Reader results never reached the
+    Cycle Agent, so the two felt disconnected in the UI.
+    """
+    flags = []
+    for report in report_history[-3:]:  # most recent few reports only
+        for finding in report.get("findings", []):
+            test = str(finding.get("test", "")).lower()
+            try:
+                value = float(str(finding.get("value", "")).replace("<", "").replace(">", "").strip())
+            except (ValueError, TypeError):
+                continue
+            if "hemoglobin" in test and value < 12.0:
+                flags.append(f"Low hemoglobin ({value}) noted in a recent report — relevant if periods are heavy.")
+            if "tsh" in test and (value < 0.4 or value > 4.0):
+                flags.append(f"Thyroid (TSH={value}) outside typical range in a recent report — thyroid issues can affect cycle regularity.")
+    return flags
 
-    Expected payload keys: ``message``, optional ``cycle_history`` and ``language``.
-    The LLM is optional; retrieval and citations remain available without a key.
+
+def run(payload: dict) -> dict:
+    """Run Cycle Agent: real cycle-day math + RAG-grounded guidance + report awareness.
+
+    Expected payload keys: ``message``, optional ``cycle_history`` (dict with
+    "period_start_dates": list[str]), and ``language``.
     """
     message = (payload.get("message") or "").strip()
     user_id = payload.get("user_id") or payload.get("user_phone")
     context = get_context(user_id) if user_id else {}
+
     cycle_history = payload.get("cycle_history") or context.get("cycle_history", {})
-    chunks = retrieve(message, top_k=4)
-    response = _fallback_reply(message, chunks)
+    period_start_dates = cycle_history.get("period_start_dates", []) if isinstance(cycle_history, dict) else []
+    cycle_state = compute_cycle_state(period_start_dates)
+
+    report_history = context.get("report_history", [])
+    report_flags = _relevant_report_flags(report_history)
+
+    chunks = retrieve(message, top_k=4) if message else []
+    response = _fallback_reply(message, chunks) if message else (
+        f"You're on day {cycle_state['cycle_day']} of your cycle ({cycle_state['phase']} phase)."
+        if cycle_state.get("has_data") else "Log a period start date to begin cycle tracking."
+    )
 
     try:
         from services.gemini_client import call_gemini_structured
 
-        if chunks:
-            prompt = f"""You are the Cycle Agent for a women's health app. A user has asked a specific question.
-
-USER'S QUESTION: {message}
-
-User's cycle history (if any): {cycle_history}
-
-Retrieved public guidance for reference:
-{format_context(chunks)}
-
-Your job: Answer the user's SPECIFIC question directly and concisely.
-- Address exactly what the user asked — do NOT give generic advice unrelated to their question.
-- If they describe a symptom, explain what it could mean and what they can do about it.
-- If they ask about timing, give specific day ranges or patterns.
-- Be warm and conversational, not clinical.
-- Mention when to see a doctor if genuinely relevant.
-- Do NOT diagnose or prescribe.
-- Language to use: {payload.get('language', 'English')}
-
-Return JSON with exactly these keys:
-{{
-  "reply": "Direct, specific answer to the user's question (2-4 sentences minimum)",
-  "safety_note": "When to seek professional care, if relevant (empty string if not needed)",
-  "follow_up_questions": ["relevant follow-up question 1", "question 2"],
-  "sources": [list of source index numbers used, e.g. [1, 2]]
-}}"""
+        if message:
+            prompt = f"""You are the Cycle Agent for a women's health app.
+Answer the user's question using ONLY the retrieved public guidance below,
+plus the computed cycle state and any relevant recent report findings.
+Do not diagnose, prescribe, or claim certainty. Explain what to track and when to
+seek professional care. Use the requested language: {payload.get('language', 'English')}.
+Return JSON with exactly these keys: reply (string), safety_note (string),
+follow_up_questions (array of strings), sources (array of integers).
+User question: {message}
+Computed cycle state: {cycle_state}
+Relevant recent report findings: {report_flags}
+Retrieved guidance:\n{format_context(chunks) if chunks else '(none retrieved)'}"""
             grounded = call_gemini_structured(prompt)
             if isinstance(grounded, dict) and grounded.get("reply"):
                 response = grounded["reply"]
     except Exception:
-        # Retrieval still works when Gemini is unavailable or not configured.
+        # Retrieval and cycle math still work even when Gemini is unavailable.
         pass
 
     if user_id:
-        update_context(user_id, {"cycle_history": cycle_history, "last_cycle_interaction": {"message": message, "sources": citation_list(chunks)}})
+        update_context(user_id, {
+            "cycle_history": cycle_history,
+            "cycle_state": cycle_state,
+            "last_cycle_interaction": {"message": message, "sources": citation_list(chunks)},
+        })
 
     return {
         "reply": response,
         "agent": "cycle",
+        "cycle_state": cycle_state,
+        "report_flags": report_flags,
         "retrieval_used": bool(chunks),
         "sources": citation_list(chunks),
         "disclaimer": "Educational information only; not a diagnosis or substitute for clinical care.",
